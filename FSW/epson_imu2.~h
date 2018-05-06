@@ -1,0 +1,34 @@
+#ifndef _EPSON_IMU2_H
+#define _EPSON_IMU2_H
+
+#include "includes.h"
+
+typedef struct
+{
+  int32 nAddr;
+  int32 nND;
+  int32 nEA;
+  int32 nTempOut;
+  int32 nXGyroOut;
+  int32 nYGyroOut;
+  int32 nZGyroOut;
+  int32 nXAcclOut;
+  int32 nYAcclOut;
+  int32 nZAcclOut;
+  int32 nGPIO;
+  int32 nCount;
+  int32 nCR;
+  uint32 unTime;
+} EPSON_IMU2_DATA_t;
+
+
+void IMU2_Init(void);
+void IMU2_DoTasks(void);
+void IMU2_GetLastData(EPSON_IMU2_DATA_t *pData);
+void IMU2_AssertReset(void);
+void IMU2_DeassertReset(void);
+float IMU2_GetTemp(int32 nTemp);
+float IMU2_GetGyro(int32 nGyro);
+float IMU2_GetAccel(int32 nAccel);
+  
+#endif

@@ -1,0 +1,6033 @@
+68K GAS  C:\Users\37877\AppData\Local\Temp\ccQjgaaa.s 			page 1
+
+
+   1               		.file	"watchdog.c"
+   2               	gcc2_compiled.:
+   3               		.section	.debug_abbrev
+   4               	.Ldebug_abbrev0:
+   5               		.section	.text
+   6               	.Ltext0:
+   7               		.section	.debug_info
+   8               	.Ldebug_info0:
+   9               		.section	.debug_line
+  10               	.Ldebug_line0:
+  11               	.globl nWD_CommandTimeout
+  12               	.data
+  13               		.align 	2
+  14               		.type	 nWD_CommandTimeout,@object
+  15               		.size	 nWD_CommandTimeout,4
+  16               	nWD_CommandTimeout:
+  17 0000 0000 7080 		.long 28800
+  18               	.section	.rodata
+  19               	.LC0:
+  20 0000 256C 753A 		.string	"%lu: Command Watchdog Timeout!  Power Cycle Enabled.\n"
+  20      2043 6F6D 
+  20      6D61 6E64 
+  20      2057 6174 
+  20      6368 646F 
+  21               	.text
+  22               	.globl WD_DisableOBAutoKick
+  23               		.type	 WD_DisableOBAutoKick,@function
+  24               	WD_DisableOBAutoKick:
+  25               	.LFB1:
+  26               	.LM1:
+  27               	
+  28 0000 4E56 0000 		link.w %a6,#0
+  29               	.LCFI0:
+  30               	.LM2:
+  31               	
+  32 0004 2079 0000 		move.l cdhio,%a0
+  32      0000 
+  33 000a 1010      		move.b (%a0),%d0
+  34 000c 7220      		moveq.l #32,%d1
+  35 000e 8081      		or.l %d1,%d0
+  36 0010 1080      		move.b %d0,(%a0)
+  37               	.LM3:
+  38               	
+  39 0012 4E5E      		unlk %a6
+  40 0014 4E75      		rts
+  41               	.LFE1:
+  42               	.Lfe1:
+  43               		.size	 WD_DisableOBAutoKick,.Lfe1-WD_DisableOBAutoKick
+  44               	.globl WD_DisableEPSAutoKick
+  45               		.type	 WD_DisableEPSAutoKick,@function
+  46               	WD_DisableEPSAutoKick:
+  47               	.LFB2:
+  48               	.LM4:
+  49               	
+  50 0016 4E56 0000 		link.w %a6,#0
+  51               	.LCFI1:
+  52               	.LM5:
+68K GAS  C:\Users\37877\AppData\Local\Temp\ccQjgaaa.s 			page 2
+
+
+  53               	
+  54 001a 2079 0000 		move.l cdhio,%a0
+  54      0000 
+  55 0020 1010      		move.b (%a0),%d0
+  56 0022 0080 0000 		or.l #128,%d0
+  56      0080 
+  57 0028 1080      		move.b %d0,(%a0)
+  58               	.LM6:
+  59               	
+  60 002a 4E5E      		unlk %a6
+  61 002c 4E75      		rts
+  62               	.LFE2:
+  63               	.Lfe2:
+  64               		.size	 WD_DisableEPSAutoKick,.Lfe2-WD_DisableEPSAutoKick
+  65               	.globl WD_KickEPSWatchdog
+  66               		.type	 WD_KickEPSWatchdog,@function
+  67               	WD_KickEPSWatchdog:
+  68               	.LFB3:
+  69               	.LM7:
+  70               	
+  71 002e 4E56 0000 		link.w %a6,#0
+  72               	.LCFI2:
+  73               	.LM8:
+  74               	
+  75 0032 2079 0000 		move.l cdhio,%a0
+  75      0000 
+  76 0038 1010      		move.b (%a0),%d0
+  77 003a 7240      		moveq.l #64,%d1
+  78 003c B380      		eor.l %d1,%d0
+  79 003e 1080      		move.b %d0,(%a0)
+  80               	.LM9:
+  81               	
+  82 0040 4E5E      		unlk %a6
+  83 0042 4E75      		rts
+  84               	.LFE3:
+  85               	.Lfe3:
+  86               		.size	 WD_KickEPSWatchdog,.Lfe3-WD_KickEPSWatchdog
+  87               	.globl WD_KickOBWatchdog
+  88               		.type	 WD_KickOBWatchdog,@function
+  89               	WD_KickOBWatchdog:
+  90               	.LFB4:
+  91               	.LM10:
+  92               	
+  93 0044 4E56 0000 		link.w %a6,#0
+  94               	.LCFI3:
+  95               	.LM11:
+  96               	
+  97 0048 2079 0000 		move.l cdhio,%a0
+  97      0000 
+  98 004e 1010      		move.b (%a0),%d0
+  99 0050 7210      		moveq.l #16,%d1
+ 100 0052 B380      		eor.l %d1,%d0
+ 101 0054 1080      		move.b %d0,(%a0)
+ 102               	.LM12:
+ 103               	
+ 104 0056 4E5E      		unlk %a6
+ 105 0058 4E75      		rts
+68K GAS  C:\Users\37877\AppData\Local\Temp\ccQjgaaa.s 			page 3
+
+
+ 106               	.LFE4:
+ 107               	.Lfe4:
+ 108               		.size	 WD_KickOBWatchdog,.Lfe4-WD_KickOBWatchdog
+ 109               	.globl WD_CheckCommandTimeout
+ 110               		.type	 WD_CheckCommandTimeout,@function
+ 111               	WD_CheckCommandTimeout:
+ 112               	.LFB5:
+ 113               	.LM13:
+ 114               	
+ 115 005a 4E56 0000 		link.w %a6,#0
+ 116               	.LCFI4:
+ 117               	.LM14:
+ 118               	
+ 119               	.LBB2:
+ 120 005e 2039 0000 		move.l nWD_CommandTimeout,%d0
+ 120      0000 
+ 121 0064 2200      		move.l %d0,%d1
+ 122 0066 5381      		subq.l #1,%d1
+ 123 0068 23C1 0000 		move.l %d1,nWD_CommandTimeout
+ 123      0000 
+ 124               	.LM15:
+ 125               	
+ 126 006e 5380      		subq.l #1,%d0
+ 127 0070 4A80      		tst.l %d0
+ 128 0072 6E4A      		jbgt .L8
+ 129               	.LM16:
+ 130               	
+ 131 0074 4EB9 0000 		jsr get_time
+ 131      0000 
+ 132 007a 2F00      		move.l %d0,-(%sp)
+ 133 007c 4879 0000 		pea .LC0
+ 133      0000 
+ 134               	.LCFI5:
+ 135 0082 4EB9 0000 		jsr print_uart_msg
+ 135      0000 
+ 136               	.LM17:
+ 137               	
+ 138 0088 4878 0001 		pea 1.w
+ 139               	.LCFI6:
+ 140 008c 4EB9 0000 		jsr OP_SetMissionPhase
+ 140      0000 
+ 141               	.LM18:
+ 142               	
+ 143 0092 4878 003C 		pea 60.w
+ 144 0096 4EB9 0000 		jsr OP_SetInitialWait
+ 144      0000 
+ 145               	.LM19:
+ 146               	
+ 147 009c 4878 0001 		pea 1.w
+ 148 00a0 4EB9 0000 		jsr OP_SetEnableDeploy
+ 148      0000 
+ 149               	.LM20:
+ 150               	
+ 151               	.LCFI7:
+ 152 00a6 4EB9 0000 		jsr disable_ints
+ 152      0000 
+ 153               	.LM21:
+68K GAS  C:\Users\37877\AppData\Local\Temp\ccQjgaaa.s 			page 4
+
+
+ 154               	
+ 155               	.LBB3:
+ 156               	.LM22:
+ 157               	
+ 158 00ac 2079 0000 		move.l cdhio,%a0
+ 158      0000 
+ 159 00b2 1010      		move.b (%a0),%d0
+ 160 00b4 0080 0000 		or.l #128,%d0
+ 160      0080 
+ 161 00ba 1080      		move.b %d0,(%a0)
+ 162               	.LM23:
+ 163               	
+ 164               	.LBE3:
+ 165               	.LM24:
+ 166               	
+ 167               	.L10:
+ 168 00bc 60FE      		jbra .L10
+ 169               	.L8:
+ 170               	.LM25:
+ 171               	
+ 172               	.LBE2:
+ 173 00be 4E5E      		unlk %a6
+ 174 00c0 4E75      		rts
+ 175               	.LFE5:
+ 176               	.Lfe5:
+ 177               		.size	 WD_CheckCommandTimeout,.Lfe5-WD_CheckCommandTimeout
+ 178               	.globl WD_ResetCommandTimeout
+ 179               		.type	 WD_ResetCommandTimeout,@function
+ 180               	WD_ResetCommandTimeout:
+ 181               	.LFB6:
+ 182               	.LM26:
+ 183               	
+ 184 00c2 4E56 0000 		link.w %a6,#0
+ 185               	.LCFI8:
+ 186               	.LM27:
+ 187               	
+ 188 00c6 203C 0000 		move.l #28800,%d0
+ 188      7080 
+ 189 00cc 23C0 0000 		move.l %d0,nWD_CommandTimeout
+ 189      0000 
+ 190               	.LM28:
+ 191               	
+ 192 00d2 4E5E      		unlk %a6
+ 193 00d4 4E75      		rts
+ 194               	.LFE6:
+ 195               	.Lfe6:
+ 196               		.size	 WD_ResetCommandTimeout,.Lfe6-WD_ResetCommandTimeout
+ 197               	
+ 198               	.data
+ 199               		.align 	4
+ 200               	.globl _GLOBAL_.F.nWD_CommandTimeout
+ 201               	_GLOBAL_.F.nWD_CommandTimeout:
+ 202               	__FRAME_BEGIN__:
+ 203 0004 0000 0010 		.4byte	.LLCIE1
+ 204               	.LSCIE1:
+ 205 0008 0000 0000 		.4byte	0x0
+ 206 000c 01        		.byte	0x1
+68K GAS  C:\Users\37877\AppData\Local\Temp\ccQjgaaa.s 			page 5
+
+
+ 207 000d 00        		.byte	0x0
+ 208 000e 01        		.byte	0x1
+ 209 000f 7C        		.byte	0x7c
+ 210 0010 18        		.byte	0x18
+ 211 0011 0C        		.byte	0xc
+ 212 0012 0F        		.byte	0xf
+ 213 0013 04        		.byte	0x4
+ 214 0014 98        		.byte	0x98
+ 215 0015 01        		.byte	0x1
+ 216 0016 0000      		.align 	4
+ 217               	.LECIE1:
+ 218               		.set	.LLCIE1,.LECIE1-.LSCIE1
+ 219 0018 0000 0018 		.4byte	.LLFDE1
+ 220               	.LSFDE1:
+ 221 001c 0000 0018 		.4byte	.LSFDE1-__FRAME_BEGIN__
+ 222 0020 0000 0000 		.4byte	.LFB1
+ 223 0024 0000 0016 		.4byte	.LFE1-.LFB1
+ 224 0028 04        		.byte	0x4
+ 225 0029 0000 0004 		.4byte	.LCFI0-.LFB1
+ 226 002d 0C        		.byte	0xc
+ 227 002e 0E        		.byte	0xe
+ 228 002f 08        		.byte	0x8
+ 229 0030 8E        		.byte	0x8e
+ 230 0031 02        		.byte	0x2
+ 231 0032 0000      		.align 	4
+ 232               	.LEFDE1:
+ 233               		.set	.LLFDE1,.LEFDE1-.LSFDE1
+ 234 0034 0000 0018 		.4byte	.LLFDE3
+ 235               	.LSFDE3:
+ 236 0038 0000 0034 		.4byte	.LSFDE3-__FRAME_BEGIN__
+ 237 003c 0000 0000 		.4byte	.LFB2
+ 238 0040 0000 0018 		.4byte	.LFE2-.LFB2
+ 239 0044 04        		.byte	0x4
+ 240 0045 0000 0004 		.4byte	.LCFI1-.LFB2
+ 241 0049 0C        		.byte	0xc
+ 242 004a 0E        		.byte	0xe
+ 243 004b 08        		.byte	0x8
+ 244 004c 8E        		.byte	0x8e
+ 245 004d 02        		.byte	0x2
+ 246 004e 0000      		.align 	4
+ 247               	.LEFDE3:
+ 248               		.set	.LLFDE3,.LEFDE3-.LSFDE3
+ 249 0050 0000 0018 		.4byte	.LLFDE5
+ 250               	.LSFDE5:
+ 251 0054 0000 0050 		.4byte	.LSFDE5-__FRAME_BEGIN__
+ 252 0058 0000 0000 		.4byte	.LFB3
+ 253 005c 0000 0016 		.4byte	.LFE3-.LFB3
+ 254 0060 04        		.byte	0x4
+ 255 0061 0000 0004 		.4byte	.LCFI2-.LFB3
+ 256 0065 0C        		.byte	0xc
+ 257 0066 0E        		.byte	0xe
+ 258 0067 08        		.byte	0x8
+ 259 0068 8E        		.byte	0x8e
+ 260 0069 02        		.byte	0x2
+ 261 006a 0000      		.align 	4
+ 262               	.LEFDE5:
+ 263               		.set	.LLFDE5,.LEFDE5-.LSFDE5
+68K GAS  C:\Users\37877\AppData\Local\Temp\ccQjgaaa.s 			page 6
+
+
+ 264 006c 0000 0018 		.4byte	.LLFDE7
+ 265               	.LSFDE7:
+ 266 0070 0000 006C 		.4byte	.LSFDE7-__FRAME_BEGIN__
+ 267 0074 0000 0000 		.4byte	.LFB4
+ 268 0078 0000 0016 		.4byte	.LFE4-.LFB4
+ 269 007c 04        		.byte	0x4
+ 270 007d 0000 0004 		.4byte	.LCFI3-.LFB4
+ 271 0081 0C        		.byte	0xc
+ 272 0082 0E        		.byte	0xe
+ 273 0083 08        		.byte	0x8
+ 274 0084 8E        		.byte	0x8e
+ 275 0085 02        		.byte	0x2
+ 276 0086 0000      		.align 	4
+ 277               	.LEFDE7:
+ 278               		.set	.LLFDE7,.LEFDE7-.LSFDE7
+ 279 0088 0000 002C 		.4byte	.LLFDE9
+ 280               	.LSFDE9:
+ 281 008c 0000 0088 		.4byte	.LSFDE9-__FRAME_BEGIN__
+ 282 0090 0000 0000 		.4byte	.LFB5
+ 283 0094 0000 0068 		.4byte	.LFE5-.LFB5
+ 284 0098 04        		.byte	0x4
+ 285 0099 0000 0004 		.4byte	.LCFI4-.LFB5
+ 286 009d 0C        		.byte	0xc
+ 287 009e 0E        		.byte	0xe
+ 288 009f 08        		.byte	0x8
+ 289 00a0 8E        		.byte	0x8e
+ 290 00a1 02        		.byte	0x2
+ 291 00a2 04        		.byte	0x4
+ 292 00a3 0000 0024 		.4byte	.LCFI5-.LCFI4
+ 293 00a7 2E        		.byte	0x2e
+ 294 00a8 08        		.byte	0x8
+ 295 00a9 04        		.byte	0x4
+ 296 00aa 0000 000A 		.4byte	.LCFI6-.LCFI5
+ 297 00ae 2E        		.byte	0x2e
+ 298 00af 04        		.byte	0x4
+ 299 00b0 04        		.byte	0x4
+ 300 00b1 0000 001A 		.4byte	.LCFI7-.LCFI6
+ 301 00b5 2E        		.byte	0x2e
+ 302 00b6 00        		.byte	0x0
+ 303 00b7 00        		.align 	4
+ 304               	.LEFDE9:
+ 305               		.set	.LLFDE9,.LEFDE9-.LSFDE9
+ 306 00b8 0000 0018 		.4byte	.LLFDE11
+ 307               	.LSFDE11:
+ 308 00bc 0000 00B8 		.4byte	.LSFDE11-__FRAME_BEGIN__
+ 309 00c0 0000 0000 		.4byte	.LFB6
+ 310 00c4 0000 0014 		.4byte	.LFE6-.LFB6
+ 311 00c8 04        		.byte	0x4
+ 312 00c9 0000 0004 		.4byte	.LCFI8-.LFB6
+ 313 00cd 0C        		.byte	0xc
+ 314 00ce 0E        		.byte	0xe
+ 315 00cf 08        		.byte	0x8
+ 316 00d0 8E        		.byte	0x8e
+ 317 00d1 02        		.byte	0x2
+ 318 00d2 0000      		.align 	4
+ 319               	.LEFDE11:
+ 320               		.set	.LLFDE11,.LEFDE11-.LSFDE11
+68K GAS  C:\Users\37877\AppData\Local\Temp\ccQjgaaa.s 			page 7
+
+
+ 321 00d4 0000 0000 		.4byte	0x0
+ 322               	
+ 323               		.section	.text
+ 324               	.Letext0:
+ 325               	
+ 326               		.section	.debug_line
+ 327 0000 0000 0471 		.4byte	0x471
+ 328 0004 0002      		.2byte	0x2
+ 329 0006 0000 037D 		.4byte	0x37d
+ 330 000a 04        		.byte	0x4
+ 331 000b 01        		.byte	0x1
+ 332 000c F6        		.byte	-10
+ 333 000d F5        		.byte	245
+ 334 000e 0A        		.byte	10
+ 335 000f 00        		.byte	0x0
+ 336 0010 01        		.byte	0x1
+ 337 0011 01        		.byte	0x1
+ 338 0012 01        		.byte	0x1
+ 339 0013 01        		.byte	0x1
+ 340 0014 00        		.byte	0x0
+ 341 0015 00        		.byte	0x0
+ 342 0016 00        		.byte	0x0
+ 343 0017 01        		.byte	0x1
+ 344 0018 00        		.byte	0x0
+ 345 0019 443A 5C51 		.string	"D:\\QB50\\qb50_software\\FSW\\watchdog.c"
+ 345      4235 305C 
+ 345      7162 3530 
+ 345      5F73 6F66 
+ 345      7477 6172 
+ 346               	
+ 347 003e 00        		.byte	0x0
+ 348 003f 00        		.byte	0x0
+ 349 0040 00        		.byte	0x0
+ 350 0041 433A 5C50 		.string	"C:\\PEMicro\\PKGCFZ~1\\gnu\\m68k-elf\\include\\sys\\config.h"
+ 350      454D 6963 
+ 350      726F 5C50 
+ 350      4B47 4346 
+ 350      5A7E 315C 
+ 351               	
+ 352 0077 00        		.byte	0x0
+ 353 0078 00        		.byte	0x0
+ 354 0079 00        		.byte	0x0
+ 355 007a 433A 5C50 		.string	"C:\\PEMicro\\PKGCFZ~1\\gnu\\lib\\gcc-lib\\m68k-elf\\295~1.3\\include\\stddef.h"
+ 355      454D 6963 
+ 355      726F 5C50 
+ 355      4B47 4346 
+ 355      5A7E 315C 
+ 356               	
+ 357 00c0 00        		.byte	0x0
+ 358 00c1 00        		.byte	0x0
+ 359 00c2 00        		.byte	0x0
+ 360 00c3 433A 5C50 		.string	"C:\\PEMicro\\PKGCFZ~1\\gnu\\lib\\gcc-lib\\m68k-elf\\295~1.3\\include\\stdarg.h"
+ 360      454D 6963 
+ 360      726F 5C50 
+ 360      4B47 4346 
+ 360      5A7E 315C 
+ 361               	
+68K GAS  C:\Users\37877\AppData\Local\Temp\ccQjgaaa.s 			page 8
+
+
+ 362 0109 00        		.byte	0x0
+ 363 010a 00        		.byte	0x0
+ 364 010b 00        		.byte	0x0
+ 365 010c 433A 5C50 		.string	"C:\\PEMicro\\PKGCFZ~1\\gnu\\m68k-elf\\include\\sys\\types.h"
+ 365      454D 6963 
+ 365      726F 5C50 
+ 365      4B47 4346 
+ 365      5A7E 315C 
+ 366               	
+ 367 0141 00        		.byte	0x0
+ 368 0142 00        		.byte	0x0
+ 369 0143 00        		.byte	0x0
+ 370 0144 433A 5C50 		.string	"C:\\PEMicro\\PKGCFZ~1\\gnu\\m68k-elf\\include\\time.h"
+ 370      454D 6963 
+ 370      726F 5C50 
+ 370      4B47 4346 
+ 370      5A7E 315C 
+ 371               	
+ 372 0174 00        		.byte	0x0
+ 373 0175 00        		.byte	0x0
+ 374 0176 00        		.byte	0x0
+ 375 0177 433A 5C50 		.string	"C:\\PEMicro\\PKGCFZ~1\\gnu\\m68k-elf\\include\\sys\\reent.h"
+ 375      454D 6963 
+ 375      726F 5C50 
+ 375      4B47 4346 
+ 375      5A7E 315C 
+ 376               	
+ 377 01ac 00        		.byte	0x0
+ 378 01ad 00        		.byte	0x0
+ 379 01ae 00        		.byte	0x0
+ 380 01af 433A 5C50 		.string	"C:\\PEMicro\\PKGCFZ~1\\gnu\\m68k-elf\\include\\stdio.h"
+ 380      454D 6963 
+ 380      726F 5C50 
+ 380      4B47 4346 
+ 380      5A7E 315C 
+ 381               	
+ 382 01e0 00        		.byte	0x0
+ 383 01e1 00        		.byte	0x0
+ 384 01e2 00        		.byte	0x0
+ 385 01e3 433A 5C50 		.string	"C:\\PEMicro\\PKGCFZ~1\\gnu\\m68k-elf\\include\\stdlib.h"
+ 385      454D 6963 
+ 385      726F 5C50 
+ 385      4B47 4346 
+ 385      5A7E 315C 
+ 386               	
+ 387 0215 00        		.byte	0x0
+ 388 0216 00        		.byte	0x0
+ 389 0217 00        		.byte	0x0
+ 390 0218 443A 5C51 		.string	"D:\\QB50\\qb50_software\\FSW\\MCF51AC256.h"
+ 390      4235 305C 
+ 390      7162 3530 
+ 390      5F73 6F66 
+ 390      7477 6172 
+ 391               	
+ 392 023f 00        		.byte	0x0
+ 393 0240 00        		.byte	0x0
+ 394 0241 00        		.byte	0x0
+68K GAS  C:\Users\37877\AppData\Local\Temp\ccQjgaaa.s 			page 9
+
+
+ 395 0242 443A 5C51 		.string	"D:\\QB50\\qb50_software\\FSW\\cdh_consts.h"
+ 395      4235 305C 
+ 395      7162 3530 
+ 395      5F73 6F66 
+ 395      7477 6172 
+ 396               	
+ 397 0269 00        		.byte	0x0
+ 398 026a 00        		.byte	0x0
+ 399 026b 00        		.byte	0x0
+ 400 026c 443A 5C51 		.string	"D:\\QB50\\qb50_software\\FSW\\lithium.h"
+ 400      4235 305C 
+ 400      7162 3530 
+ 400      5F73 6F66 
+ 400      7477 6172 
+ 401               	
+ 402 0290 00        		.byte	0x0
+ 403 0291 00        		.byte	0x0
+ 404 0292 00        		.byte	0x0
+ 405 0293 443A 5C51 		.string	"D:\\QB50\\qb50_software\\FSW\\op_status.h"
+ 405      4235 305C 
+ 405      7162 3530 
+ 405      5F73 6F66 
+ 405      7477 6172 
+ 406               	
+ 407 02b9 00        		.byte	0x0
+ 408 02ba 00        		.byte	0x0
+ 409 02bb 00        		.byte	0x0
+ 410 02bc 443A 5C51 		.string	"D:\\QB50\\qb50_software\\FSW\\epson_imu2.h"
+ 410      4235 305C 
+ 410      7162 3530 
+ 410      5F73 6F66 
+ 410      7477 6172 
+ 411               	
+ 412 02e3 00        		.byte	0x0
+ 413 02e4 00        		.byte	0x0
+ 414 02e5 00        		.byte	0x0
+ 415 02e6 443A 5C51 		.string	"D:\\QB50\\qb50_software\\FSW\\st_imu1.h"
+ 415      4235 305C 
+ 415      7162 3530 
+ 415      5F73 6F66 
+ 415      7477 6172 
+ 416               	
+ 417 030a 00        		.byte	0x0
+ 418 030b 00        		.byte	0x0
+ 419 030c 00        		.byte	0x0
+ 420 030d 443A 5C51 		.string	"D:\\QB50\\qb50_software\\FSW\\fipex_script.h"
+ 420      4235 305C 
+ 420      7162 3530 
+ 420      5F73 6F66 
+ 420      7477 6172 
+ 421               	
+ 422 0336 00        		.byte	0x0
+ 423 0337 00        		.byte	0x0
+ 424 0338 00        		.byte	0x0
+ 425 0339 443A 5C51 		.string	"D:\\QB50\\qb50_software\\FSW\\adcs.h"
+ 425      4235 305C 
+ 425      7162 3530 
+68K GAS  C:\Users\37877\AppData\Local\Temp\ccQjgaaa.s 			page 10
+
+
+ 425      5F73 6F66 
+ 425      7477 6172 
+ 426               	
+ 427 035a 00        		.byte	0x0
+ 428 035b 00        		.byte	0x0
+ 429 035c 00        		.byte	0x0
+ 430 035d 443A 5C51 		.string	"D:\\QB50\\qb50_software\\FSW\\telemetry.h"
+ 430      4235 305C 
+ 430      7162 3530 
+ 430      5F73 6F66 
+ 430      7477 6172 
+ 431               	
+ 432 0383 00        		.byte	0x0
+ 433 0384 00        		.byte	0x0
+ 434 0385 00        		.byte	0x0
+ 435 0386 00        		.byte	0x0
+ 436 0387 00        		.byte	0x0
+ 437 0388 05        		.byte	0x5
+ 438 0389 02        		.byte	0x2
+ 439 038a 0000 0000 		.4byte	.LM1
+ 440 038e 1D        		.byte	0x1d
+ 441 038f 00        		.byte	0x0
+ 442 0390 05        		.byte	0x5
+ 443 0391 02        		.byte	0x2
+ 444 0392 0000 0000 		.4byte	.LM2
+ 445 0396 15        		.byte	0x15
+ 446 0397 00        		.byte	0x0
+ 447 0398 05        		.byte	0x5
+ 448 0399 02        		.byte	0x2
+ 449 039a 0000 0000 		.4byte	.LM3
+ 450 039e 15        		.byte	0x15
+ 451 039f 00        		.byte	0x0
+ 452 03a0 05        		.byte	0x5
+ 453 03a1 02        		.byte	0x2
+ 454 03a2 0000 0000 		.4byte	.LM4
+ 455 03a6 17        		.byte	0x17
+ 456 03a7 00        		.byte	0x0
+ 457 03a8 05        		.byte	0x5
+ 458 03a9 02        		.byte	0x2
+ 459 03aa 0000 0000 		.4byte	.LM5
+ 460 03ae 15        		.byte	0x15
+ 461 03af 00        		.byte	0x0
+ 462 03b0 05        		.byte	0x5
+ 463 03b1 02        		.byte	0x2
+ 464 03b2 0000 0000 		.4byte	.LM6
+ 465 03b6 15        		.byte	0x15
+ 466 03b7 00        		.byte	0x0
+ 467 03b8 05        		.byte	0x5
+ 468 03b9 02        		.byte	0x2
+ 469 03ba 0000 0000 		.4byte	.LM7
+ 470 03be 17        		.byte	0x17
+ 471 03bf 00        		.byte	0x0
+ 472 03c0 05        		.byte	0x5
+ 473 03c1 02        		.byte	0x2
+ 474 03c2 0000 0000 		.4byte	.LM8
+ 475 03c6 15        		.byte	0x15
+ 476 03c7 00        		.byte	0x0
+68K GAS  C:\Users\37877\AppData\Local\Temp\ccQjgaaa.s 			page 11
+
+
+ 477 03c8 05        		.byte	0x5
+ 478 03c9 02        		.byte	0x2
+ 479 03ca 0000 0000 		.4byte	.LM9
+ 480 03ce 15        		.byte	0x15
+ 481 03cf 00        		.byte	0x0
+ 482 03d0 05        		.byte	0x5
+ 483 03d1 02        		.byte	0x2
+ 484 03d2 0000 0000 		.4byte	.LM10
+ 485 03d6 17        		.byte	0x17
+ 486 03d7 00        		.byte	0x0
+ 487 03d8 05        		.byte	0x5
+ 488 03d9 02        		.byte	0x2
+ 489 03da 0000 0000 		.4byte	.LM11
+ 490 03de 15        		.byte	0x15
+ 491 03df 00        		.byte	0x0
+ 492 03e0 05        		.byte	0x5
+ 493 03e1 02        		.byte	0x2
+ 494 03e2 0000 0000 		.4byte	.LM12
+ 495 03e6 15        		.byte	0x15
+ 496 03e7 00        		.byte	0x0
+ 497 03e8 05        		.byte	0x5
+ 498 03e9 02        		.byte	0x2
+ 499 03ea 0000 0000 		.4byte	.LM13
+ 500 03ee 1C        		.byte	0x1c
+ 501 03ef 00        		.byte	0x0
+ 502 03f0 05        		.byte	0x5
+ 503 03f1 02        		.byte	0x2
+ 504 03f2 0000 0000 		.4byte	.LM14
+ 505 03f6 15        		.byte	0x15
+ 506 03f7 00        		.byte	0x0
+ 507 03f8 05        		.byte	0x5
+ 508 03f9 02        		.byte	0x2
+ 509 03fa 0000 0000 		.4byte	.LM15
+ 510 03fe 15        		.byte	0x15
+ 511 03ff 00        		.byte	0x0
+ 512 0400 05        		.byte	0x5
+ 513 0401 02        		.byte	0x2
+ 514 0402 0000 0000 		.4byte	.LM16
+ 515 0406 16        		.byte	0x16
+ 516 0407 00        		.byte	0x0
+ 517 0408 05        		.byte	0x5
+ 518 0409 02        		.byte	0x2
+ 519 040a 0000 0000 		.4byte	.LM17
+ 520 040e 16        		.byte	0x16
+ 521 040f 00        		.byte	0x0
+ 522 0410 05        		.byte	0x5
+ 523 0411 02        		.byte	0x2
+ 524 0412 0000 0000 		.4byte	.LM18
+ 525 0416 15        		.byte	0x15
+ 526 0417 00        		.byte	0x0
+ 527 0418 05        		.byte	0x5
+ 528 0419 02        		.byte	0x2
+ 529 041a 0000 0000 		.4byte	.LM19
+ 530 041e 15        		.byte	0x15
+ 531 041f 00        		.byte	0x0
+ 532 0420 05        		.byte	0x5
+ 533 0421 02        		.byte	0x2
+68K GAS  C:\Users\37877\AppData\Local\Temp\ccQjgaaa.s 			page 12
+
+
+ 534 0422 0000 0000 		.4byte	.LM20
+ 535 0426 16        		.byte	0x16
+ 536 0427 00        		.byte	0x0
+ 537 0428 05        		.byte	0x5
+ 538 0429 02        		.byte	0x2
+ 539 042a 0000 0000 		.4byte	.LM21
+ 540 042e 03        		.byte	0x3
+ 541 042f 62        		.byte	0x62
+ 542 0430 01        		.byte	0x1
+ 543 0431 00        		.byte	0x0
+ 544 0432 05        		.byte	0x5
+ 545 0433 02        		.byte	0x2
+ 546 0434 0000 0000 		.4byte	.LM22
+ 547 0438 15        		.byte	0x15
+ 548 0439 00        		.byte	0x0
+ 549 043a 05        		.byte	0x5
+ 550 043b 02        		.byte	0x2
+ 551 043c 0000 0000 		.4byte	.LM23
+ 552 0440 15        		.byte	0x15
+ 553 0441 00        		.byte	0x0
+ 554 0442 05        		.byte	0x5
+ 555 0443 02        		.byte	0x2
+ 556 0444 0000 0000 		.4byte	.LM24
+ 557 0448 38        		.byte	0x38
+ 558 0449 00        		.byte	0x0
+ 559 044a 05        		.byte	0x5
+ 560 044b 02        		.byte	0x2
+ 561 044c 0000 0000 		.4byte	.LM25
+ 562 0450 16        		.byte	0x16
+ 563 0451 00        		.byte	0x0
+ 564 0452 05        		.byte	0x5
+ 565 0453 02        		.byte	0x2
+ 566 0454 0000 0000 		.4byte	.LM26
+ 567 0458 03        		.byte	0x3
+ 568 0459 67        		.byte	0x67
+ 569 045a 01        		.byte	0x1
+ 570 045b 00        		.byte	0x0
+ 571 045c 05        		.byte	0x5
+ 572 045d 02        		.byte	0x2
+ 573 045e 0000 0000 		.4byte	.LM27
+ 574 0462 15        		.byte	0x15
+ 575 0463 00        		.byte	0x0
+ 576 0464 05        		.byte	0x5
+ 577 0465 02        		.byte	0x2
+ 578 0466 0000 0000 		.4byte	.LM28
+ 579 046a 15        		.byte	0x15
+ 580 046b 00        		.byte	0x0
+ 581 046c 05        		.byte	0x5
+ 582 046d 02        		.byte	0x2
+ 583 046e 0000 0000 		.4byte	.Letext0
+ 584 0472 00        		.byte	0x0
+ 585 0473 01        		.byte	0x1
+ 586 0474 01        		.byte	0x1
+ 587               	
+ 588               		.section	.debug_abbrev
+ 589 0000 01        		.byte	0x1
+ 590 0001 11        		.byte	0x11
+68K GAS  C:\Users\37877\AppData\Local\Temp\ccQjgaaa.s 			page 13
+
+
+ 591 0002 01        		.byte	0x1
+ 592 0003 03        		.byte	0x3
+ 593 0004 08        		.byte	0x8
+ 594 0005 1B        		.byte	0x1b
+ 595 0006 08        		.byte	0x8
+ 596 0007 25        		.byte	0x25
+ 597 0008 08        		.byte	0x8
+ 598 0009 13        		.byte	0x13
+ 599 000a 0B        		.byte	0xb
+ 600 000b 11        		.byte	0x11
+ 601 000c 01        		.byte	0x1
+ 602 000d 12        		.byte	0x12
+ 603 000e 01        		.byte	0x1
+ 604 000f 10        		.byte	0x10
+ 605 0010 06        		.byte	0x6
+ 606 0011 0000      		.byte	0,0
+ 607 0013 02        		.byte	0x2
+ 608 0014 2E        		.byte	0x2e
+ 609 0015 00        		.byte	0x0
+ 610 0016 3F        		.byte	0x3f
+ 611 0017 0C        		.byte	0xc
+ 612 0018 03        		.byte	0x3
+ 613 0019 08        		.byte	0x8
+ 614 001a 3A        		.byte	0x3a
+ 615 001b 0B        		.byte	0xb
+ 616 001c 3B        		.byte	0x3b
+ 617 001d 0B        		.byte	0xb
+ 618 001e 27        		.byte	0x27
+ 619 001f 0C        		.byte	0xc
+ 620 0020 20        		.byte	0x20
+ 621 0021 0B        		.byte	0xb
+ 622 0022 0000      		.byte	0,0
+ 623 0024 03        		.byte	0x3
+ 624 0025 2E        		.byte	0x2e
+ 625 0026 00        		.byte	0x0
+ 626 0027 31        		.byte	0x31
+ 627 0028 13        		.byte	0x13
+ 628 0029 11        		.byte	0x11
+ 629 002a 01        		.byte	0x1
+ 630 002b 12        		.byte	0x12
+ 631 002c 01        		.byte	0x1
+ 632 002d 40        		.byte	0x40
+ 633 002e 0A        		.byte	0xa
+ 634 002f 0000      		.byte	0,0
+ 635 0031 04        		.byte	0x4
+ 636 0032 2E        		.byte	0x2e
+ 637 0033 01        		.byte	0x1
+ 638 0034 01        		.byte	0x1
+ 639 0035 13        		.byte	0x13
+ 640 0036 31        		.byte	0x31
+ 641 0037 13        		.byte	0x13
+ 642 0038 11        		.byte	0x11
+ 643 0039 01        		.byte	0x1
+ 644 003a 12        		.byte	0x12
+ 645 003b 01        		.byte	0x1
+ 646 003c 40        		.byte	0x40
+ 647 003d 0A        		.byte	0xa
+68K GAS  C:\Users\37877\AppData\Local\Temp\ccQjgaaa.s 			page 14
+
+
+ 648 003e 0000      		.byte	0,0
+ 649 0040 05        		.byte	0x5
+ 650 0041 1D        		.byte	0x1d
+ 651 0042 00        		.byte	0x0
+ 652 0043 31        		.byte	0x31
+ 653 0044 13        		.byte	0x13
+ 654 0045 11        		.byte	0x11
+ 655 0046 01        		.byte	0x1
+ 656 0047 12        		.byte	0x12
+ 657 0048 01        		.byte	0x1
+ 658 0049 0000      		.byte	0,0
+ 659 004b 06        		.byte	0x6
+ 660 004c 16        		.byte	0x16
+ 661 004d 00        		.byte	0x0
+ 662 004e 03        		.byte	0x3
+ 663 004f 08        		.byte	0x8
+ 664 0050 3A        		.byte	0x3a
+ 665 0051 0B        		.byte	0xb
+ 666 0052 3B        		.byte	0x3b
+ 667 0053 0B        		.byte	0xb
+ 668 0054 49        		.byte	0x49
+ 669 0055 13        		.byte	0x13
+ 670 0056 0000      		.byte	0,0
+ 671 0058 07        		.byte	0x7
+ 672 0059 24        		.byte	0x24
+ 673 005a 00        		.byte	0x0
+ 674 005b 03        		.byte	0x3
+ 675 005c 08        		.byte	0x8
+ 676 005d 0B        		.byte	0xb
+ 677 005e 0B        		.byte	0xb
+ 678 005f 3E        		.byte	0x3e
+ 679 0060 0B        		.byte	0xb
+ 680 0061 0000      		.byte	0,0
+ 681 0063 08        		.byte	0x8
+ 682 0064 0F        		.byte	0xf
+ 683 0065 00        		.byte	0x0
+ 684 0066 0B        		.byte	0xb
+ 685 0067 0B        		.byte	0xb
+ 686 0068 0000      		.byte	0,0
+ 687 006a 09        		.byte	0x9
+ 688 006b 16        		.byte	0x16
+ 689 006c 00        		.byte	0x0
+ 690 006d 03        		.byte	0x3
+ 691 006e 08        		.byte	0x8
+ 692 006f 3A        		.byte	0x3a
+ 693 0070 0B        		.byte	0xb
+ 694 0071 3B        		.byte	0x3b
+ 695 0072 05        		.byte	0x5
+ 696 0073 49        		.byte	0x49
+ 697 0074 13        		.byte	0x13
+ 698 0075 0000      		.byte	0,0
+ 699 0077 0A        		.byte	0xa
+ 700 0078 13        		.byte	0x13
+ 701 0079 01        		.byte	0x1
+ 702 007a 01        		.byte	0x1
+ 703 007b 13        		.byte	0x13
+ 704 007c 03        		.byte	0x3
+68K GAS  C:\Users\37877\AppData\Local\Temp\ccQjgaaa.s 			page 15
+
+
+ 705 007d 08        		.byte	0x8
+ 706 007e 0B        		.byte	0xb
+ 707 007f 0B        		.byte	0xb
+ 708 0080 3A        		.byte	0x3a
+ 709 0081 0B        		.byte	0xb
+ 710 0082 3B        		.byte	0x3b
+ 711 0083 0B        		.byte	0xb
+ 712 0084 0000      		.byte	0,0
+ 713 0086 0B        		.byte	0xb
+ 714 0087 0D        		.byte	0xd
+ 715 0088 00        		.byte	0x0
+ 716 0089 03        		.byte	0x3
+ 717 008a 08        		.byte	0x8
+ 718 008b 3A        		.byte	0x3a
+ 719 008c 0B        		.byte	0xb
+ 720 008d 3B        		.byte	0x3b
+ 721 008e 0B        		.byte	0xb
+ 722 008f 49        		.byte	0x49
+ 723 0090 13        		.byte	0x13
+ 724 0091 38        		.byte	0x38
+ 725 0092 0A        		.byte	0xa
+ 726 0093 0000      		.byte	0,0
+ 727 0095 0C        		.byte	0xc
+ 728 0096 0F        		.byte	0xf
+ 729 0097 00        		.byte	0x0
+ 730 0098 0B        		.byte	0xb
+ 731 0099 0B        		.byte	0xb
+ 732 009a 49        		.byte	0x49
+ 733 009b 13        		.byte	0x13
+ 734 009c 0000      		.byte	0,0
+ 735 009e 0D        		.byte	0xd
+ 736 009f 01        		.byte	0x1
+ 737 00a0 01        		.byte	0x1
+ 738 00a1 01        		.byte	0x1
+ 739 00a2 13        		.byte	0x13
+ 740 00a3 49        		.byte	0x49
+ 741 00a4 13        		.byte	0x13
+ 742 00a5 0000      		.byte	0,0
+ 743 00a7 0E        		.byte	0xe
+ 744 00a8 21        		.byte	0x21
+ 745 00a9 00        		.byte	0x0
+ 746 00aa 2F        		.byte	0x2f
+ 747 00ab 0B        		.byte	0xb
+ 748 00ac 0000      		.byte	0,0
+ 749 00ae 0F        		.byte	0xf
+ 750 00af 15        		.byte	0x15
+ 751 00b0 01        		.byte	0x1
+ 752 00b1 01        		.byte	0x1
+ 753 00b2 13        		.byte	0x13
+ 754 00b3 27        		.byte	0x27
+ 755 00b4 0C        		.byte	0xc
+ 756 00b5 49        		.byte	0x49
+ 757 00b6 13        		.byte	0x13
+ 758 00b7 0000      		.byte	0,0
+ 759 00b9 10        		.byte	0x10
+ 760 00ba 05        		.byte	0x5
+ 761 00bb 00        		.byte	0x0
+68K GAS  C:\Users\37877\AppData\Local\Temp\ccQjgaaa.s 			page 16
+
+
+ 762 00bc 49        		.byte	0x49
+ 763 00bd 13        		.byte	0x13
+ 764 00be 0000      		.byte	0,0
+ 765 00c0 11        		.byte	0x11
+ 766 00c1 26        		.byte	0x26
+ 767 00c2 00        		.byte	0x0
+ 768 00c3 49        		.byte	0x49
+ 769 00c4 13        		.byte	0x13
+ 770 00c5 0000      		.byte	0,0
+ 771 00c7 12        		.byte	0x12
+ 772 00c8 13        		.byte	0x13
+ 773 00c9 01        		.byte	0x1
+ 774 00ca 01        		.byte	0x1
+ 775 00cb 13        		.byte	0x13
+ 776 00cc 03        		.byte	0x3
+ 777 00cd 08        		.byte	0x8
+ 778 00ce 0B        		.byte	0xb
+ 779 00cf 05        		.byte	0x5
+ 780 00d0 3A        		.byte	0x3a
+ 781 00d1 0B        		.byte	0xb
+ 782 00d2 3B        		.byte	0x3b
+ 783 00d3 0B        		.byte	0xb
+ 784 00d4 0000      		.byte	0,0
+ 785 00d6 13        		.byte	0x13
+ 786 00d7 15        		.byte	0x15
+ 787 00d8 01        		.byte	0x1
+ 788 00d9 01        		.byte	0x1
+ 789 00da 13        		.byte	0x13
+ 790 00db 27        		.byte	0x27
+ 791 00dc 0C        		.byte	0xc
+ 792 00dd 0000      		.byte	0,0
+ 793 00df 14        		.byte	0x14
+ 794 00e0 17        		.byte	0x17
+ 795 00e1 01        		.byte	0x1
+ 796 00e2 01        		.byte	0x1
+ 797 00e3 13        		.byte	0x13
+ 798 00e4 0B        		.byte	0xb
+ 799 00e5 0B        		.byte	0xb
+ 800 00e6 3A        		.byte	0x3a
+ 801 00e7 0B        		.byte	0xb
+ 802 00e8 3B        		.byte	0x3b
+ 803 00e9 0B        		.byte	0xb
+ 804 00ea 0000      		.byte	0,0
+ 805 00ec 15        		.byte	0x15
+ 806 00ed 0D        		.byte	0xd
+ 807 00ee 00        		.byte	0x0
+ 808 00ef 03        		.byte	0x3
+ 809 00f0 08        		.byte	0x8
+ 810 00f1 3A        		.byte	0x3a
+ 811 00f2 0B        		.byte	0xb
+ 812 00f3 3B        		.byte	0x3b
+ 813 00f4 0B        		.byte	0xb
+ 814 00f5 49        		.byte	0x49
+ 815 00f6 13        		.byte	0x13
+ 816 00f7 0000      		.byte	0,0
+ 817 00f9 16        		.byte	0x16
+ 818 00fa 15        		.byte	0x15
+68K GAS  C:\Users\37877\AppData\Local\Temp\ccQjgaaa.s 			page 17
+
+
+ 819 00fb 00        		.byte	0x0
+ 820 00fc 27        		.byte	0x27
+ 821 00fd 0C        		.byte	0xc
+ 822 00fe 0000      		.byte	0,0
+ 823 0100 17        		.byte	0x17
+ 824 0101 13        		.byte	0x13
+ 825 0102 01        		.byte	0x1
+ 826 0103 01        		.byte	0x1
+ 827 0104 13        		.byte	0x13
+ 828 0105 0B        		.byte	0xb
+ 829 0106 0B        		.byte	0xb
+ 830 0107 3A        		.byte	0x3a
+ 831 0108 0B        		.byte	0xb
+ 832 0109 3B        		.byte	0x3b
+ 833 010a 0B        		.byte	0xb
+ 834 010b 0000      		.byte	0,0
+ 835 010d 18        		.byte	0x18
+ 836 010e 35        		.byte	0x35
+ 837 010f 00        		.byte	0x0
+ 838 0110 49        		.byte	0x49
+ 839 0111 13        		.byte	0x13
+ 840 0112 0000      		.byte	0,0
+ 841 0114 19        		.byte	0x19
+ 842 0115 13        		.byte	0x13
+ 843 0116 01        		.byte	0x1
+ 844 0117 01        		.byte	0x1
+ 845 0118 13        		.byte	0x13
+ 846 0119 0B        		.byte	0xb
+ 847 011a 05        		.byte	0x5
+ 848 011b 3A        		.byte	0x3a
+ 849 011c 0B        		.byte	0xb
+ 850 011d 3B        		.byte	0x3b
+ 851 011e 0B        		.byte	0xb
+ 852 011f 0000      		.byte	0,0
+ 853 0121 1A        		.byte	0x1a
+ 854 0122 34        		.byte	0x34
+ 855 0123 00        		.byte	0x0
+ 856 0124 03        		.byte	0x3
+ 857 0125 08        		.byte	0x8
+ 858 0126 3A        		.byte	0x3a
+ 859 0127 0B        		.byte	0xb
+ 860 0128 3B        		.byte	0x3b
+ 861 0129 0B        		.byte	0xb
+ 862 012a 49        		.byte	0x49
+ 863 012b 13        		.byte	0x13
+ 864 012c 3F        		.byte	0x3f
+ 865 012d 0C        		.byte	0xc
+ 866 012e 3C        		.byte	0x3c
+ 867 012f 0C        		.byte	0xc
+ 868 0130 0000      		.byte	0,0
+ 869 0132 1B        		.byte	0x1b
+ 870 0133 34        		.byte	0x34
+ 871 0134 00        		.byte	0x0
+ 872 0135 03        		.byte	0x3
+ 873 0136 08        		.byte	0x8
+ 874 0137 3A        		.byte	0x3a
+ 875 0138 0B        		.byte	0xb
+68K GAS  C:\Users\37877\AppData\Local\Temp\ccQjgaaa.s 			page 18
+
+
+ 876 0139 3B        		.byte	0x3b
+ 877 013a 0B        		.byte	0xb
+ 878 013b 49        		.byte	0x49
+ 879 013c 13        		.byte	0x13
+ 880 013d 3F        		.byte	0x3f
+ 881 013e 0C        		.byte	0xc
+ 882 013f 02        		.byte	0x2
+ 883 0140 0A        		.byte	0xa
+ 884 0141 0000      		.byte	0,0
+ 885 0143 00        		.byte	0
+ 886               	
+ 887               		.section	.debug_info
+ 888 0000 0000 239B 		.4byte	0x239b
+ 889 0004 0002      		.2byte	0x2
+ 890 0006 0000 0000 		.4byte	.Ldebug_abbrev0
+ 891 000a 04        		.byte	0x4
+ 892 000b 01        		.byte	0x1
+ 893 000c 443A 5C51 		.string	"D:\\QB50\\qb50_software\\FSW\\watchdog.c"
+ 893      4235 305C 
+ 893      7162 3530 
+ 893      5F73 6F66 
+ 893      7477 6172 
+ 894               	
+ 895 0031 443A 5C51 		.string	"D:\\QB50\\qb50_software\\FSW"
+ 895      4235 305C 
+ 895      7162 3530 
+ 895      5F73 6F66 
+ 895      7477 6172 
+ 896               	
+ 897 004b 474E 5520 		.string	"GNU C 2.95.3 20010315 (release)(ColdFire patches - 20010318 from http://fiddes.net/coldfi
+ 897      4320 322E 
+ 897      3935 2E33 
+ 897      2032 3030 
+ 897      3130 3331 
+ 898               	
+ 899 00a9 01        		.byte	0x1
+ 900 00aa 0000 0000 		.4byte	.Ltext0
+ 901 00ae 0000 0000 		.4byte	.Letext0
+ 902 00b2 0000 0000 		.4byte	.Ldebug_line0
+ 903 00b6 02        		.byte	0x2
+ 904 00b7 01        		.byte	0x1
+ 905 00b8 5744 5F44 		.string	"WD_DisableOBAutoKick"
+ 905      6973 6162 
+ 905      6C65 4F42 
+ 905      4175 746F 
+ 905      4B69 636B 
+ 906               	
+ 907 00cd 01        		.byte	0x1
+ 908 00ce 0A        		.byte	0xa
+ 909 00cf 01        		.byte	0x1
+ 910 00d0 03        		.byte	0x3
+ 911 00d1 02        		.byte	0x2
+ 912 00d2 01        		.byte	0x1
+ 913 00d3 5744 5F44 		.string	"WD_DisableEPSAutoKick"
+ 913      6973 6162 
+ 913      6C65 4550 
+ 913      5341 7574 
+68K GAS  C:\Users\37877\AppData\Local\Temp\ccQjgaaa.s 			page 19
+
+
+ 913      6F4B 6963 
+ 914               	
+ 915 00e9 01        		.byte	0x1
+ 916 00ea 0F        		.byte	0xf
+ 917 00eb 01        		.byte	0x1
+ 918 00ec 03        		.byte	0x3
+ 919 00ed 02        		.byte	0x2
+ 920 00ee 01        		.byte	0x1
+ 921 00ef 5744 5F4B 		.string	"WD_KickEPSWatchdog"
+ 921      6963 6B45 
+ 921      5053 5761 
+ 921      7463 6864 
+ 921      6F67 00
+ 922               	
+ 923 0102 01        		.byte	0x1
+ 924 0103 14        		.byte	0x14
+ 925 0104 01        		.byte	0x1
+ 926 0105 03        		.byte	0x3
+ 927 0106 02        		.byte	0x2
+ 928 0107 01        		.byte	0x1
+ 929 0108 5744 5F4B 		.string	"WD_KickOBWatchdog"
+ 929      6963 6B4F 
+ 929      4257 6174 
+ 929      6368 646F 
+ 929      6700 
+ 930               	
+ 931 011a 01        		.byte	0x1
+ 932 011b 19        		.byte	0x19
+ 933 011c 01        		.byte	0x1
+ 934 011d 03        		.byte	0x3
+ 935 011e 02        		.byte	0x2
+ 936 011f 01        		.byte	0x1
+ 937 0120 5744 5F52 		.string	"WD_ResetCommandTimeout"
+ 937      6573 6574 
+ 937      436F 6D6D 
+ 937      616E 6454 
+ 937      696D 656F 
+ 938               	
+ 939 0137 01        		.byte	0x1
+ 940 0138 1E        		.byte	0x1e
+ 941 0139 01        		.byte	0x1
+ 942 013a 03        		.byte	0x3
+ 943 013b 02        		.byte	0x2
+ 944 013c 01        		.byte	0x1
+ 945 013d 5744 5F43 		.string	"WD_CheckCommandTimeout"
+ 945      6865 636B 
+ 945      436F 6D6D 
+ 945      616E 6454 
+ 945      696D 656F 
+ 946               	
+ 947 0154 01        		.byte	0x1
+ 948 0155 23        		.byte	0x23
+ 949 0156 01        		.byte	0x1
+ 950 0157 03        		.byte	0x3
+ 951 0158 03        		.byte	0x3
+ 952 0159 0000 00B6 		.4byte	0xb6
+ 953 015d 0000 0000 		.4byte	.LFB1
+68K GAS  C:\Users\37877\AppData\Local\Temp\ccQjgaaa.s 			page 20
+
+
+ 954 0161 0000 0000 		.4byte	.LFE1
+ 955 0165 01        		.byte	0x1
+ 956 0166 5E        		.byte	0x5e
+ 957 0167 03        		.byte	0x3
+ 958 0168 0000 00D1 		.4byte	0xd1
+ 959 016c 0000 0000 		.4byte	.LFB2
+ 960 0170 0000 0000 		.4byte	.LFE2
+ 961 0174 01        		.byte	0x1
+ 962 0175 5E        		.byte	0x5e
+ 963 0176 03        		.byte	0x3
+ 964 0177 0000 00ED 		.4byte	0xed
+ 965 017b 0000 0000 		.4byte	.LFB3
+ 966 017f 0000 0000 		.4byte	.LFE3
+ 967 0183 01        		.byte	0x1
+ 968 0184 5E        		.byte	0x5e
+ 969 0185 03        		.byte	0x3
+ 970 0186 0000 0106 		.4byte	0x106
+ 971 018a 0000 0000 		.4byte	.LFB4
+ 972 018e 0000 0000 		.4byte	.LFE4
+ 973 0192 01        		.byte	0x1
+ 974 0193 5E        		.byte	0x5e
+ 975 0194 04        		.byte	0x4
+ 976 0195 0000 01B5 		.4byte	0x1b5
+ 977 0199 0000 013B 		.4byte	0x13b
+ 978 019d 0000 0000 		.4byte	.LFB5
+ 979 01a1 0000 0000 		.4byte	.LFE5
+ 980 01a5 01        		.byte	0x1
+ 981 01a6 5E        		.byte	0x5e
+ 982 01a7 05        		.byte	0x5
+ 983 01a8 0000 00D1 		.4byte	0xd1
+ 984 01ac 0000 0000 		.4byte	.LBB3
+ 985 01b0 0000 0000 		.4byte	.LBE3
+ 986 01b4 00        		.byte	0x0
+ 987 01b5 03        		.byte	0x3
+ 988 01b6 0000 011E 		.4byte	0x11e
+ 989 01ba 0000 0000 		.4byte	.LFB6
+ 990 01be 0000 0000 		.4byte	.LFE6
+ 991 01c2 01        		.byte	0x1
+ 992 01c3 5E        		.byte	0x5e
+ 993 01c4 06        		.byte	0x6
+ 994 01c5 5F5F 696E 		.string	"__int32_t"
+ 994      7433 325F 
+ 994      7400 
+ 995               	
+ 996 01cf 02        		.byte	0x2
+ 997 01d0 71        		.byte	0x71
+ 998 01d1 0000 01D5 		.4byte	0x1d5
+ 999 01d5 07        		.byte	0x7
+ 1000 01d6 696E 7400 		.string	"int"
+ 1001               	
+ 1002 01da 04        		.byte	0x4
+ 1003 01db 05        		.byte	0x5
+ 1004 01dc 06        		.byte	0x6
+ 1005 01dd 5F5F 7569 		.string	"__uint32_t"
+ 1005      6E74 3332 
+ 1005      5F74 00
+ 1006               	
+68K GAS  C:\Users\37877\AppData\Local\Temp\ccQjgaaa.s 			page 21
+
+
+ 1007 01e8 02        		.byte	0x2
+ 1008 01e9 72        		.byte	0x72
+ 1009 01ea 0000 01EE 		.4byte	0x1ee
+ 1010 01ee 07        		.byte	0x7
+ 1011 01ef 756E 7369 		.string	"unsigned int"
+ 1011      676E 6564 
+ 1011      2069 6E74 
+ 1011      00
+ 1012               	
+ 1013 01fc 04        		.byte	0x4
+ 1014 01fd 07        		.byte	0x7
+ 1015 01fe 06        		.byte	0x6
+ 1016 01ff 7369 7A65 		.string	"size_t"
+ 1016      5F74 00
+ 1017               	
+ 1018 0206 03        		.byte	0x3
+ 1019 0207 AA        		.byte	0xaa
+ 1020 0208 0000 020C 		.4byte	0x20c
+ 1021 020c 07        		.byte	0x7
+ 1022 020d 6C6F 6E67 		.string	"long unsigned int"
+ 1022      2075 6E73 
+ 1022      6967 6E65 
+ 1022      6420 696E 
+ 1022      7400 
+ 1023               	
+ 1024 021f 04        		.byte	0x4
+ 1025 0220 07        		.byte	0x7
+ 1026 0221 06        		.byte	0x6
+ 1027 0222 5F5F 676E 		.string	"__gnuc_va_list"
+ 1027      7563 5F76 
+ 1027      615F 6C69 
+ 1027      7374 00
+ 1028               	
+ 1029 0231 04        		.byte	0x4
+ 1030 0232 49        		.byte	0x49
+ 1031 0233 0000 0237 		.4byte	0x237
+ 1032 0237 08        		.byte	0x8
+ 1033 0238 04        		.byte	0x4
+ 1034 0239 06        		.byte	0x6
+ 1035 023a 7074 7264 		.string	"ptrdiff_t"
+ 1035      6966 665F 
+ 1035      7400 
+ 1036               	
+ 1037 0244 03        		.byte	0x3
+ 1038 0245 76        		.byte	0x76
+ 1039 0246 0000 024A 		.4byte	0x24a
+ 1040 024a 07        		.byte	0x7
+ 1041 024b 6C6F 6E67 		.string	"long int"
+ 1041      2069 6E74 
+ 1041      00
+ 1042               	
+ 1043 0254 04        		.byte	0x4
+ 1044 0255 05        		.byte	0x5
+ 1045 0256 06        		.byte	0x6
+ 1046 0257 7763 6861 		.string	"wchar_t"
+ 1046      725F 7400 
+ 1047               	
+68K GAS  C:\Users\37877\AppData\Local\Temp\ccQjgaaa.s 			page 22
+
+
+ 1048 025f 03        		.byte	0x3
+ 1049 0260 FF        		.byte	0xff
+ 1050 0261 0000 024A 		.4byte	0x24a
+ 1051 0265 09        		.byte	0x9
+ 1052 0266 7769 6E74 		.string	"wint_t"
+ 1052      5F74 00
+ 1053               	
+ 1054 026d 03        		.byte	0x3
+ 1055 026e 0118      		.2byte	0x118
+ 1056 0270 0000 01EE 		.4byte	0x1ee
+ 1057 0274 06        		.byte	0x6
+ 1058 0275 755F 6368 		.string	"u_char"
+ 1058      6172 00
+ 1059               	
+ 1060 027c 05        		.byte	0x5
+ 1061 027d 35        		.byte	0x35
+ 1062 027e 0000 0282 		.4byte	0x282
+ 1063 0282 07        		.byte	0x7
+ 1064 0283 756E 7369 		.string	"unsigned char"
+ 1064      676E 6564 
+ 1064      2063 6861 
+ 1064      7200 
+ 1065               	
+ 1066 0291 01        		.byte	0x1
+ 1067 0292 08        		.byte	0x8
+ 1068 0293 06        		.byte	0x6
+ 1069 0294 755F 7368 		.string	"u_short"
+ 1069      6F72 7400 
+ 1070               	
+ 1071 029c 05        		.byte	0x5
+ 1072 029d 36        		.byte	0x36
+ 1073 029e 0000 02A2 		.4byte	0x2a2
+ 1074 02a2 07        		.byte	0x7
+ 1075 02a3 7368 6F72 		.string	"short unsigned int"
+ 1075      7420 756E 
+ 1075      7369 676E 
+ 1075      6564 2069 
+ 1075      6E74 00
+ 1076               	
+ 1077 02b6 02        		.byte	0x2
+ 1078 02b7 07        		.byte	0x7
+ 1079 02b8 06        		.byte	0x6
+ 1080 02b9 755F 696E 		.string	"u_int"
+ 1080      7400 
+ 1081               	
+ 1082 02bf 05        		.byte	0x5
+ 1083 02c0 37        		.byte	0x37
+ 1084 02c1 0000 01EE 		.4byte	0x1ee
+ 1085 02c5 06        		.byte	0x6
+ 1086 02c6 755F 6C6F 		.string	"u_long"
+ 1086      6E67 00
+ 1087               	
+ 1088 02cd 05        		.byte	0x5
+ 1089 02ce 38        		.byte	0x38
+ 1090 02cf 0000 020C 		.4byte	0x20c
+ 1091 02d3 06        		.byte	0x6
+ 1092 02d4 7573 686F 		.string	"ushort"
+68K GAS  C:\Users\37877\AppData\Local\Temp\ccQjgaaa.s 			page 23
+
+
+ 1092      7274 00
+ 1093               	
+ 1094 02db 05        		.byte	0x5
+ 1095 02dc 3B        		.byte	0x3b
+ 1096 02dd 0000 02A2 		.4byte	0x2a2
+ 1097 02e1 06        		.byte	0x6
+ 1098 02e2 7569 6E74 		.string	"uint"
+ 1098      00
+ 1099               	
+ 1100 02e7 05        		.byte	0x5
+ 1101 02e8 3C        		.byte	0x3c
+ 1102 02e9 0000 01EE 		.4byte	0x1ee
+ 1103 02ed 06        		.byte	0x6
+ 1104 02ee 636C 6F63 		.string	"clock_t"
+ 1104      6B5F 7400 
+ 1105               	
+ 1106 02f6 05        		.byte	0x5
+ 1107 02f7 40        		.byte	0x40
+ 1108 02f8 0000 020C 		.4byte	0x20c
+ 1109 02fc 06        		.byte	0x6
+ 1110 02fd 7469 6D65 		.string	"time_t"
+ 1110      5F74 00
+ 1111               	
+ 1112 0304 05        		.byte	0x5
+ 1113 0305 45        		.byte	0x45
+ 1114 0306 0000 024A 		.4byte	0x24a
+ 1115 030a 0A        		.byte	0xa
+ 1116 030b 0000 033F 		.4byte	0x33f
+ 1117 030f 7469 6D65 		.string	"timespec"
+ 1117      7370 6563 
+ 1117      00
+ 1118               	
+ 1119 0318 08        		.byte	0x8
+ 1120 0319 05        		.byte	0x5
+ 1121 031a 4A        		.byte	0x4a
+ 1122 031b 0B        		.byte	0xb
+ 1123 031c 7476 5F73 		.string	"tv_sec"
+ 1123      6563 00
+ 1124               	
+ 1125 0323 05        		.byte	0x5
+ 1126 0324 4B        		.byte	0x4b
+ 1127 0325 0000 02FC 		.4byte	0x2fc
+ 1128 0329 02        		.byte	0x2
+ 1129 032a 23        		.byte	0x23
+ 1130 032b 00        		.byte	0x0
+ 1131 032c 0B        		.byte	0xb
+ 1132 032d 7476 5F6E 		.string	"tv_nsec"
+ 1132      7365 6300 
+ 1133               	
+ 1134 0335 05        		.byte	0x5
+ 1135 0336 4C        		.byte	0x4c
+ 1136 0337 0000 024A 		.4byte	0x24a
+ 1137 033b 02        		.byte	0x2
+ 1138 033c 23        		.byte	0x23
+ 1139 033d 04        		.byte	0x4
+ 1140 033e 00        		.byte	0x0
+ 1141 033f 0A        		.byte	0xa
+68K GAS  C:\Users\37877\AppData\Local\Temp\ccQjgaaa.s 			page 24
+
+
+ 1142 0340 0000 037C 		.4byte	0x37c
+ 1143 0344 6974 696D 		.string	"itimerspec"
+ 1143      6572 7370 
+ 1143      6563 00
+ 1144               	
+ 1145 034f 10        		.byte	0x10
+ 1146 0350 05        		.byte	0x5
+ 1147 0351 4F        		.byte	0x4f
+ 1148 0352 0B        		.byte	0xb
+ 1149 0353 6974 5F69 		.string	"it_interval"
+ 1149      6E74 6572 
+ 1149      7661 6C00 
+ 1150               	
+ 1151 035f 05        		.byte	0x5
+ 1152 0360 50        		.byte	0x50
+ 1153 0361 0000 030A 		.4byte	0x30a
+ 1154 0365 02        		.byte	0x2
+ 1155 0366 23        		.byte	0x23
+ 1156 0367 00        		.byte	0x0
+ 1157 0368 0B        		.byte	0xb
+ 1158 0369 6974 5F76 		.string	"it_value"
+ 1158      616C 7565 
+ 1158      00
+ 1159               	
+ 1160 0372 05        		.byte	0x5
+ 1161 0373 51        		.byte	0x51
+ 1162 0374 0000 030A 		.4byte	0x30a
+ 1163 0378 02        		.byte	0x2
+ 1164 0379 23        		.byte	0x23
+ 1165 037a 08        		.byte	0x8
+ 1166 037b 00        		.byte	0x0
+ 1167 037c 06        		.byte	0x6
+ 1168 037d 6461 6464 		.string	"daddr_t"
+ 1168      725F 7400 
+ 1169               	
+ 1170 0385 05        		.byte	0x5
+ 1171 0386 55        		.byte	0x55
+ 1172 0387 0000 024A 		.4byte	0x24a
+ 1173 038b 06        		.byte	0x6
+ 1174 038c 6361 6464 		.string	"caddr_t"
+ 1174      725F 7400 
+ 1175               	
+ 1176 0394 05        		.byte	0x5
+ 1177 0395 56        		.byte	0x56
+ 1178 0396 0000 039A 		.4byte	0x39a
+ 1179 039a 0C        		.byte	0xc
+ 1180 039b 04        		.byte	0x4
+ 1181 039c 0000 03A0 		.4byte	0x3a0
+ 1182 03a0 07        		.byte	0x7
+ 1183 03a1 6368 6172 		.string	"char"
+ 1183      00
+ 1184               	
+ 1185 03a6 01        		.byte	0x1
+ 1186 03a7 06        		.byte	0x6
+ 1187 03a8 06        		.byte	0x6
+ 1188 03a9 696E 6F5F 		.string	"ino_t"
+ 1188      7400 
+68K GAS  C:\Users\37877\AppData\Local\Temp\ccQjgaaa.s 			page 25
+
+
+ 1189               	
+ 1190 03af 05        		.byte	0x5
+ 1191 03b0 5E        		.byte	0x5e
+ 1192 03b1 0000 02A2 		.4byte	0x2a2
+ 1193 03b5 06        		.byte	0x6
+ 1194 03b6 6465 765F 		.string	"dev_t"
+ 1194      7400 
+ 1195               	
+ 1196 03bc 05        		.byte	0x5
+ 1197 03bd 7E        		.byte	0x7e
+ 1198 03be 0000 03C2 		.4byte	0x3c2
+ 1199 03c2 07        		.byte	0x7
+ 1200 03c3 7368 6F72 		.string	"short int"
+ 1200      7420 696E 
+ 1200      7400 
+ 1201               	
+ 1202 03cd 02        		.byte	0x2
+ 1203 03ce 05        		.byte	0x5
+ 1204 03cf 06        		.byte	0x6
+ 1205 03d0 6F66 665F 		.string	"off_t"
+ 1205      7400 
+ 1206               	
+ 1207 03d6 05        		.byte	0x5
+ 1208 03d7 81        		.byte	0x81
+ 1209 03d8 0000 024A 		.4byte	0x24a
+ 1210 03dc 06        		.byte	0x6
+ 1211 03dd 7569 645F 		.string	"uid_t"
+ 1211      7400 
+ 1212               	
+ 1213 03e3 05        		.byte	0x5
+ 1214 03e4 83        		.byte	0x83
+ 1215 03e5 0000 02A2 		.4byte	0x2a2
+ 1216 03e9 06        		.byte	0x6
+ 1217 03ea 6769 645F 		.string	"gid_t"
+ 1217      7400 
+ 1218               	
+ 1219 03f0 05        		.byte	0x5
+ 1220 03f1 84        		.byte	0x84
+ 1221 03f2 0000 02A2 		.4byte	0x2a2
+ 1222 03f6 06        		.byte	0x6
+ 1223 03f7 7069 645F 		.string	"pid_t"
+ 1223      7400 
+ 1224               	
+ 1225 03fd 05        		.byte	0x5
+ 1226 03fe 85        		.byte	0x85
+ 1227 03ff 0000 01D5 		.4byte	0x1d5
+ 1228 0403 06        		.byte	0x6
+ 1229 0404 6B65 795F 		.string	"key_t"
+ 1229      7400 
+ 1230               	
+ 1231 040a 05        		.byte	0x5
+ 1232 040b 86        		.byte	0x86
+ 1233 040c 0000 024A 		.4byte	0x24a
+ 1234 0410 06        		.byte	0x6
+ 1235 0411 7373 697A 		.string	"ssize_t"
+ 1235      655F 7400 
+ 1236               	
+68K GAS  C:\Users\37877\AppData\Local\Temp\ccQjgaaa.s 			page 26
+
+
+ 1237 0419 05        		.byte	0x5
+ 1238 041a 87        		.byte	0x87
+ 1239 041b 0000 024A 		.4byte	0x24a
+ 1240 041f 06        		.byte	0x6
+ 1241 0420 6D6F 6465 		.string	"mode_t"
+ 1241      5F74 00
+ 1242               	
+ 1243 0427 05        		.byte	0x5
+ 1244 0428 94        		.byte	0x94
+ 1245 0429 0000 01EE 		.4byte	0x1ee
+ 1246 042d 06        		.byte	0x6
+ 1247 042e 6E6C 696E 		.string	"nlink_t"
+ 1247      6B5F 7400 
+ 1248               	
+ 1249 0436 05        		.byte	0x5
+ 1250 0437 98        		.byte	0x98
+ 1251 0438 0000 02A2 		.4byte	0x2a2
+ 1252 043c 06        		.byte	0x6
+ 1253 043d 6664 5F6D 		.string	"fd_mask"
+ 1253      6173 6B00 
+ 1254               	
+ 1255 0445 05        		.byte	0x5
+ 1256 0446 AC        		.byte	0xac
+ 1257 0447 0000 024A 		.4byte	0x24a
+ 1258 044b 0A        		.byte	0xa
+ 1259 044c 0000 0475 		.4byte	0x475
+ 1260 0450 5F74 7970 		.string	"_types_fd_set"
+ 1260      6573 5F66 
+ 1260      645F 7365 
+ 1260      7400 
+ 1261               	
+ 1262 045e 08        		.byte	0x8
+ 1263 045f 05        		.byte	0x5
+ 1264 0460 B4        		.byte	0xb4
+ 1265 0461 0B        		.byte	0xb
+ 1266 0462 6664 735F 		.string	"fds_bits"
+ 1266      6269 7473 
+ 1266      00
+ 1267               	
+ 1268 046b 05        		.byte	0x5
+ 1269 046c B5        		.byte	0xb5
+ 1270 046d 0000 0475 		.4byte	0x475
+ 1271 0471 02        		.byte	0x2
+ 1272 0472 23        		.byte	0x23
+ 1273 0473 00        		.byte	0x0
+ 1274 0474 00        		.byte	0x0
+ 1275 0475 0D        		.byte	0xd
+ 1276 0476 0000 0481 		.4byte	0x481
+ 1277 047a 0000 043C 		.4byte	0x43c
+ 1278 047e 0E        		.byte	0xe
+ 1279 047f 01        		.byte	0x1
+ 1280 0480 00        		.byte	0x0
+ 1281 0481 06        		.byte	0x6
+ 1282 0482 5F74 7970 		.string	"_types_fd_set"
+ 1282      6573 5F66 
+ 1282      645F 7365 
+ 1282      7400 
+68K GAS  C:\Users\37877\AppData\Local\Temp\ccQjgaaa.s 			page 27
+
+
+ 1283               	
+ 1284 0490 05        		.byte	0x5
+ 1285 0491 B6        		.byte	0xb6
+ 1286 0492 0000 044B 		.4byte	0x44b
+ 1287 0496 0A        		.byte	0xa
+ 1288 0497 0000 0542 		.4byte	0x542
+ 1289 049b 746D 00   		.string	"tm"
+ 1290               	
+ 1291 049e 24        		.byte	0x24
+ 1292 049f 06        		.byte	0x6
+ 1293 04a0 23        		.byte	0x23
+ 1294 04a1 0B        		.byte	0xb
+ 1295 04a2 746D 5F73 		.string	"tm_sec"
+ 1295      6563 00
+ 1296               	
+ 1297 04a9 06        		.byte	0x6
+ 1298 04aa 24        		.byte	0x24
+ 1299 04ab 0000 01D5 		.4byte	0x1d5
+ 1300 04af 02        		.byte	0x2
+ 1301 04b0 23        		.byte	0x23
+ 1302 04b1 00        		.byte	0x0
+ 1303 04b2 0B        		.byte	0xb
+ 1304 04b3 746D 5F6D 		.string	"tm_min"
+ 1304      696E 00
+ 1305               	
+ 1306 04ba 06        		.byte	0x6
+ 1307 04bb 25        		.byte	0x25
+ 1308 04bc 0000 01D5 		.4byte	0x1d5
+ 1309 04c0 02        		.byte	0x2
+ 1310 04c1 23        		.byte	0x23
+ 1311 04c2 04        		.byte	0x4
+ 1312 04c3 0B        		.byte	0xb
+ 1313 04c4 746D 5F68 		.string	"tm_hour"
+ 1313      6F75 7200 
+ 1314               	
+ 1315 04cc 06        		.byte	0x6
+ 1316 04cd 26        		.byte	0x26
+ 1317 04ce 0000 01D5 		.4byte	0x1d5
+ 1318 04d2 02        		.byte	0x2
+ 1319 04d3 23        		.byte	0x23
+ 1320 04d4 08        		.byte	0x8
+ 1321 04d5 0B        		.byte	0xb
+ 1322 04d6 746D 5F6D 		.string	"tm_mday"
+ 1322      6461 7900 
+ 1323               	
+ 1324 04de 06        		.byte	0x6
+ 1325 04df 27        		.byte	0x27
+ 1326 04e0 0000 01D5 		.4byte	0x1d5
+ 1327 04e4 02        		.byte	0x2
+ 1328 04e5 23        		.byte	0x23
+ 1329 04e6 0C        		.byte	0xc
+ 1330 04e7 0B        		.byte	0xb
+ 1331 04e8 746D 5F6D 		.string	"tm_mon"
+ 1331      6F6E 00
+ 1332               	
+ 1333 04ef 06        		.byte	0x6
+ 1334 04f0 28        		.byte	0x28
+68K GAS  C:\Users\37877\AppData\Local\Temp\ccQjgaaa.s 			page 28
+
+
+ 1335 04f1 0000 01D5 		.4byte	0x1d5
+ 1336 04f5 02        		.byte	0x2
+ 1337 04f6 23        		.byte	0x23
+ 1338 04f7 10        		.byte	0x10
+ 1339 04f8 0B        		.byte	0xb
+ 1340 04f9 746D 5F79 		.string	"tm_year"
+ 1340      6561 7200 
+ 1341               	
+ 1342 0501 06        		.byte	0x6
+ 1343 0502 29        		.byte	0x29
+ 1344 0503 0000 01D5 		.4byte	0x1d5
+ 1345 0507 02        		.byte	0x2
+ 1346 0508 23        		.byte	0x23
+ 1347 0509 14        		.byte	0x14
+ 1348 050a 0B        		.byte	0xb
+ 1349 050b 746D 5F77 		.string	"tm_wday"
+ 1349      6461 7900 
+ 1350               	
+ 1351 0513 06        		.byte	0x6
+ 1352 0514 2A        		.byte	0x2a
+ 1353 0515 0000 01D5 		.4byte	0x1d5
+ 1354 0519 02        		.byte	0x2
+ 1355 051a 23        		.byte	0x23
+ 1356 051b 18        		.byte	0x18
+ 1357 051c 0B        		.byte	0xb
+ 1358 051d 746D 5F79 		.string	"tm_yday"
+ 1358      6461 7900 
+ 1359               	
+ 1360 0525 06        		.byte	0x6
+ 1361 0526 2B        		.byte	0x2b
+ 1362 0527 0000 01D5 		.4byte	0x1d5
+ 1363 052b 02        		.byte	0x2
+ 1364 052c 23        		.byte	0x23
+ 1365 052d 1C        		.byte	0x1c
+ 1366 052e 0B        		.byte	0xb
+ 1367 052f 746D 5F69 		.string	"tm_isdst"
+ 1367      7364 7374 
+ 1367      00
+ 1368               	
+ 1369 0538 06        		.byte	0x6
+ 1370 0539 2C        		.byte	0x2c
+ 1371 053a 0000 01D5 		.4byte	0x1d5
+ 1372 053e 02        		.byte	0x2
+ 1373 053f 23        		.byte	0x23
+ 1374 0540 20        		.byte	0x20
+ 1375 0541 00        		.byte	0x0
+ 1376 0542 06        		.byte	0x6
+ 1377 0543 5F5F 554C 		.string	"__ULong"
+ 1377      6F6E 6700 
+ 1378               	
+ 1379 054b 07        		.byte	0x7
+ 1380 054c 1C        		.byte	0x1c
+ 1381 054d 0000 01DC 		.4byte	0x1dc
+ 1382 0551 0A        		.byte	0xa
+ 1383 0552 0000 0591 		.4byte	0x591
+ 1384 0556 5F67 6C75 		.string	"_glue"
+ 1384      6500 
+68K GAS  C:\Users\37877\AppData\Local\Temp\ccQjgaaa.s 			page 29
+
+
+ 1385               	
+ 1386 055c 0C        		.byte	0xc
+ 1387 055d 07        		.byte	0x7
+ 1388 055e 20        		.byte	0x20
+ 1389 055f 0B        		.byte	0xb
+ 1390 0560 5F6E 6578 		.string	"_next"
+ 1390      7400 
+ 1391               	
+ 1392 0566 07        		.byte	0x7
+ 1393 0567 21        		.byte	0x21
+ 1394 0568 0000 0591 		.4byte	0x591
+ 1395 056c 02        		.byte	0x2
+ 1396 056d 23        		.byte	0x23
+ 1397 056e 00        		.byte	0x0
+ 1398 056f 0B        		.byte	0xb
+ 1399 0570 5F6E 696F 		.string	"_niobs"
+ 1399      6273 00
+ 1400               	
+ 1401 0577 07        		.byte	0x7
+ 1402 0578 22        		.byte	0x22
+ 1403 0579 0000 01D5 		.4byte	0x1d5
+ 1404 057d 02        		.byte	0x2
+ 1405 057e 23        		.byte	0x23
+ 1406 057f 04        		.byte	0x4
+ 1407 0580 0B        		.byte	0xb
+ 1408 0581 5F69 6F62 		.string	"_iobs"
+ 1408      7300 
+ 1409               	
+ 1410 0587 07        		.byte	0x7
+ 1411 0588 23        		.byte	0x23
+ 1412 0589 0000 06F2 		.4byte	0x6f2
+ 1413 058d 02        		.byte	0x2
+ 1414 058e 23        		.byte	0x23
+ 1415 058f 08        		.byte	0x8
+ 1416 0590 00        		.byte	0x0
+ 1417 0591 0C        		.byte	0xc
+ 1418 0592 04        		.byte	0x4
+ 1419 0593 0000 0551 		.4byte	0x551
+ 1420 0597 0A        		.byte	0xa
+ 1421 0598 0000 06F2 		.4byte	0x6f2
+ 1422 059c 5F5F 7346 		.string	"__sFILE"
+ 1422      494C 4500 
+ 1423               	
+ 1424 05a4 58        		.byte	0x58
+ 1425 05a5 07        		.byte	0x7
+ 1426 05a6 23        		.byte	0x23
+ 1427 05a7 0B        		.byte	0xb
+ 1428 05a8 5F70 00   		.string	"_p"
+ 1429               	
+ 1430 05ab 07        		.byte	0x7
+ 1431 05ac 67        		.byte	0x67
+ 1432 05ad 0000 06F8 		.4byte	0x6f8
+ 1433 05b1 02        		.byte	0x2
+ 1434 05b2 23        		.byte	0x23
+ 1435 05b3 00        		.byte	0x0
+ 1436 05b4 0B        		.byte	0xb
+ 1437 05b5 5F72 00   		.string	"_r"
+68K GAS  C:\Users\37877\AppData\Local\Temp\ccQjgaaa.s 			page 30
+
+
+ 1438               	
+ 1439 05b8 07        		.byte	0x7
+ 1440 05b9 68        		.byte	0x68
+ 1441 05ba 0000 01D5 		.4byte	0x1d5
+ 1442 05be 02        		.byte	0x2
+ 1443 05bf 23        		.byte	0x23
+ 1444 05c0 04        		.byte	0x4
+ 1445 05c1 0B        		.byte	0xb
+ 1446 05c2 5F77 00   		.string	"_w"
+ 1447               	
+ 1448 05c5 07        		.byte	0x7
+ 1449 05c6 69        		.byte	0x69
+ 1450 05c7 0000 01D5 		.4byte	0x1d5
+ 1451 05cb 02        		.byte	0x2
+ 1452 05cc 23        		.byte	0x23
+ 1453 05cd 08        		.byte	0x8
+ 1454 05ce 0B        		.byte	0xb
+ 1455 05cf 5F66 6C61 		.string	"_flags"
+ 1455      6773 00
+ 1456               	
+ 1457 05d6 07        		.byte	0x7
+ 1458 05d7 6A        		.byte	0x6a
+ 1459 05d8 0000 03C2 		.4byte	0x3c2
+ 1460 05dc 02        		.byte	0x2
+ 1461 05dd 23        		.byte	0x23
+ 1462 05de 0C        		.byte	0xc
+ 1463 05df 0B        		.byte	0xb
+ 1464 05e0 5F66 696C 		.string	"_file"
+ 1464      6500 
+ 1465               	
+ 1466 05e6 07        		.byte	0x7
+ 1467 05e7 6B        		.byte	0x6b
+ 1468 05e8 0000 03C2 		.4byte	0x3c2
+ 1469 05ec 02        		.byte	0x2
+ 1470 05ed 23        		.byte	0x23
+ 1471 05ee 0E        		.byte	0xe
+ 1472 05ef 0B        		.byte	0xb
+ 1473 05f0 5F62 6600 		.string	"_bf"
+ 1474               	
+ 1475 05f4 07        		.byte	0x7
+ 1476 05f5 6C        		.byte	0x6c
+ 1477 05f6 0000 06FE 		.4byte	0x6fe
+ 1478 05fa 02        		.byte	0x2
+ 1479 05fb 23        		.byte	0x23
+ 1480 05fc 10        		.byte	0x10
+ 1481 05fd 0B        		.byte	0xb
+ 1482 05fe 5F6C 6266 		.string	"_lbfsize"
+ 1482      7369 7A65 
+ 1482      00
+ 1483               	
+ 1484 0607 07        		.byte	0x7
+ 1485 0608 6D        		.byte	0x6d
+ 1486 0609 0000 01D5 		.4byte	0x1d5
+ 1487 060d 02        		.byte	0x2
+ 1488 060e 23        		.byte	0x23
+ 1489 060f 18        		.byte	0x18
+ 1490 0610 0B        		.byte	0xb
+68K GAS  C:\Users\37877\AppData\Local\Temp\ccQjgaaa.s 			page 31
+
+
+ 1491 0611 5F63 6F6F 		.string	"_cookie"
+ 1491      6B69 6500 
+ 1492               	
+ 1493 0619 07        		.byte	0x7
+ 1494 061a 70        		.byte	0x70
+ 1495 061b 0000 0237 		.4byte	0x237
+ 1496 061f 02        		.byte	0x2
+ 1497 0620 23        		.byte	0x23
+ 1498 0621 1C        		.byte	0x1c
+ 1499 0622 0B        		.byte	0xb
+ 1500 0623 5F72 6561 		.string	"_read"
+ 1500      6400 
+ 1501               	
+ 1502 0629 07        		.byte	0x7
+ 1503 062a 72        		.byte	0x72
+ 1504 062b 0000 0748 		.4byte	0x748
+ 1505 062f 02        		.byte	0x2
+ 1506 0630 23        		.byte	0x23
+ 1507 0631 20        		.byte	0x20
+ 1508 0632 0B        		.byte	0xb
+ 1509 0633 5F77 7269 		.string	"_write"
+ 1509      7465 00
+ 1510               	
+ 1511 063a 07        		.byte	0x7
+ 1512 063b 73        		.byte	0x73
+ 1513 063c 0000 0773 		.4byte	0x773
+ 1514 0640 02        		.byte	0x2
+ 1515 0641 23        		.byte	0x23
+ 1516 0642 24        		.byte	0x24
+ 1517 0643 0B        		.byte	0xb
+ 1518 0644 5F73 6565 		.string	"_seek"
+ 1518      6B00 
+ 1519               	
+ 1520 064a 07        		.byte	0x7
+ 1521 064b 74        		.byte	0x74
+ 1522 064c 0000 079E 		.4byte	0x79e
+ 1523 0650 02        		.byte	0x2
+ 1524 0651 23        		.byte	0x23
+ 1525 0652 28        		.byte	0x28
+ 1526 0653 0B        		.byte	0xb
+ 1527 0654 5F63 6C6F 		.string	"_close"
+ 1527      7365 00
+ 1528               	
+ 1529 065b 07        		.byte	0x7
+ 1530 065c 75        		.byte	0x75
+ 1531 065d 0000 07B4 		.4byte	0x7b4
+ 1532 0661 02        		.byte	0x2
+ 1533 0662 23        		.byte	0x23
+ 1534 0663 2C        		.byte	0x2c
+ 1535 0664 0B        		.byte	0xb
+ 1536 0665 5F75 6200 		.string	"_ub"
+ 1537               	
+ 1538 0669 07        		.byte	0x7
+ 1539 066a 78        		.byte	0x78
+ 1540 066b 0000 06FE 		.4byte	0x6fe
+ 1541 066f 02        		.byte	0x2
+ 1542 0670 23        		.byte	0x23
+68K GAS  C:\Users\37877\AppData\Local\Temp\ccQjgaaa.s 			page 32
+
+
+ 1543 0671 30        		.byte	0x30
+ 1544 0672 0B        		.byte	0xb
+ 1545 0673 5F75 7000 		.string	"_up"
+ 1546               	
+ 1547 0677 07        		.byte	0x7
+ 1548 0678 79        		.byte	0x79
+ 1549 0679 0000 06F8 		.4byte	0x6f8
+ 1550 067d 02        		.byte	0x2
+ 1551 067e 23        		.byte	0x23
+ 1552 067f 38        		.byte	0x38
+ 1553 0680 0B        		.byte	0xb
+ 1554 0681 5F75 7200 		.string	"_ur"
+ 1555               	
+ 1556 0685 07        		.byte	0x7
+ 1557 0686 7A        		.byte	0x7a
+ 1558 0687 0000 01D5 		.4byte	0x1d5
+ 1559 068b 02        		.byte	0x2
+ 1560 068c 23        		.byte	0x23
+ 1561 068d 3C        		.byte	0x3c
+ 1562 068e 0B        		.byte	0xb
+ 1563 068f 5F75 6275 		.string	"_ubuf"
+ 1563      6600 
+ 1564               	
+ 1565 0695 07        		.byte	0x7
+ 1566 0696 7D        		.byte	0x7d
+ 1567 0697 0000 07BA 		.4byte	0x7ba
+ 1568 069b 02        		.byte	0x2
+ 1569 069c 23        		.byte	0x23
+ 1570 069d 40        		.byte	0x40
+ 1571 069e 0B        		.byte	0xb
+ 1572 069f 5F6E 6275 		.string	"_nbuf"
+ 1572      6600 
+ 1573               	
+ 1574 06a5 07        		.byte	0x7
+ 1575 06a6 7E        		.byte	0x7e
+ 1576 06a7 0000 07C6 		.4byte	0x7c6
+ 1577 06ab 02        		.byte	0x2
+ 1578 06ac 23        		.byte	0x23
+ 1579 06ad 43        		.byte	0x43
+ 1580 06ae 0B        		.byte	0xb
+ 1581 06af 5F6C 6200 		.string	"_lb"
+ 1582               	
+ 1583 06b3 07        		.byte	0x7
+ 1584 06b4 81        		.byte	0x81
+ 1585 06b5 0000 06FE 		.4byte	0x6fe
+ 1586 06b9 02        		.byte	0x2
+ 1587 06ba 23        		.byte	0x23
+ 1588 06bb 44        		.byte	0x44
+ 1589 06bc 0B        		.byte	0xb
+ 1590 06bd 5F62 6C6B 		.string	"_blksize"
+ 1590      7369 7A65 
+ 1590      00
+ 1591               	
+ 1592 06c6 07        		.byte	0x7
+ 1593 06c7 84        		.byte	0x84
+ 1594 06c8 0000 01D5 		.4byte	0x1d5
+ 1595 06cc 02        		.byte	0x2
+68K GAS  C:\Users\37877\AppData\Local\Temp\ccQjgaaa.s 			page 33
+
+
+ 1596 06cd 23        		.byte	0x23
+ 1597 06ce 4C        		.byte	0x4c
+ 1598 06cf 0B        		.byte	0xb
+ 1599 06d0 5F6F 6666 		.string	"_offset"
+ 1599      7365 7400 
+ 1600               	
+ 1601 06d8 07        		.byte	0x7
+ 1602 06d9 85        		.byte	0x85
+ 1603 06da 0000 01D5 		.4byte	0x1d5
+ 1604 06de 02        		.byte	0x2
+ 1605 06df 23        		.byte	0x23
+ 1606 06e0 50        		.byte	0x50
+ 1607 06e1 0B        		.byte	0xb
+ 1608 06e2 5F64 6174 		.string	"_data"
+ 1608      6100 
+ 1609               	
+ 1610 06e8 07        		.byte	0x7
+ 1611 06e9 87        		.byte	0x87
+ 1612 06ea 0000 0987 		.4byte	0x987
+ 1613 06ee 02        		.byte	0x2
+ 1614 06ef 23        		.byte	0x23
+ 1615 06f0 54        		.byte	0x54
+ 1616 06f1 00        		.byte	0x0
+ 1617 06f2 0C        		.byte	0xc
+ 1618 06f3 04        		.byte	0x4
+ 1619 06f4 0000 0597 		.4byte	0x597
+ 1620 06f8 0C        		.byte	0xc
+ 1621 06f9 04        		.byte	0x4
+ 1622 06fa 0000 0282 		.4byte	0x282
+ 1623 06fe 0A        		.byte	0xa
+ 1624 06ff 0000 072E 		.4byte	0x72e
+ 1625 0703 5F5F 7362 		.string	"__sbuf"
+ 1625      7566 00
+ 1626               	
+ 1627 070a 08        		.byte	0x8
+ 1628 070b 07        		.byte	0x7
+ 1629 070c 40        		.byte	0x40
+ 1630 070d 0B        		.byte	0xb
+ 1631 070e 5F62 6173 		.string	"_base"
+ 1631      6500 
+ 1632               	
+ 1633 0714 07        		.byte	0x7
+ 1634 0715 41        		.byte	0x41
+ 1635 0716 0000 06F8 		.4byte	0x6f8
+ 1636 071a 02        		.byte	0x2
+ 1637 071b 23        		.byte	0x23
+ 1638 071c 00        		.byte	0x0
+ 1639 071d 0B        		.byte	0xb
+ 1640 071e 5F73 697A 		.string	"_size"
+ 1640      6500 
+ 1641               	
+ 1642 0724 07        		.byte	0x7
+ 1643 0725 42        		.byte	0x42
+ 1644 0726 0000 01D5 		.4byte	0x1d5
+ 1645 072a 02        		.byte	0x2
+ 1646 072b 23        		.byte	0x23
+ 1647 072c 04        		.byte	0x4
+68K GAS  C:\Users\37877\AppData\Local\Temp\ccQjgaaa.s 			page 34
+
+
+ 1648 072d 00        		.byte	0x0
+ 1649 072e 0F        		.byte	0xf
+ 1650 072f 0000 0748 		.4byte	0x748
+ 1651 0733 01        		.byte	0x1
+ 1652 0734 0000 01D5 		.4byte	0x1d5
+ 1653 0738 10        		.byte	0x10
+ 1654 0739 0000 0237 		.4byte	0x237
+ 1655 073d 10        		.byte	0x10
+ 1656 073e 0000 039A 		.4byte	0x39a
+ 1657 0742 10        		.byte	0x10
+ 1658 0743 0000 01D5 		.4byte	0x1d5
+ 1659 0747 00        		.byte	0x0
+ 1660 0748 0C        		.byte	0xc
+ 1661 0749 04        		.byte	0x4
+ 1662 074a 0000 072E 		.4byte	0x72e
+ 1663 074e 0F        		.byte	0xf
+ 1664 074f 0000 0768 		.4byte	0x768
+ 1665 0753 01        		.byte	0x1
+ 1666 0754 0000 01D5 		.4byte	0x1d5
+ 1667 0758 10        		.byte	0x10
+ 1668 0759 0000 0237 		.4byte	0x237
+ 1669 075d 10        		.byte	0x10
+ 1670 075e 0000 0768 		.4byte	0x768
+ 1671 0762 10        		.byte	0x10
+ 1672 0763 0000 01D5 		.4byte	0x1d5
+ 1673 0767 00        		.byte	0x0
+ 1674 0768 0C        		.byte	0xc
+ 1675 0769 04        		.byte	0x4
+ 1676 076a 0000 076E 		.4byte	0x76e
+ 1677 076e 11        		.byte	0x11
+ 1678 076f 0000 03A0 		.4byte	0x3a0
+ 1679 0773 0C        		.byte	0xc
+ 1680 0774 04        		.byte	0x4
+ 1681 0775 0000 074E 		.4byte	0x74e
+ 1682 0779 0F        		.byte	0xf
+ 1683 077a 0000 0793 		.4byte	0x793
+ 1684 077e 01        		.byte	0x1
+ 1685 077f 0000 0793 		.4byte	0x793
+ 1686 0783 10        		.byte	0x10
+ 1687 0784 0000 0237 		.4byte	0x237
+ 1688 0788 10        		.byte	0x10
+ 1689 0789 0000 0793 		.4byte	0x793
+ 1690 078d 10        		.byte	0x10
+ 1691 078e 0000 01D5 		.4byte	0x1d5
+ 1692 0792 00        		.byte	0x0
+ 1693 0793 07        		.byte	0x7
+ 1694 0794 5F66 706F 		.string	"_fpos_t"
+ 1694      735F 7400 
+ 1695               	
+ 1696 079c 04        		.byte	0x4
+ 1697 079d 05        		.byte	0x5
+ 1698 079e 0C        		.byte	0xc
+ 1699 079f 04        		.byte	0x4
+ 1700 07a0 0000 0779 		.4byte	0x779
+ 1701 07a4 0F        		.byte	0xf
+ 1702 07a5 0000 07B4 		.4byte	0x7b4
+ 1703 07a9 01        		.byte	0x1
+68K GAS  C:\Users\37877\AppData\Local\Temp\ccQjgaaa.s 			page 35
+
+
+ 1704 07aa 0000 01D5 		.4byte	0x1d5
+ 1705 07ae 10        		.byte	0x10
+ 1706 07af 0000 0237 		.4byte	0x237
+ 1707 07b3 00        		.byte	0x0
+ 1708 07b4 0C        		.byte	0xc
+ 1709 07b5 04        		.byte	0x4
+ 1710 07b6 0000 07A4 		.4byte	0x7a4
+ 1711 07ba 0D        		.byte	0xd
+ 1712 07bb 0000 07C6 		.4byte	0x7c6
+ 1713 07bf 0000 0282 		.4byte	0x282
+ 1714 07c3 0E        		.byte	0xe
+ 1715 07c4 02        		.byte	0x2
+ 1716 07c5 00        		.byte	0x0
+ 1717 07c6 0D        		.byte	0xd
+ 1718 07c7 0000 07D2 		.4byte	0x7d2
+ 1719 07cb 0000 0282 		.4byte	0x282
+ 1720 07cf 0E        		.byte	0xe
+ 1721 07d0 00        		.byte	0x0
+ 1722 07d1 00        		.byte	0x0
+ 1723 07d2 12        		.byte	0x12
+ 1724 07d3 0000 0987 		.4byte	0x987
+ 1725 07d7 5F72 6565 		.string	"_reent"
+ 1725      6E74 00
+ 1726               	
+ 1727 07de 02EA      		.2byte	0x2ea
+ 1728 07e0 07        		.byte	0x7
+ 1729 07e1 87        		.byte	0x87
+ 1730 07e2 0B        		.byte	0xb
+ 1731 07e3 5F65 7272 		.string	"_errno"
+ 1731      6E6F 00
+ 1732               	
+ 1733 07ea 07        		.byte	0x7
+ 1734 07eb 95        		.byte	0x95
+ 1735 07ec 0000 01D5 		.4byte	0x1d5
+ 1736 07f0 02        		.byte	0x2
+ 1737 07f1 23        		.byte	0x23
+ 1738 07f2 00        		.byte	0x0
+ 1739 07f3 0B        		.byte	0xb
+ 1740 07f4 5F73 7464 		.string	"_stdin"
+ 1740      696E 00
+ 1741               	
+ 1742 07fb 07        		.byte	0x7
+ 1743 07fc 9A        		.byte	0x9a
+ 1744 07fd 0000 06F2 		.4byte	0x6f2
+ 1745 0801 02        		.byte	0x2
+ 1746 0802 23        		.byte	0x23
+ 1747 0803 04        		.byte	0x4
+ 1748 0804 0B        		.byte	0xb
+ 1749 0805 5F73 7464 		.string	"_stdout"
+ 1749      6F75 7400 
+ 1750               	
+ 1751 080d 07        		.byte	0x7
+ 1752 080e 9A        		.byte	0x9a
+ 1753 080f 0000 06F2 		.4byte	0x6f2
+ 1754 0813 02        		.byte	0x2
+ 1755 0814 23        		.byte	0x23
+ 1756 0815 08        		.byte	0x8
+68K GAS  C:\Users\37877\AppData\Local\Temp\ccQjgaaa.s 			page 36
+
+
+ 1757 0816 0B        		.byte	0xb
+ 1758 0817 5F73 7464 		.string	"_stderr"
+ 1758      6572 7200 
+ 1759               	
+ 1760 081f 07        		.byte	0x7
+ 1761 0820 9A        		.byte	0x9a
+ 1762 0821 0000 06F2 		.4byte	0x6f2
+ 1763 0825 02        		.byte	0x2
+ 1764 0826 23        		.byte	0x23
+ 1765 0827 0C        		.byte	0xc
+ 1766 0828 0B        		.byte	0xb
+ 1767 0829 5F69 6E63 		.string	"_inc"
+ 1767      00
+ 1768               	
+ 1769 082e 07        		.byte	0x7
+ 1770 082f 9C        		.byte	0x9c
+ 1771 0830 0000 01D5 		.4byte	0x1d5
+ 1772 0834 02        		.byte	0x2
+ 1773 0835 23        		.byte	0x23
+ 1774 0836 10        		.byte	0x10
+ 1775 0837 0B        		.byte	0xb
+ 1776 0838 5F65 6D65 		.string	"_emergency"
+ 1776      7267 656E 
+ 1776      6379 00
+ 1777               	
+ 1778 0843 07        		.byte	0x7
+ 1779 0844 9D        		.byte	0x9d
+ 1780 0845 0000 098D 		.4byte	0x98d
+ 1781 0849 02        		.byte	0x2
+ 1782 084a 23        		.byte	0x23
+ 1783 084b 14        		.byte	0x14
+ 1784 084c 0B        		.byte	0xb
+ 1785 084d 5F63 7572 		.string	"_current_category"
+ 1785      7265 6E74 
+ 1785      5F63 6174 
+ 1785      6567 6F72 
+ 1785      7900 
+ 1786               	
+ 1787 085f 07        		.byte	0x7
+ 1788 0860 9F        		.byte	0x9f
+ 1789 0861 0000 01D5 		.4byte	0x1d5
+ 1790 0865 02        		.byte	0x2
+ 1791 0866 23        		.byte	0x23
+ 1792 0867 2E        		.byte	0x2e
+ 1793 0868 0B        		.byte	0xb
+ 1794 0869 5F63 7572 		.string	"_current_locale"
+ 1794      7265 6E74 
+ 1794      5F6C 6F63 
+ 1794      616C 6500 
+ 1795               	
+ 1796 0879 07        		.byte	0x7
+ 1797 087a A0        		.byte	0xa0
+ 1798 087b 0000 0768 		.4byte	0x768
+ 1799 087f 02        		.byte	0x2
+ 1800 0880 23        		.byte	0x23
+ 1801 0881 32        		.byte	0x32
+ 1802 0882 0B        		.byte	0xb
+68K GAS  C:\Users\37877\AppData\Local\Temp\ccQjgaaa.s 			page 37
+
+
+ 1803 0883 5F5F 7364 		.string	"__sdidinit"
+ 1803      6964 696E 
+ 1803      6974 00
+ 1804               	
+ 1805 088e 07        		.byte	0x7
+ 1806 088f A2        		.byte	0xa2
+ 1807 0890 0000 01D5 		.4byte	0x1d5
+ 1808 0894 02        		.byte	0x2
+ 1809 0895 23        		.byte	0x23
+ 1810 0896 36        		.byte	0x36
+ 1811 0897 0B        		.byte	0xb
+ 1812 0898 5F5F 636C 		.string	"__cleanup"
+ 1812      6561 6E75 
+ 1812      7000 
+ 1813               	
+ 1814 08a2 07        		.byte	0x7
+ 1815 08a3 A4        		.byte	0xa4
+ 1816 08a4 0000 09A5 		.4byte	0x9a5
+ 1817 08a8 02        		.byte	0x2
+ 1818 08a9 23        		.byte	0x23
+ 1819 08aa 3A        		.byte	0x3a
+ 1820 08ab 0B        		.byte	0xb
+ 1821 08ac 5F72 6573 		.string	"_result"
+ 1821      756C 7400 
+ 1822               	
+ 1823 08b4 07        		.byte	0x7
+ 1824 08b5 A7        		.byte	0xa7
+ 1825 08b6 0000 0A17 		.4byte	0xa17
+ 1826 08ba 02        		.byte	0x2
+ 1827 08bb 23        		.byte	0x23
+ 1828 08bc 3E        		.byte	0x3e
+ 1829 08bd 0B        		.byte	0xb
+ 1830 08be 5F72 6573 		.string	"_result_k"
+ 1830      756C 745F 
+ 1830      6B00 
+ 1831               	
+ 1832 08c8 07        		.byte	0x7
+ 1833 08c9 A8        		.byte	0xa8
+ 1834 08ca 0000 01D5 		.4byte	0x1d5
+ 1835 08ce 02        		.byte	0x2
+ 1836 08cf 23        		.byte	0x23
+ 1837 08d0 42        		.byte	0x42
+ 1838 08d1 0B        		.byte	0xb
+ 1839 08d2 5F70 3573 		.string	"_p5s"
+ 1839      00
+ 1840               	
+ 1841 08d7 07        		.byte	0x7
+ 1842 08d8 A9        		.byte	0xa9
+ 1843 08d9 0000 0A17 		.4byte	0xa17
+ 1844 08dd 02        		.byte	0x2
+ 1845 08de 23        		.byte	0x23
+ 1846 08df 46        		.byte	0x46
+ 1847 08e0 0B        		.byte	0xb
+ 1848 08e1 5F66 7265 		.string	"_freelist"
+ 1848      656C 6973 
+ 1848      7400 
+ 1849               	
+68K GAS  C:\Users\37877\AppData\Local\Temp\ccQjgaaa.s 			page 38
+
+
+ 1850 08eb 07        		.byte	0x7
+ 1851 08ec AA        		.byte	0xaa
+ 1852 08ed 0000 0A1D 		.4byte	0xa1d
+ 1853 08f1 02        		.byte	0x2
+ 1854 08f2 23        		.byte	0x23
+ 1855 08f3 4A        		.byte	0x4a
+ 1856 08f4 0B        		.byte	0xb
+ 1857 08f5 5F63 7674 		.string	"_cvtlen"
+ 1857      6C65 6E00 
+ 1858               	
+ 1859 08fd 07        		.byte	0x7
+ 1860 08fe AD        		.byte	0xad
+ 1861 08ff 0000 01D5 		.4byte	0x1d5
+ 1862 0903 02        		.byte	0x2
+ 1863 0904 23        		.byte	0x23
+ 1864 0905 4E        		.byte	0x4e
+ 1865 0906 0B        		.byte	0xb
+ 1866 0907 5F63 7674 		.string	"_cvtbuf"
+ 1866      6275 6600 
+ 1867               	
+ 1868 090f 07        		.byte	0x7
+ 1869 0910 AE        		.byte	0xae
+ 1870 0911 0000 039A 		.4byte	0x39a
+ 1871 0915 02        		.byte	0x2
+ 1872 0916 23        		.byte	0x23
+ 1873 0917 52        		.byte	0x52
+ 1874 0918 0B        		.byte	0xb
+ 1875 0919 5F6E 6577 		.string	"_new"
+ 1875      00
+ 1876               	
+ 1877 091e 07        		.byte	0x7
+ 1878 091f C5        		.byte	0xc5
+ 1879 0920 0000 0A23 		.4byte	0xa23
+ 1880 0924 02        		.byte	0x2
+ 1881 0925 23        		.byte	0x23
+ 1882 0926 56        		.byte	0x56
+ 1883 0927 0B        		.byte	0xb
+ 1884 0928 5F61 7465 		.string	"_atexit"
+ 1884      7869 7400 
+ 1885               	
+ 1886 0930 07        		.byte	0x7
+ 1887 0931 C8        		.byte	0xc8
+ 1888 0932 0000 0A88 		.4byte	0xa88
+ 1889 0936 03        		.byte	0x3
+ 1890 0937 23        		.byte	0x23
+ 1891 0938 C602      		.byte	0xc6,0x2
+ 1892 093a 0B        		.byte	0xb
+ 1893 093b 5F61 7465 		.string	"_atexit0"
+ 1893      7869 7430 
+ 1893      00
+ 1894               	
+ 1895 0944 07        		.byte	0x7
+ 1896 0945 C9        		.byte	0xc9
+ 1897 0946 0000 0A49 		.4byte	0xa49
+ 1898 094a 03        		.byte	0x3
+ 1899 094b 23        		.byte	0x23
+ 1900 094c CA02      		.byte	0xca,0x2
+68K GAS  C:\Users\37877\AppData\Local\Temp\ccQjgaaa.s 			page 39
+
+
+ 1901 094e 0B        		.byte	0xb
+ 1902 094f 5F73 6967 		.string	"_sig_func"
+ 1902      5F66 756E 
+ 1902      6300 
+ 1903               	
+ 1904 0959 07        		.byte	0x7
+ 1905 095a CC        		.byte	0xcc
+ 1906 095b 0000 0A9A 		.4byte	0xa9a
+ 1907 095f 03        		.byte	0x3
+ 1908 0960 23        		.byte	0x23
+ 1909 0961 D203      		.byte	0xd2,0x3
+ 1910 0963 0B        		.byte	0xb
+ 1911 0964 5F5F 7367 		.string	"__sglue"
+ 1911      6C75 6500 
+ 1912               	
+ 1913 096c 07        		.byte	0x7
+ 1914 096d D1        		.byte	0xd1
+ 1915 096e 0000 0551 		.4byte	0x551
+ 1916 0972 03        		.byte	0x3
+ 1917 0973 23        		.byte	0x23
+ 1918 0974 D603      		.byte	0xd6,0x3
+ 1919 0976 0B        		.byte	0xb
+ 1920 0977 5F5F 7366 		.string	"__sf"
+ 1920      00
+ 1921               	
+ 1922 097c 07        		.byte	0x7
+ 1923 097d D2        		.byte	0xd2
+ 1924 097e 0000 0AA6 		.4byte	0xaa6
+ 1925 0982 03        		.byte	0x3
+ 1926 0983 23        		.byte	0x23
+ 1927 0984 E203      		.byte	0xe2,0x3
+ 1928 0986 00        		.byte	0x0
+ 1929 0987 0C        		.byte	0xc
+ 1930 0988 04        		.byte	0x4
+ 1931 0989 0000 07D2 		.4byte	0x7d2
+ 1932 098d 0D        		.byte	0xd
+ 1933 098e 0000 0999 		.4byte	0x999
+ 1934 0992 0000 03A0 		.4byte	0x3a0
+ 1935 0996 0E        		.byte	0xe
+ 1936 0997 18        		.byte	0x18
+ 1937 0998 00        		.byte	0x0
+ 1938 0999 13        		.byte	0x13
+ 1939 099a 0000 09A5 		.4byte	0x9a5
+ 1940 099e 01        		.byte	0x1
+ 1941 099f 10        		.byte	0x10
+ 1942 09a0 0000 0987 		.4byte	0x987
+ 1943 09a4 00        		.byte	0x0
+ 1944 09a5 0C        		.byte	0xc
+ 1945 09a6 04        		.byte	0x4
+ 1946 09a7 0000 0999 		.4byte	0x999
+ 1947 09ab 0A        		.byte	0xa
+ 1948 09ac 0000 0A17 		.4byte	0xa17
+ 1949 09b0 5F42 6967 		.string	"_Bigint"
+ 1949      696E 7400 
+ 1950               	
+ 1951 09b8 18        		.byte	0x18
+ 1952 09b9 07        		.byte	0x7
+68K GAS  C:\Users\37877\AppData\Local\Temp\ccQjgaaa.s 			page 40
+
+
+ 1953 09ba 27        		.byte	0x27
+ 1954 09bb 0B        		.byte	0xb
+ 1955 09bc 5F6E 6578 		.string	"_next"
+ 1955      7400 
+ 1956               	
+ 1957 09c2 07        		.byte	0x7
+ 1958 09c3 28        		.byte	0x28
+ 1959 09c4 0000 0A17 		.4byte	0xa17
+ 1960 09c8 02        		.byte	0x2
+ 1961 09c9 23        		.byte	0x23
+ 1962 09ca 00        		.byte	0x0
+ 1963 09cb 0B        		.byte	0xb
+ 1964 09cc 5F6B 00   		.string	"_k"
+ 1965               	
+ 1966 09cf 07        		.byte	0x7
+ 1967 09d0 29        		.byte	0x29
+ 1968 09d1 0000 01D5 		.4byte	0x1d5
+ 1969 09d5 02        		.byte	0x2
+ 1970 09d6 23        		.byte	0x23
+ 1971 09d7 04        		.byte	0x4
+ 1972 09d8 0B        		.byte	0xb
+ 1973 09d9 5F6D 6178 		.string	"_maxwds"
+ 1973      7764 7300 
+ 1974               	
+ 1975 09e1 07        		.byte	0x7
+ 1976 09e2 29        		.byte	0x29
+ 1977 09e3 0000 01D5 		.4byte	0x1d5
+ 1978 09e7 02        		.byte	0x2
+ 1979 09e8 23        		.byte	0x23
+ 1980 09e9 08        		.byte	0x8
+ 1981 09ea 0B        		.byte	0xb
+ 1982 09eb 5F73 6967 		.string	"_sign"
+ 1982      6E00 
+ 1983               	
+ 1984 09f1 07        		.byte	0x7
+ 1985 09f2 29        		.byte	0x29
+ 1986 09f3 0000 01D5 		.4byte	0x1d5
+ 1987 09f7 02        		.byte	0x2
+ 1988 09f8 23        		.byte	0x23
+ 1989 09f9 0C        		.byte	0xc
+ 1990 09fa 0B        		.byte	0xb
+ 1991 09fb 5F77 6473 		.string	"_wds"
+ 1991      00
+ 1992               	
+ 1993 0a00 07        		.byte	0x7
+ 1994 0a01 29        		.byte	0x29
+ 1995 0a02 0000 01D5 		.4byte	0x1d5
+ 1996 0a06 02        		.byte	0x2
+ 1997 0a07 23        		.byte	0x23
+ 1998 0a08 10        		.byte	0x10
+ 1999 0a09 0B        		.byte	0xb
+ 2000 0a0a 5F78 00   		.string	"_x"
+ 2001               	
+ 2002 0a0d 07        		.byte	0x7
+ 2003 0a0e 2A        		.byte	0x2a
+ 2004 0a0f 0000 0BC6 		.4byte	0xbc6
+ 2005 0a13 02        		.byte	0x2
+68K GAS  C:\Users\37877\AppData\Local\Temp\ccQjgaaa.s 			page 41
+
+
+ 2006 0a14 23        		.byte	0x23
+ 2007 0a15 14        		.byte	0x14
+ 2008 0a16 00        		.byte	0x0
+ 2009 0a17 0C        		.byte	0xc
+ 2010 0a18 04        		.byte	0x4
+ 2011 0a19 0000 09AB 		.4byte	0x9ab
+ 2012 0a1d 0C        		.byte	0xc
+ 2013 0a1e 04        		.byte	0x4
+ 2014 0a1f 0000 0A17 		.4byte	0xa17
+ 2015 0a23 14        		.byte	0x14
+ 2016 0a24 0000 0A49 		.4byte	0xa49
+ 2017 0a28 F0        		.byte	0xf0
+ 2018 0a29 07        		.byte	0x7
+ 2019 0a2a C5        		.byte	0xc5
+ 2020 0a2b 15        		.byte	0x15
+ 2021 0a2c 5F72 6565 		.string	"_reent"
+ 2021      6E74 00
+ 2022               	
+ 2023 0a33 07        		.byte	0x7
+ 2024 0a34 BB        		.byte	0xbb
+ 2025 0a35 0000 0AC6 		.4byte	0xac6
+ 2026 0a39 15        		.byte	0x15
+ 2027 0a3a 5F75 6E75 		.string	"_unused"
+ 2027      7365 6400 
+ 2028               	
+ 2029 0a42 07        		.byte	0x7
+ 2030 0a43 C4        		.byte	0xc4
+ 2031 0a44 0000 0B5B 		.4byte	0xb5b
+ 2032 0a48 00        		.byte	0x0
+ 2033 0a49 0A        		.byte	0xa
+ 2034 0a4a 0000 0A88 		.4byte	0xa88
+ 2035 0a4e 5F61 7465 		.string	"_atexit"
+ 2035      7869 7400 
+ 2036               	
+ 2037 0a56 88        		.byte	0x88
+ 2038 0a57 07        		.byte	0x7
+ 2039 0a58 33        		.byte	0x33
+ 2040 0a59 0B        		.byte	0xb
+ 2041 0a5a 5F6E 6578 		.string	"_next"
+ 2041      7400 
+ 2042               	
+ 2043 0a60 07        		.byte	0x7
+ 2044 0a61 34        		.byte	0x34
+ 2045 0a62 0000 0A88 		.4byte	0xa88
+ 2046 0a66 02        		.byte	0x2
+ 2047 0a67 23        		.byte	0x23
+ 2048 0a68 00        		.byte	0x0
+ 2049 0a69 0B        		.byte	0xb
+ 2050 0a6a 5F69 6E64 		.string	"_ind"
+ 2050      00
+ 2051               	
+ 2052 0a6f 07        		.byte	0x7
+ 2053 0a70 35        		.byte	0x35
+ 2054 0a71 0000 01D5 		.4byte	0x1d5
+ 2055 0a75 02        		.byte	0x2
+ 2056 0a76 23        		.byte	0x23
+ 2057 0a77 04        		.byte	0x4
+68K GAS  C:\Users\37877\AppData\Local\Temp\ccQjgaaa.s 			page 42
+
+
+ 2058 0a78 0B        		.byte	0xb
+ 2059 0a79 5F66 6E73 		.string	"_fns"
+ 2059      00
+ 2060               	
+ 2061 0a7e 07        		.byte	0x7
+ 2062 0a7f 36        		.byte	0x36
+ 2063 0a80 0000 0AB2 		.4byte	0xab2
+ 2064 0a84 02        		.byte	0x2
+ 2065 0a85 23        		.byte	0x23
+ 2066 0a86 08        		.byte	0x8
+ 2067 0a87 00        		.byte	0x0
+ 2068 0a88 0C        		.byte	0xc
+ 2069 0a89 04        		.byte	0x4
+ 2070 0a8a 0000 0A49 		.4byte	0xa49
+ 2071 0a8e 13        		.byte	0x13
+ 2072 0a8f 0000 0A9A 		.4byte	0xa9a
+ 2073 0a93 01        		.byte	0x1
+ 2074 0a94 10        		.byte	0x10
+ 2075 0a95 0000 01D5 		.4byte	0x1d5
+ 2076 0a99 00        		.byte	0x0
+ 2077 0a9a 0C        		.byte	0xc
+ 2078 0a9b 04        		.byte	0x4
+ 2079 0a9c 0000 0AA0 		.4byte	0xaa0
+ 2080 0aa0 0C        		.byte	0xc
+ 2081 0aa1 04        		.byte	0x4
+ 2082 0aa2 0000 0A8E 		.4byte	0xa8e
+ 2083 0aa6 0D        		.byte	0xd
+ 2084 0aa7 0000 0AB2 		.4byte	0xab2
+ 2085 0aab 0000 0597 		.4byte	0x597
+ 2086 0aaf 0E        		.byte	0xe
+ 2087 0ab0 02        		.byte	0x2
+ 2088 0ab1 00        		.byte	0x0
+ 2089 0ab2 0D        		.byte	0xd
+ 2090 0ab3 0000 0ABE 		.4byte	0xabe
+ 2091 0ab7 0000 0AC0 		.4byte	0xac0
+ 2092 0abb 0E        		.byte	0xe
+ 2093 0abc 1F        		.byte	0x1f
+ 2094 0abd 00        		.byte	0x0
+ 2095 0abe 16        		.byte	0x16
+ 2096 0abf 01        		.byte	0x1
+ 2097 0ac0 0C        		.byte	0xc
+ 2098 0ac1 04        		.byte	0x4
+ 2099 0ac2 0000 0ABE 		.4byte	0xabe
+ 2100 0ac6 17        		.byte	0x17
+ 2101 0ac7 0000 0B5B 		.4byte	0xb5b
+ 2102 0acb 52        		.byte	0x52
+ 2103 0acc 07        		.byte	0x7
+ 2104 0acd BB        		.byte	0xbb
+ 2105 0ace 0B        		.byte	0xb
+ 2106 0acf 5F75 6E75 		.string	"_unused_rand"
+ 2106      7365 645F 
+ 2106      7261 6E64 
+ 2106      00
+ 2107               	
+ 2108 0adc 07        		.byte	0x7
+ 2109 0add B4        		.byte	0xb4
+ 2110 0ade 0000 01EE 		.4byte	0x1ee
+68K GAS  C:\Users\37877\AppData\Local\Temp\ccQjgaaa.s 			page 43
+
+
+ 2111 0ae2 02        		.byte	0x2
+ 2112 0ae3 23        		.byte	0x23
+ 2113 0ae4 00        		.byte	0x0
+ 2114 0ae5 0B        		.byte	0xb
+ 2115 0ae6 5F73 7472 		.string	"_strtok_last"
+ 2115      746F 6B5F 
+ 2115      6C61 7374 
+ 2115      00
+ 2116               	
+ 2117 0af3 07        		.byte	0x7
+ 2118 0af4 B5        		.byte	0xb5
+ 2119 0af5 0000 039A 		.4byte	0x39a
+ 2120 0af9 02        		.byte	0x2
+ 2121 0afa 23        		.byte	0x23
+ 2122 0afb 04        		.byte	0x4
+ 2123 0afc 0B        		.byte	0xb
+ 2124 0afd 5F61 7363 		.string	"_asctime_buf"
+ 2124      7469 6D65 
+ 2124      5F62 7566 
+ 2124      00
+ 2125               	
+ 2126 0b0a 07        		.byte	0x7
+ 2127 0b0b B6        		.byte	0xb6
+ 2128 0b0c 0000 0BA0 		.4byte	0xba0
+ 2129 0b10 02        		.byte	0x2
+ 2130 0b11 23        		.byte	0x23
+ 2131 0b12 08        		.byte	0x8
+ 2132 0b13 0B        		.byte	0xb
+ 2133 0b14 5F6C 6F63 		.string	"_localtime_buf"
+ 2133      616C 7469 
+ 2133      6D65 5F62 
+ 2133      7566 00
+ 2134               	
+ 2135 0b23 07        		.byte	0x7
+ 2136 0b24 B7        		.byte	0xb7
+ 2137 0b25 0000 0496 		.4byte	0x496
+ 2138 0b29 02        		.byte	0x2
+ 2139 0b2a 23        		.byte	0x23
+ 2140 0b2b 22        		.byte	0x22
+ 2141 0b2c 0B        		.byte	0xb
+ 2142 0b2d 5F67 616D 		.string	"_gamma_signgam"
+ 2142      6D61 5F73 
+ 2142      6967 6E67 
+ 2142      616D 00
+ 2143               	
+ 2144 0b3c 07        		.byte	0x7
+ 2145 0b3d B8        		.byte	0xb8
+ 2146 0b3e 0000 01D5 		.4byte	0x1d5
+ 2147 0b42 02        		.byte	0x2
+ 2148 0b43 23        		.byte	0x23
+ 2149 0b44 46        		.byte	0x46
+ 2150 0b45 0B        		.byte	0xb
+ 2151 0b46 5F72 616E 		.string	"_rand_next"
+ 2151      645F 6E65 
+ 2151      7874 00
+ 2152               	
+ 2153 0b51 07        		.byte	0x7
+68K GAS  C:\Users\37877\AppData\Local\Temp\ccQjgaaa.s 			page 44
+
+
+ 2154 0b52 B9        		.byte	0xb9
+ 2155 0b53 0000 0BAC 		.4byte	0xbac
+ 2156 0b57 02        		.byte	0x2
+ 2157 0b58 23        		.byte	0x23
+ 2158 0b59 4A        		.byte	0x4a
+ 2159 0b5a 00        		.byte	0x0
+ 2160 0b5b 17        		.byte	0x17
+ 2161 0b5c 0000 0B88 		.4byte	0xb88
+ 2162 0b60 F0        		.byte	0xf0
+ 2163 0b61 07        		.byte	0x7
+ 2164 0b62 C4        		.byte	0xc4
+ 2165 0b63 0B        		.byte	0xb
+ 2166 0b64 5F6E 6578 		.string	"_nextf"
+ 2166      7466 00
+ 2167               	
+ 2168 0b6b 07        		.byte	0x7
+ 2169 0b6c C2        		.byte	0xc2
+ 2170 0b6d 0000 0B88 		.4byte	0xb88
+ 2171 0b71 02        		.byte	0x2
+ 2172 0b72 23        		.byte	0x23
+ 2173 0b73 00        		.byte	0x0
+ 2174 0b74 0B        		.byte	0xb
+ 2175 0b75 5F6E 6D61 		.string	"_nmalloc"
+ 2175      6C6C 6F63 
+ 2175      00
+ 2176               	
+ 2177 0b7e 07        		.byte	0x7
+ 2178 0b7f C3        		.byte	0xc3
+ 2179 0b80 0000 0B94 		.4byte	0xb94
+ 2180 0b84 02        		.byte	0x2
+ 2181 0b85 23        		.byte	0x23
+ 2182 0b86 78        		.byte	0x78
+ 2183 0b87 00        		.byte	0x0
+ 2184 0b88 0D        		.byte	0xd
+ 2185 0b89 0000 0B94 		.4byte	0xb94
+ 2186 0b8d 0000 06F8 		.4byte	0x6f8
+ 2187 0b91 0E        		.byte	0xe
+ 2188 0b92 1D        		.byte	0x1d
+ 2189 0b93 00        		.byte	0x0
+ 2190 0b94 0D        		.byte	0xd
+ 2191 0b95 0000 0BA0 		.4byte	0xba0
+ 2192 0b99 0000 01EE 		.4byte	0x1ee
+ 2193 0b9d 0E        		.byte	0xe
+ 2194 0b9e 1D        		.byte	0x1d
+ 2195 0b9f 00        		.byte	0x0
+ 2196 0ba0 0D        		.byte	0xd
+ 2197 0ba1 0000 0BAC 		.4byte	0xbac
+ 2198 0ba5 0000 03A0 		.4byte	0x3a0
+ 2199 0ba9 0E        		.byte	0xe
+ 2200 0baa 19        		.byte	0x19
+ 2201 0bab 00        		.byte	0x0
+ 2202 0bac 07        		.byte	0x7
+ 2203 0bad 6C6F 6E67 		.string	"long long unsigned int"
+ 2203      206C 6F6E 
+ 2203      6720 756E 
+ 2203      7369 676E 
+ 2203      6564 2069 
+68K GAS  C:\Users\37877\AppData\Local\Temp\ccQjgaaa.s 			page 45
+
+
+ 2204               	
+ 2205 0bc4 08        		.byte	0x8
+ 2206 0bc5 07        		.byte	0x7
+ 2207 0bc6 0D        		.byte	0xd
+ 2208 0bc7 0000 0BD2 		.4byte	0xbd2
+ 2209 0bcb 0000 0542 		.4byte	0x542
+ 2210 0bcf 0E        		.byte	0xe
+ 2211 0bd0 00        		.byte	0x0
+ 2212 0bd1 00        		.byte	0x0
+ 2213 0bd2 06        		.byte	0x6
+ 2214 0bd3 5F66 706F 		.string	"_fpos_t"
+ 2214      735F 7400 
+ 2215               	
+ 2216 0bdb 07        		.byte	0x7
+ 2217 0bdc 4A        		.byte	0x4a
+ 2218 0bdd 0000 024A 		.4byte	0x24a
+ 2219 0be1 06        		.byte	0x6
+ 2220 0be2 6670 6F73 		.string	"fpos_t"
+ 2220      5F74 00
+ 2221               	
+ 2222 0be9 08        		.byte	0x8
+ 2223 0bea 32        		.byte	0x32
+ 2224 0beb 0000 0BD2 		.4byte	0xbd2
+ 2225 0bef 06        		.byte	0x6
+ 2226 0bf0 4649 4C45 		.string	"FILE"
+ 2226      00
+ 2227               	
+ 2228 0bf5 08        		.byte	0x8
+ 2229 0bf6 34        		.byte	0x34
+ 2230 0bf7 0000 0597 		.4byte	0x597
+ 2231 0bfb 17        		.byte	0x17
+ 2232 0bfc 0000 0C21 		.4byte	0xc21
+ 2233 0c00 08        		.byte	0x8
+ 2234 0c01 09        		.byte	0x9
+ 2235 0c02 19        		.byte	0x19
+ 2236 0c03 0B        		.byte	0xb
+ 2237 0c04 7175 6F74 		.string	"quot"
+ 2237      00
+ 2238               	
+ 2239 0c09 09        		.byte	0x9
+ 2240 0c0a 17        		.byte	0x17
+ 2241 0c0b 0000 01D5 		.4byte	0x1d5
+ 2242 0c0f 02        		.byte	0x2
+ 2243 0c10 23        		.byte	0x23
+ 2244 0c11 00        		.byte	0x0
+ 2245 0c12 0B        		.byte	0xb
+ 2246 0c13 7265 6D00 		.string	"rem"
+ 2247               	
+ 2248 0c17 09        		.byte	0x9
+ 2249 0c18 18        		.byte	0x18
+ 2250 0c19 0000 01D5 		.4byte	0x1d5
+ 2251 0c1d 02        		.byte	0x2
+ 2252 0c1e 23        		.byte	0x23
+ 2253 0c1f 04        		.byte	0x4
+ 2254 0c20 00        		.byte	0x0
+ 2255 0c21 06        		.byte	0x6
+ 2256 0c22 6469 765F 		.string	"div_t"
+68K GAS  C:\Users\37877\AppData\Local\Temp\ccQjgaaa.s 			page 46
+
+
+ 2256      7400 
+ 2257               	
+ 2258 0c28 09        		.byte	0x9
+ 2259 0c29 19        		.byte	0x19
+ 2260 0c2a 0000 0BFB 		.4byte	0xbfb
+ 2261 0c2e 17        		.byte	0x17
+ 2262 0c2f 0000 0C54 		.4byte	0xc54
+ 2263 0c33 08        		.byte	0x8
+ 2264 0c34 09        		.byte	0x9
+ 2265 0c35 1F        		.byte	0x1f
+ 2266 0c36 0B        		.byte	0xb
+ 2267 0c37 7175 6F74 		.string	"quot"
+ 2267      00
+ 2268               	
+ 2269 0c3c 09        		.byte	0x9
+ 2270 0c3d 1D        		.byte	0x1d
+ 2271 0c3e 0000 024A 		.4byte	0x24a
+ 2272 0c42 02        		.byte	0x2
+ 2273 0c43 23        		.byte	0x23
+ 2274 0c44 00        		.byte	0x0
+ 2275 0c45 0B        		.byte	0xb
+ 2276 0c46 7265 6D00 		.string	"rem"
+ 2277               	
+ 2278 0c4a 09        		.byte	0x9
+ 2279 0c4b 1E        		.byte	0x1e
+ 2280 0c4c 0000 024A 		.4byte	0x24a
+ 2281 0c50 02        		.byte	0x2
+ 2282 0c51 23        		.byte	0x23
+ 2283 0c52 04        		.byte	0x4
+ 2284 0c53 00        		.byte	0x0
+ 2285 0c54 06        		.byte	0x6
+ 2286 0c55 6C64 6976 		.string	"ldiv_t"
+ 2286      5F74 00
+ 2287               	
+ 2288 0c5c 09        		.byte	0x9
+ 2289 0c5d 1F        		.byte	0x1f
+ 2290 0c5e 0000 0C2E 		.4byte	0xc2e
+ 2291 0c62 06        		.byte	0x6
+ 2292 0c63 7661 5F6C 		.string	"va_list"
+ 2292      6973 7400 
+ 2293               	
+ 2294 0c6b 04        		.byte	0x4
+ 2295 0c6c BC        		.byte	0xbc
+ 2296 0c6d 0000 0221 		.4byte	0x221
+ 2297 0c71 06        		.byte	0x6
+ 2298 0c72 7569 6E74 		.string	"uint8"
+ 2298      3800 
+ 2299               	
+ 2300 0c78 0A        		.byte	0xa
+ 2301 0c79 0C        		.byte	0xc
+ 2302 0c7a 0000 0282 		.4byte	0x282
+ 2303 0c7e 06        		.byte	0x6
+ 2304 0c7f 7569 6E74 		.string	"uint16"
+ 2304      3136 00
+ 2305               	
+ 2306 0c86 0B        		.byte	0xb
+ 2307 0c87 04        		.byte	0x4
+68K GAS  C:\Users\37877\AppData\Local\Temp\ccQjgaaa.s 			page 47
+
+
+ 2308 0c88 0000 02A2 		.4byte	0x2a2
+ 2309 0c8c 06        		.byte	0x6
+ 2310 0c8d 7569 6E74 		.string	"uint32"
+ 2310      3332 00
+ 2311               	
+ 2312 0c94 0B        		.byte	0xb
+ 2313 0c95 05        		.byte	0x5
+ 2314 0c96 0000 020C 		.4byte	0x20c
+ 2315 0c9a 06        		.byte	0x6
+ 2316 0c9b 696E 7431 		.string	"int16"
+ 2316      3600 
+ 2317               	
+ 2318 0ca1 0B        		.byte	0xb
+ 2319 0ca2 06        		.byte	0x6
+ 2320 0ca3 0000 03C2 		.4byte	0x3c2
+ 2321 0ca7 06        		.byte	0x6
+ 2322 0ca8 696E 7433 		.string	"int32"
+ 2322      3200 
+ 2323               	
+ 2324 0cae 0B        		.byte	0xb
+ 2325 0caf 07        		.byte	0x7
+ 2326 0cb0 0000 024A 		.4byte	0x24a
+ 2327 0cb4 06        		.byte	0x6
+ 2328 0cb5 696E 7438 		.string	"int8"
+ 2328      00
+ 2329               	
+ 2330 0cba 0B        		.byte	0xb
+ 2331 0cbb 08        		.byte	0x8
+ 2332 0cbc 0000 03A0 		.4byte	0x3a0
+ 2333 0cc0 17        		.byte	0x17
+ 2334 0cc1 0000 14C7 		.4byte	0x14c7
+ 2335 0cc5 5D        		.byte	0x5d
+ 2336 0cc6 0B        		.byte	0xb
+ 2337 0cc7 69        		.byte	0x69
+ 2338 0cc8 0B        		.byte	0xb
+ 2339 0cc9 434F 4E54 		.string	"CONTROL1"
+ 2339      524F 4C31 
+ 2339      00
+ 2340               	
+ 2341 0cd2 0B        		.byte	0xb
+ 2342 0cd3 0C        		.byte	0xc
+ 2343 0cd4 0000 0C71 		.4byte	0xc71
+ 2344 0cd8 02        		.byte	0x2
+ 2345 0cd9 23        		.byte	0x23
+ 2346 0cda 00        		.byte	0x0
+ 2347 0cdb 0B        		.byte	0xb
+ 2348 0cdc 5354 4154 		.string	"STATUS1"
+ 2348      5553 3100 
+ 2349               	
+ 2350 0ce4 0B        		.byte	0xb
+ 2351 0ce5 0D        		.byte	0xd
+ 2352 0ce6 0000 0C71 		.4byte	0xc71
+ 2353 0cea 02        		.byte	0x2
+ 2354 0ceb 23        		.byte	0x23
+ 2355 0cec 01        		.byte	0x1
+ 2356 0ced 0B        		.byte	0xb
+ 2357 0cee 5354 4154 		.string	"STATUS2"
+68K GAS  C:\Users\37877\AppData\Local\Temp\ccQjgaaa.s 			page 48
+
+
+ 2357      5553 3200 
+ 2358               	
+ 2359 0cf6 0B        		.byte	0xb
+ 2360 0cf7 0E        		.byte	0xe
+ 2361 0cf8 0000 0C71 		.4byte	0xc71
+ 2362 0cfc 02        		.byte	0x2
+ 2363 0cfd 23        		.byte	0x23
+ 2364 0cfe 02        		.byte	0x2
+ 2365 0cff 0B        		.byte	0xb
+ 2366 0d00 5057 5243 		.string	"PWRCTL"
+ 2366      544C 00
+ 2367               	
+ 2368 0d07 0B        		.byte	0xb
+ 2369 0d08 0F        		.byte	0xf
+ 2370 0d09 0000 0C71 		.4byte	0xc71
+ 2371 0d0d 02        		.byte	0x2
+ 2372 0d0e 23        		.byte	0x23
+ 2373 0d0f 03        		.byte	0x3
+ 2374 0d10 0B        		.byte	0xb
+ 2375 0d11 4D52 414D 		.string	"MRAM_CTL"
+ 2375      5F43 544C 
+ 2375      00
+ 2376               	
+ 2377 0d1a 0B        		.byte	0xb
+ 2378 0d1b 10        		.byte	0x10
+ 2379 0d1c 0000 0C71 		.4byte	0xc71
+ 2380 0d20 02        		.byte	0x2
+ 2381 0d21 23        		.byte	0x23
+ 2382 0d22 04        		.byte	0x4
+ 2383 0d23 0B        		.byte	0xb
+ 2384 0d24 4D52 414D 		.string	"MRAM_CTL_REG"
+ 2384      5F43 544C 
+ 2384      5F52 4547 
+ 2384      00
+ 2385               	
+ 2386 0d31 0B        		.byte	0xb
+ 2387 0d32 11        		.byte	0x11
+ 2388 0d33 0000 0C71 		.4byte	0xc71
+ 2389 0d37 02        		.byte	0x2
+ 2390 0d38 23        		.byte	0x23
+ 2391 0d39 05        		.byte	0x5
+ 2392 0d3a 0B        		.byte	0xb
+ 2393 0d3b 4D52 414D 		.string	"MRAM_RD_INIT"
+ 2393      5F52 445F 
+ 2393      494E 4954 
+ 2393      00
+ 2394               	
+ 2395 0d48 0B        		.byte	0xb
+ 2396 0d49 12        		.byte	0x12
+ 2397 0d4a 0000 0C71 		.4byte	0xc71
+ 2398 0d4e 02        		.byte	0x2
+ 2399 0d4f 23        		.byte	0x23
+ 2400 0d50 06        		.byte	0x6
+ 2401 0d51 0B        		.byte	0xb
+ 2402 0d52 5354 4154 		.string	"STATUS3"
+ 2402      5553 3300 
+ 2403               	
+68K GAS  C:\Users\37877\AppData\Local\Temp\ccQjgaaa.s 			page 49
+
+
+ 2404 0d5a 0B        		.byte	0xb
+ 2405 0d5b 13        		.byte	0x13
+ 2406 0d5c 0000 0C71 		.4byte	0xc71
+ 2407 0d60 02        		.byte	0x2
+ 2408 0d61 23        		.byte	0x23
+ 2409 0d62 07        		.byte	0x7
+ 2410 0d63 0B        		.byte	0xb
+ 2411 0d64 4C49 315F 		.string	"LI1_TX"
+ 2411      5458 00
+ 2412               	
+ 2413 0d6b 0B        		.byte	0xb
+ 2414 0d6c 14        		.byte	0x14
+ 2415 0d6d 0000 0C71 		.4byte	0xc71
+ 2416 0d71 02        		.byte	0x2
+ 2417 0d72 23        		.byte	0x23
+ 2418 0d73 08        		.byte	0x8
+ 2419 0d74 0B        		.byte	0xb
+ 2420 0d75 4C49 315F 		.string	"LI1_RX"
+ 2420      5258 00
+ 2421               	
+ 2422 0d7c 0B        		.byte	0xb
+ 2423 0d7d 15        		.byte	0x15
+ 2424 0d7e 0000 0C71 		.4byte	0xc71
+ 2425 0d82 02        		.byte	0x2
+ 2426 0d83 23        		.byte	0x23
+ 2427 0d84 09        		.byte	0x9
+ 2428 0d85 0B        		.byte	0xb
+ 2429 0d86 5354 4154 		.string	"STATUS4"
+ 2429      5553 3400 
+ 2430               	
+ 2431 0d8e 0B        		.byte	0xb
+ 2432 0d8f 16        		.byte	0x16
+ 2433 0d90 0000 0C71 		.4byte	0xc71
+ 2434 0d94 02        		.byte	0x2
+ 2435 0d95 23        		.byte	0x23
+ 2436 0d96 0A        		.byte	0xa
+ 2437 0d97 0B        		.byte	0xb
+ 2438 0d98 494D 5532 		.string	"IMU2_TX"
+ 2438      5F54 5800 
+ 2439               	
+ 2440 0da0 0B        		.byte	0xb
+ 2441 0da1 17        		.byte	0x17
+ 2442 0da2 0000 0C71 		.4byte	0xc71
+ 2443 0da6 02        		.byte	0x2
+ 2444 0da7 23        		.byte	0x23
+ 2445 0da8 0B        		.byte	0xb
+ 2446 0da9 0B        		.byte	0xb
+ 2447 0daa 494D 5532 		.string	"IMU2_RX"
+ 2447      5F52 5800 
+ 2448               	
+ 2449 0db2 0B        		.byte	0xb
+ 2450 0db3 18        		.byte	0x18
+ 2451 0db4 0000 0C71 		.4byte	0xc71
+ 2452 0db8 02        		.byte	0x2
+ 2453 0db9 23        		.byte	0x23
+ 2454 0dba 0C        		.byte	0xc
+ 2455 0dbb 0B        		.byte	0xb
+68K GAS  C:\Users\37877\AppData\Local\Temp\ccQjgaaa.s 			page 50
+
+
+ 2456 0dbc 4441 4331 		.string	"DAC12_H"
+ 2456      325F 4800 
+ 2457               	
+ 2458 0dc4 0B        		.byte	0xb
+ 2459 0dc5 19        		.byte	0x19
+ 2460 0dc6 0000 0C71 		.4byte	0xc71
+ 2461 0dca 02        		.byte	0x2
+ 2462 0dcb 23        		.byte	0x23
+ 2463 0dcc 0D        		.byte	0xd
+ 2464 0dcd 0B        		.byte	0xb
+ 2465 0dce 4344 485F 		.string	"CDH_FPGA_VER"
+ 2465      4650 4741 
+ 2465      5F56 4552 
+ 2465      00
+ 2466               	
+ 2467 0ddb 0B        		.byte	0xb
+ 2468 0ddc 1A        		.byte	0x1a
+ 2469 0ddd 0000 0C71 		.4byte	0xc71
+ 2470 0de1 02        		.byte	0x2
+ 2471 0de2 23        		.byte	0x23
+ 2472 0de3 0E        		.byte	0xe
+ 2473 0de4 0B        		.byte	0xb
+ 2474 0de5 5445 5354 		.string	"TEST_TLM"
+ 2474      5F54 4C4D 
+ 2474      00
+ 2475               	
+ 2476 0dee 0B        		.byte	0xb
+ 2477 0def 1B        		.byte	0x1b
+ 2478 0df0 0000 0C71 		.4byte	0xc71
+ 2479 0df4 02        		.byte	0x2
+ 2480 0df5 23        		.byte	0x23
+ 2481 0df6 0F        		.byte	0xf
+ 2482 0df7 0B        		.byte	0xb
+ 2483 0df8 5445 5354 		.string	"TEST_CMD"
+ 2483      5F43 4D44 
+ 2483      00
+ 2484               	
+ 2485 0e01 0B        		.byte	0xb
+ 2486 0e02 1C        		.byte	0x1c
+ 2487 0e03 0000 0C71 		.4byte	0xc71
+ 2488 0e07 02        		.byte	0x2
+ 2489 0e08 23        		.byte	0x23
+ 2490 0e09 10        		.byte	0x10
+ 2491 0e0a 0B        		.byte	0xb
+ 2492 0e0b 4441 4331 		.string	"DAC12_L"
+ 2492      325F 4C00 
+ 2493               	
+ 2494 0e13 0B        		.byte	0xb
+ 2495 0e14 1D        		.byte	0x1d
+ 2496 0e15 0000 0C71 		.4byte	0xc71
+ 2497 0e19 02        		.byte	0x2
+ 2498 0e1a 23        		.byte	0x23
+ 2499 0e1b 11        		.byte	0x11
+ 2500 0e1c 0B        		.byte	0xb
+ 2501 0e1d 4344 485F 		.string	"CDH_ADC_START"
+ 2501      4144 435F 
+ 2501      5354 4152 
+68K GAS  C:\Users\37877\AppData\Local\Temp\ccQjgaaa.s 			page 51
+
+
+ 2501      5400 
+ 2502               	
+ 2503 0e2b 0B        		.byte	0xb
+ 2504 0e2c 1E        		.byte	0x1e
+ 2505 0e2d 0000 0C71 		.4byte	0xc71
+ 2506 0e31 02        		.byte	0x2
+ 2507 0e32 23        		.byte	0x23
+ 2508 0e33 12        		.byte	0x12
+ 2509 0e34 0B        		.byte	0xb
+ 2510 0e35 4344 485F 		.string	"CDH_ADC_STOP"
+ 2510      4144 435F 
+ 2510      5354 4F50 
+ 2510      00
+ 2511               	
+ 2512 0e42 0B        		.byte	0xb
+ 2513 0e43 1F        		.byte	0x1f
+ 2514 0e44 0000 0C71 		.4byte	0xc71
+ 2515 0e48 02        		.byte	0x2
+ 2516 0e49 23        		.byte	0x23
+ 2517 0e4a 13        		.byte	0x13
+ 2518 0e4b 0B        		.byte	0xb
+ 2519 0e4c 4344 485F 		.string	"CDH_ADC_WRITE"
+ 2519      4144 435F 
+ 2519      5752 4954 
+ 2519      4500 
+ 2520               	
+ 2521 0e5a 0B        		.byte	0xb
+ 2522 0e5b 20        		.byte	0x20
+ 2523 0e5c 0000 0C71 		.4byte	0xc71
+ 2524 0e60 02        		.byte	0x2
+ 2525 0e61 23        		.byte	0x23
+ 2526 0e62 14        		.byte	0x14
+ 2527 0e63 0B        		.byte	0xb
+ 2528 0e64 4344 485F 		.string	"CDH_ADC_RD_INIT"
+ 2528      4144 435F 
+ 2528      5244 5F49 
+ 2528      4E49 5400 
+ 2529               	
+ 2530 0e74 0B        		.byte	0xb
+ 2531 0e75 21        		.byte	0x21
+ 2532 0e76 0000 0C71 		.4byte	0xc71
+ 2533 0e7a 02        		.byte	0x2
+ 2534 0e7b 23        		.byte	0x23
+ 2535 0e7c 15        		.byte	0x15
+ 2536 0e7d 0B        		.byte	0xb
+ 2537 0e7e 434F 4E54 		.string	"CONTROL2"
+ 2537      524F 4C32 
+ 2537      00
+ 2538               	
+ 2539 0e87 0B        		.byte	0xb
+ 2540 0e88 22        		.byte	0x22
+ 2541 0e89 0000 0C71 		.4byte	0xc71
+ 2542 0e8d 02        		.byte	0x2
+ 2543 0e8e 23        		.byte	0x23
+ 2544 0e8f 16        		.byte	0x16
+ 2545 0e90 0B        		.byte	0xb
+ 2546 0e91 4649 505F 		.string	"FIP_TX"
+68K GAS  C:\Users\37877\AppData\Local\Temp\ccQjgaaa.s 			page 52
+
+
+ 2546      5458 00
+ 2547               	
+ 2548 0e98 0B        		.byte	0xb
+ 2549 0e99 23        		.byte	0x23
+ 2550 0e9a 0000 0C71 		.4byte	0xc71
+ 2551 0e9e 02        		.byte	0x2
+ 2552 0e9f 23        		.byte	0x23
+ 2553 0ea0 17        		.byte	0x17
+ 2554 0ea1 0B        		.byte	0xb
+ 2555 0ea2 4649 505F 		.string	"FIP_RX"
+ 2555      5258 00
+ 2556               	
+ 2557 0ea9 0B        		.byte	0xb
+ 2558 0eaa 24        		.byte	0x24
+ 2559 0eab 0000 0C71 		.4byte	0xc71
+ 2560 0eaf 02        		.byte	0x2
+ 2561 0eb0 23        		.byte	0x23
+ 2562 0eb1 18        		.byte	0x18
+ 2563 0eb2 0B        		.byte	0xb
+ 2564 0eb3 494D 5531 		.string	"IMU1_START"
+ 2564      5F53 5441 
+ 2564      5254 00
+ 2565               	
+ 2566 0ebe 0B        		.byte	0xb
+ 2567 0ebf 25        		.byte	0x25
+ 2568 0ec0 0000 0C71 		.4byte	0xc71
+ 2569 0ec4 02        		.byte	0x2
+ 2570 0ec5 23        		.byte	0x23
+ 2571 0ec6 19        		.byte	0x19
+ 2572 0ec7 0B        		.byte	0xb
+ 2573 0ec8 494D 5531 		.string	"IMU1_STOP"
+ 2573      5F53 544F 
+ 2573      5000 
+ 2574               	
+ 2575 0ed2 0B        		.byte	0xb
+ 2576 0ed3 26        		.byte	0x26
+ 2577 0ed4 0000 0C71 		.4byte	0xc71
+ 2578 0ed8 02        		.byte	0x2
+ 2579 0ed9 23        		.byte	0x23
+ 2580 0eda 1A        		.byte	0x1a
+ 2581 0edb 0B        		.byte	0xb
+ 2582 0edc 494D 5531 		.string	"IMU1_WRITE"
+ 2582      5F57 5249 
+ 2582      5445 00
+ 2583               	
+ 2584 0ee7 0B        		.byte	0xb
+ 2585 0ee8 27        		.byte	0x27
+ 2586 0ee9 0000 0C71 		.4byte	0xc71
+ 2587 0eed 02        		.byte	0x2
+ 2588 0eee 23        		.byte	0x23
+ 2589 0eef 1B        		.byte	0x1b
+ 2590 0ef0 0B        		.byte	0xb
+ 2591 0ef1 494D 5531 		.string	"IMU1_RD_INIT"
+ 2591      5F52 445F 
+ 2591      494E 4954 
+ 2591      00
+ 2592               	
+68K GAS  C:\Users\37877\AppData\Local\Temp\ccQjgaaa.s 			page 53
+
+
+ 2593 0efe 0B        		.byte	0xb
+ 2594 0eff 28        		.byte	0x28
+ 2595 0f00 0000 0C71 		.4byte	0xc71
+ 2596 0f04 02        		.byte	0x2
+ 2597 0f05 23        		.byte	0x23
+ 2598 0f06 1C        		.byte	0x1c
+ 2599 0f07 0B        		.byte	0xb
+ 2600 0f08 5057 4D5F 		.string	"PWM_CTL_REG"
+ 2600      4354 4C5F 
+ 2600      5245 4700 
+ 2601               	
+ 2602 0f14 0B        		.byte	0xb
+ 2603 0f15 29        		.byte	0x29
+ 2604 0f16 0000 0C71 		.4byte	0xc71
+ 2605 0f1a 02        		.byte	0x2
+ 2606 0f1b 23        		.byte	0x23
+ 2607 0f1c 1D        		.byte	0x1d
+ 2608 0f1d 0B        		.byte	0xb
+ 2609 0f1e 5057 4D5F 		.string	"PWM_PER_L"
+ 2609      5045 525F 
+ 2609      4C00 
+ 2610               	
+ 2611 0f28 0B        		.byte	0xb
+ 2612 0f29 2A        		.byte	0x2a
+ 2613 0f2a 0000 0C71 		.4byte	0xc71
+ 2614 0f2e 02        		.byte	0x2
+ 2615 0f2f 23        		.byte	0x23
+ 2616 0f30 1E        		.byte	0x1e
+ 2617 0f31 0B        		.byte	0xb
+ 2618 0f32 5057 4D5F 		.string	"PWM_PER_H"
+ 2618      5045 525F 
+ 2618      4800 
+ 2619               	
+ 2620 0f3c 0B        		.byte	0xb
+ 2621 0f3d 2B        		.byte	0x2b
+ 2622 0f3e 0000 0C71 		.4byte	0xc71
+ 2623 0f42 02        		.byte	0x2
+ 2624 0f43 23        		.byte	0x23
+ 2625 0f44 1F        		.byte	0x1f
+ 2626 0f45 0B        		.byte	0xb
+ 2627 0f46 5057 4D5F 		.string	"PWM_PULSE_XL"
+ 2627      5055 4C53 
+ 2627      455F 584C 
+ 2627      00
+ 2628               	
+ 2629 0f53 0B        		.byte	0xb
+ 2630 0f54 2C        		.byte	0x2c
+ 2631 0f55 0000 0C71 		.4byte	0xc71
+ 2632 0f59 02        		.byte	0x2
+ 2633 0f5a 23        		.byte	0x23
+ 2634 0f5b 20        		.byte	0x20
+ 2635 0f5c 0B        		.byte	0xb
+ 2636 0f5d 5057 4D5F 		.string	"PWM_PULSE_XH"
+ 2636      5055 4C53 
+ 2636      455F 5848 
+ 2636      00
+ 2637               	
+68K GAS  C:\Users\37877\AppData\Local\Temp\ccQjgaaa.s 			page 54
+
+
+ 2638 0f6a 0B        		.byte	0xb
+ 2639 0f6b 2D        		.byte	0x2d
+ 2640 0f6c 0000 0C71 		.4byte	0xc71
+ 2641 0f70 02        		.byte	0x2
+ 2642 0f71 23        		.byte	0x23
+ 2643 0f72 21        		.byte	0x21
+ 2644 0f73 0B        		.byte	0xb
+ 2645 0f74 5057 4D5F 		.string	"PWM_PULSE_YL"
+ 2645      5055 4C53 
+ 2645      455F 594C 
+ 2645      00
+ 2646               	
+ 2647 0f81 0B        		.byte	0xb
+ 2648 0f82 2E        		.byte	0x2e
+ 2649 0f83 0000 0C71 		.4byte	0xc71
+ 2650 0f87 02        		.byte	0x2
+ 2651 0f88 23        		.byte	0x23
+ 2652 0f89 22        		.byte	0x22
+ 2653 0f8a 0B        		.byte	0xb
+ 2654 0f8b 5057 4D5F 		.string	"PWM_PULSE_YH"
+ 2654      5055 4C53 
+ 2654      455F 5948 
+ 2654      00
+ 2655               	
+ 2656 0f98 0B        		.byte	0xb
+ 2657 0f99 2F        		.byte	0x2f
+ 2658 0f9a 0000 0C71 		.4byte	0xc71
+ 2659 0f9e 02        		.byte	0x2
+ 2660 0f9f 23        		.byte	0x23
+ 2661 0fa0 23        		.byte	0x23
+ 2662 0fa1 0B        		.byte	0xb
+ 2663 0fa2 5057 4D5F 		.string	"PWM_PULSE_ZL"
+ 2663      5055 4C53 
+ 2663      455F 5A4C 
+ 2663      00
+ 2664               	
+ 2665 0faf 0B        		.byte	0xb
+ 2666 0fb0 30        		.byte	0x30
+ 2667 0fb1 0000 0C71 		.4byte	0xc71
+ 2668 0fb5 02        		.byte	0x2
+ 2669 0fb6 23        		.byte	0x23
+ 2670 0fb7 24        		.byte	0x24
+ 2671 0fb8 0B        		.byte	0xb
+ 2672 0fb9 5057 4D5F 		.string	"PWM_PULSE_ZH"
+ 2672      5055 4C53 
+ 2672      455F 5A48 
+ 2672      00
+ 2673               	
+ 2674 0fc6 0B        		.byte	0xb
+ 2675 0fc7 31        		.byte	0x31
+ 2676 0fc8 0000 0C71 		.4byte	0xc71
+ 2677 0fcc 02        		.byte	0x2
+ 2678 0fcd 23        		.byte	0x23
+ 2679 0fce 25        		.byte	0x25
+ 2680 0fcf 0B        		.byte	0xb
+ 2681 0fd0 494E 545F 		.string	"INT_CTL"
+ 2681      4354 4C00 
+68K GAS  C:\Users\37877\AppData\Local\Temp\ccQjgaaa.s 			page 55
+
+
+ 2682               	
+ 2683 0fd8 0B        		.byte	0xb
+ 2684 0fd9 32        		.byte	0x32
+ 2685 0fda 0000 0C71 		.4byte	0xc71
+ 2686 0fde 02        		.byte	0x2
+ 2687 0fdf 23        		.byte	0x23
+ 2688 0fe0 26        		.byte	0x26
+ 2689 0fe1 0B        		.byte	0xb
+ 2690 0fe2 494E 545F 		.string	"INT_MASK"
+ 2690      4D41 534B 
+ 2690      00
+ 2691               	
+ 2692 0feb 0B        		.byte	0xb
+ 2693 0fec 33        		.byte	0x33
+ 2694 0fed 0000 0C71 		.4byte	0xc71
+ 2695 0ff1 02        		.byte	0x2
+ 2696 0ff2 23        		.byte	0x23
+ 2697 0ff3 27        		.byte	0x27
+ 2698 0ff4 0B        		.byte	0xb
+ 2699 0ff5 5449 4D45 		.string	"TIMER1_CTL"
+ 2699      5231 5F43 
+ 2699      544C 00
+ 2700               	
+ 2701 1000 0B        		.byte	0xb
+ 2702 1001 34        		.byte	0x34
+ 2703 1002 0000 0C71 		.4byte	0xc71
+ 2704 1006 02        		.byte	0x2
+ 2705 1007 23        		.byte	0x23
+ 2706 1008 28        		.byte	0x28
+ 2707 1009 0B        		.byte	0xb
+ 2708 100a 5449 4D45 		.string	"TIMER1_DAT0"
+ 2708      5231 5F44 
+ 2708      4154 3000 
+ 2709               	
+ 2710 1016 0B        		.byte	0xb
+ 2711 1017 35        		.byte	0x35
+ 2712 1018 0000 0C71 		.4byte	0xc71
+ 2713 101c 02        		.byte	0x2
+ 2714 101d 23        		.byte	0x23
+ 2715 101e 29        		.byte	0x29
+ 2716 101f 0B        		.byte	0xb
+ 2717 1020 5449 4D45 		.string	"TIMER1_DAT1"
+ 2717      5231 5F44 
+ 2717      4154 3100 
+ 2718               	
+ 2719 102c 0B        		.byte	0xb
+ 2720 102d 36        		.byte	0x36
+ 2721 102e 0000 0C71 		.4byte	0xc71
+ 2722 1032 02        		.byte	0x2
+ 2723 1033 23        		.byte	0x23
+ 2724 1034 2A        		.byte	0x2a
+ 2725 1035 0B        		.byte	0xb
+ 2726 1036 5449 4D45 		.string	"TIMER1_DAT2"
+ 2726      5231 5F44 
+ 2726      4154 3200 
+ 2727               	
+ 2728 1042 0B        		.byte	0xb
+68K GAS  C:\Users\37877\AppData\Local\Temp\ccQjgaaa.s 			page 56
+
+
+ 2729 1043 37        		.byte	0x37
+ 2730 1044 0000 0C71 		.4byte	0xc71
+ 2731 1048 02        		.byte	0x2
+ 2732 1049 23        		.byte	0x23
+ 2733 104a 2B        		.byte	0x2b
+ 2734 104b 0B        		.byte	0xb
+ 2735 104c 5449 4D45 		.string	"TIMER1_DAT3"
+ 2735      5231 5F44 
+ 2735      4154 3300 
+ 2736               	
+ 2737 1058 0B        		.byte	0xb
+ 2738 1059 38        		.byte	0x38
+ 2739 105a 0000 0C71 		.4byte	0xc71
+ 2740 105e 02        		.byte	0x2
+ 2741 105f 23        		.byte	0x23
+ 2742 1060 2C        		.byte	0x2c
+ 2743 1061 0B        		.byte	0xb
+ 2744 1062 5057 5243 		.string	"PWRCTL2"
+ 2744      544C 3200 
+ 2745               	
+ 2746 106a 0B        		.byte	0xb
+ 2747 106b 39        		.byte	0x39
+ 2748 106c 0000 0C71 		.4byte	0xc71
+ 2749 1070 02        		.byte	0x2
+ 2750 1071 23        		.byte	0x23
+ 2751 1072 2D        		.byte	0x2d
+ 2752 1073 0B        		.byte	0xb
+ 2753 1074 5350 315F 		.string	"SP1_BURN"
+ 2753      4255 524E 
+ 2753      00
+ 2754               	
+ 2755 107d 0B        		.byte	0xb
+ 2756 107e 3A        		.byte	0x3a
+ 2757 107f 0000 0C71 		.4byte	0xc71
+ 2758 1083 02        		.byte	0x2
+ 2759 1084 23        		.byte	0x23
+ 2760 1085 2E        		.byte	0x2e
+ 2761 1086 0B        		.byte	0xb
+ 2762 1087 5350 325F 		.string	"SP2_BURN"
+ 2762      4255 524E 
+ 2762      00
+ 2763               	
+ 2764 1090 0B        		.byte	0xb
+ 2765 1091 3B        		.byte	0x3b
+ 2766 1092 0000 0C71 		.4byte	0xc71
+ 2767 1096 02        		.byte	0x2
+ 2768 1097 23        		.byte	0x23
+ 2769 1098 2F        		.byte	0x2f
+ 2770 1099 0B        		.byte	0xb
+ 2771 109a 5350 335F 		.string	"SP3_BURN"
+ 2771      4255 524E 
+ 2771      00
+ 2772               	
+ 2773 10a3 0B        		.byte	0xb
+ 2774 10a4 3C        		.byte	0x3c
+ 2775 10a5 0000 0C71 		.4byte	0xc71
+ 2776 10a9 02        		.byte	0x2
+68K GAS  C:\Users\37877\AppData\Local\Temp\ccQjgaaa.s 			page 57
+
+
+ 2777 10aa 23        		.byte	0x23
+ 2778 10ab 30        		.byte	0x30
+ 2779 10ac 0B        		.byte	0xb
+ 2780 10ad 4244 345F 		.string	"BD4_BURN"
+ 2780      4255 524E 
+ 2780      00
+ 2781               	
+ 2782 10b6 0B        		.byte	0xb
+ 2783 10b7 3D        		.byte	0x3d
+ 2784 10b8 0000 0C71 		.4byte	0xc71
+ 2785 10bc 02        		.byte	0x2
+ 2786 10bd 23        		.byte	0x23
+ 2787 10be 31        		.byte	0x31
+ 2788 10bf 0B        		.byte	0xb
+ 2789 10c0 4550 535F 		.string	"EPS_BURN_PWR"
+ 2789      4255 524E 
+ 2789      5F50 5752 
+ 2789      00
+ 2790               	
+ 2791 10cd 0B        		.byte	0xb
+ 2792 10ce 3E        		.byte	0x3e
+ 2793 10cf 0000 0C71 		.4byte	0xc71
+ 2794 10d3 02        		.byte	0x2
+ 2795 10d4 23        		.byte	0x23
+ 2796 10d5 32        		.byte	0x32
+ 2797 10d6 0B        		.byte	0xb
+ 2798 10d7 4255 524E 		.string	"BURN_PWR_STATUS"
+ 2798      5F50 5752 
+ 2798      5F53 5441 
+ 2798      5455 5300 
+ 2799               	
+ 2800 10e7 0B        		.byte	0xb
+ 2801 10e8 3F        		.byte	0x3f
+ 2802 10e9 0000 0C71 		.4byte	0xc71
+ 2803 10ed 02        		.byte	0x2
+ 2804 10ee 23        		.byte	0x23
+ 2805 10ef 33        		.byte	0x33
+ 2806 10f0 0B        		.byte	0xb
+ 2807 10f1 4550 535F 		.string	"EPS_ADC_START"
+ 2807      4144 435F 
+ 2807      5354 4152 
+ 2807      5400 
+ 2808               	
+ 2809 10ff 0B        		.byte	0xb
+ 2810 1100 40        		.byte	0x40
+ 2811 1101 0000 0C71 		.4byte	0xc71
+ 2812 1105 02        		.byte	0x2
+ 2813 1106 23        		.byte	0x23
+ 2814 1107 34        		.byte	0x34
+ 2815 1108 0B        		.byte	0xb
+ 2816 1109 4550 535F 		.string	"EPS_ADC_STOP"
+ 2816      4144 435F 
+ 2816      5354 4F50 
+ 2816      00
+ 2817               	
+ 2818 1116 0B        		.byte	0xb
+ 2819 1117 41        		.byte	0x41
+68K GAS  C:\Users\37877\AppData\Local\Temp\ccQjgaaa.s 			page 58
+
+
+ 2820 1118 0000 0C71 		.4byte	0xc71
+ 2821 111c 02        		.byte	0x2
+ 2822 111d 23        		.byte	0x23
+ 2823 111e 35        		.byte	0x35
+ 2824 111f 0B        		.byte	0xb
+ 2825 1120 4550 535F 		.string	"EPS_ADC_WRITE"
+ 2825      4144 435F 
+ 2825      5752 4954 
+ 2825      4500 
+ 2826               	
+ 2827 112e 0B        		.byte	0xb
+ 2828 112f 42        		.byte	0x42
+ 2829 1130 0000 0C71 		.4byte	0xc71
+ 2830 1134 02        		.byte	0x2
+ 2831 1135 23        		.byte	0x23
+ 2832 1136 36        		.byte	0x36
+ 2833 1137 0B        		.byte	0xb
+ 2834 1138 4550 535F 		.string	"EPS_ADC_RD_INIT"
+ 2834      4144 435F 
+ 2834      5244 5F49 
+ 2834      4E49 5400 
+ 2835               	
+ 2836 1148 0B        		.byte	0xb
+ 2837 1149 43        		.byte	0x43
+ 2838 114a 0000 0C71 		.4byte	0xc71
+ 2839 114e 02        		.byte	0x2
+ 2840 114f 23        		.byte	0x23
+ 2841 1150 37        		.byte	0x37
+ 2842 1151 0B        		.byte	0xb
+ 2843 1152 5350 315F 		.string	"SP1_ADC_START"
+ 2843      4144 435F 
+ 2843      5354 4152 
+ 2843      5400 
+ 2844               	
+ 2845 1160 0B        		.byte	0xb
+ 2846 1161 44        		.byte	0x44
+ 2847 1162 0000 0C71 		.4byte	0xc71
+ 2848 1166 02        		.byte	0x2
+ 2849 1167 23        		.byte	0x23
+ 2850 1168 38        		.byte	0x38
+ 2851 1169 0B        		.byte	0xb
+ 2852 116a 5350 315F 		.string	"SP1_ADC_STOP"
+ 2852      4144 435F 
+ 2852      5354 4F50 
+ 2852      00
+ 2853               	
+ 2854 1177 0B        		.byte	0xb
+ 2855 1178 45        		.byte	0x45
+ 2856 1179 0000 0C71 		.4byte	0xc71
+ 2857 117d 02        		.byte	0x2
+ 2858 117e 23        		.byte	0x23
+ 2859 117f 39        		.byte	0x39
+ 2860 1180 0B        		.byte	0xb
+ 2861 1181 5350 315F 		.string	"SP1_ADC_WRITE"
+ 2861      4144 435F 
+ 2861      5752 4954 
+ 2861      4500 
+68K GAS  C:\Users\37877\AppData\Local\Temp\ccQjgaaa.s 			page 59
+
+
+ 2862               	
+ 2863 118f 0B        		.byte	0xb
+ 2864 1190 46        		.byte	0x46
+ 2865 1191 0000 0C71 		.4byte	0xc71
+ 2866 1195 02        		.byte	0x2
+ 2867 1196 23        		.byte	0x23
+ 2868 1197 3A        		.byte	0x3a
+ 2869 1198 0B        		.byte	0xb
+ 2870 1199 5350 315F 		.string	"SP1_ADC_RD_INIT"
+ 2870      4144 435F 
+ 2870      5244 5F49 
+ 2870      4E49 5400 
+ 2871               	
+ 2872 11a9 0B        		.byte	0xb
+ 2873 11aa 47        		.byte	0x47
+ 2874 11ab 0000 0C71 		.4byte	0xc71
+ 2875 11af 02        		.byte	0x2
+ 2876 11b0 23        		.byte	0x23
+ 2877 11b1 3B        		.byte	0x3b
+ 2878 11b2 0B        		.byte	0xb
+ 2879 11b3 5350 325F 		.string	"SP2_ADC_START"
+ 2879      4144 435F 
+ 2879      5354 4152 
+ 2879      5400 
+ 2880               	
+ 2881 11c1 0B        		.byte	0xb
+ 2882 11c2 48        		.byte	0x48
+ 2883 11c3 0000 0C71 		.4byte	0xc71
+ 2884 11c7 02        		.byte	0x2
+ 2885 11c8 23        		.byte	0x23
+ 2886 11c9 3C        		.byte	0x3c
+ 2887 11ca 0B        		.byte	0xb
+ 2888 11cb 5350 325F 		.string	"SP2_ADC_STOP"
+ 2888      4144 435F 
+ 2888      5354 4F50 
+ 2888      00
+ 2889               	
+ 2890 11d8 0B        		.byte	0xb
+ 2891 11d9 49        		.byte	0x49
+ 2892 11da 0000 0C71 		.4byte	0xc71
+ 2893 11de 02        		.byte	0x2
+ 2894 11df 23        		.byte	0x23
+ 2895 11e0 3D        		.byte	0x3d
+ 2896 11e1 0B        		.byte	0xb
+ 2897 11e2 5350 325F 		.string	"SP2_ADC_WRITE"
+ 2897      4144 435F 
+ 2897      5752 4954 
+ 2897      4500 
+ 2898               	
+ 2899 11f0 0B        		.byte	0xb
+ 2900 11f1 4A        		.byte	0x4a
+ 2901 11f2 0000 0C71 		.4byte	0xc71
+ 2902 11f6 02        		.byte	0x2
+ 2903 11f7 23        		.byte	0x23
+ 2904 11f8 3E        		.byte	0x3e
+ 2905 11f9 0B        		.byte	0xb
+ 2906 11fa 5350 325F 		.string	"SP2_ADC_RD_INIT"
+68K GAS  C:\Users\37877\AppData\Local\Temp\ccQjgaaa.s 			page 60
+
+
+ 2906      4144 435F 
+ 2906      5244 5F49 
+ 2906      4E49 5400 
+ 2907               	
+ 2908 120a 0B        		.byte	0xb
+ 2909 120b 4B        		.byte	0x4b
+ 2910 120c 0000 0C71 		.4byte	0xc71
+ 2911 1210 02        		.byte	0x2
+ 2912 1211 23        		.byte	0x23
+ 2913 1212 3F        		.byte	0x3f
+ 2914 1213 0B        		.byte	0xb
+ 2915 1214 5350 335F 		.string	"SP3_ADC_START"
+ 2915      4144 435F 
+ 2915      5354 4152 
+ 2915      5400 
+ 2916               	
+ 2917 1222 0B        		.byte	0xb
+ 2918 1223 4C        		.byte	0x4c
+ 2919 1224 0000 0C71 		.4byte	0xc71
+ 2920 1228 02        		.byte	0x2
+ 2921 1229 23        		.byte	0x23
+ 2922 122a 40        		.byte	0x40
+ 2923 122b 0B        		.byte	0xb
+ 2924 122c 5350 335F 		.string	"SP3_ADC_STOP"
+ 2924      4144 435F 
+ 2924      5354 4F50 
+ 2924      00
+ 2925               	
+ 2926 1239 0B        		.byte	0xb
+ 2927 123a 4D        		.byte	0x4d
+ 2928 123b 0000 0C71 		.4byte	0xc71
+ 2929 123f 02        		.byte	0x2
+ 2930 1240 23        		.byte	0x23
+ 2931 1241 41        		.byte	0x41
+ 2932 1242 0B        		.byte	0xb
+ 2933 1243 5350 335F 		.string	"SP3_ADC_WRITE"
+ 2933      4144 435F 
+ 2933      5752 4954 
+ 2933      4500 
+ 2934               	
+ 2935 1251 0B        		.byte	0xb
+ 2936 1252 4E        		.byte	0x4e
+ 2937 1253 0000 0C71 		.4byte	0xc71
+ 2938 1257 02        		.byte	0x2
+ 2939 1258 23        		.byte	0x23
+ 2940 1259 42        		.byte	0x42
+ 2941 125a 0B        		.byte	0xb
+ 2942 125b 5350 335F 		.string	"SP3_ADC_RD_INIT"
+ 2942      4144 435F 
+ 2942      5244 5F49 
+ 2942      4E49 5400 
+ 2943               	
+ 2944 126b 0B        		.byte	0xb
+ 2945 126c 4F        		.byte	0x4f
+ 2946 126d 0000 0C71 		.4byte	0xc71
+ 2947 1271 02        		.byte	0x2
+ 2948 1272 23        		.byte	0x23
+68K GAS  C:\Users\37877\AppData\Local\Temp\ccQjgaaa.s 			page 61
+
+
+ 2949 1273 43        		.byte	0x43
+ 2950 1274 0B        		.byte	0xb
+ 2951 1275 4244 345F 		.string	"BD4_ADC_START"
+ 2951      4144 435F 
+ 2951      5354 4152 
+ 2951      5400 
+ 2952               	
+ 2953 1283 0B        		.byte	0xb
+ 2954 1284 50        		.byte	0x50
+ 2955 1285 0000 0C71 		.4byte	0xc71
+ 2956 1289 02        		.byte	0x2
+ 2957 128a 23        		.byte	0x23
+ 2958 128b 44        		.byte	0x44
+ 2959 128c 0B        		.byte	0xb
+ 2960 128d 4244 345F 		.string	"BD4_ADC_STOP"
+ 2960      4144 435F 
+ 2960      5354 4F50 
+ 2960      00
+ 2961               	
+ 2962 129a 0B        		.byte	0xb
+ 2963 129b 51        		.byte	0x51
+ 2964 129c 0000 0C71 		.4byte	0xc71
+ 2965 12a0 02        		.byte	0x2
+ 2966 12a1 23        		.byte	0x23
+ 2967 12a2 45        		.byte	0x45
+ 2968 12a3 0B        		.byte	0xb
+ 2969 12a4 4244 345F 		.string	"BD4_ADC_WRITE"
+ 2969      4144 435F 
+ 2969      5752 4954 
+ 2969      4500 
+ 2970               	
+ 2971 12b2 0B        		.byte	0xb
+ 2972 12b3 52        		.byte	0x52
+ 2973 12b4 0000 0C71 		.4byte	0xc71
+ 2974 12b8 02        		.byte	0x2
+ 2975 12b9 23        		.byte	0x23
+ 2976 12ba 46        		.byte	0x46
+ 2977 12bb 0B        		.byte	0xb
+ 2978 12bc 4244 345F 		.string	"BD4_ADC_RD_INIT"
+ 2978      4144 435F 
+ 2978      5244 5F49 
+ 2978      4E49 5400 
+ 2979               	
+ 2980 12cc 0B        		.byte	0xb
+ 2981 12cd 53        		.byte	0x53
+ 2982 12ce 0000 0C71 		.4byte	0xc71
+ 2983 12d2 02        		.byte	0x2
+ 2984 12d3 23        		.byte	0x23
+ 2985 12d4 47        		.byte	0x47
+ 2986 12d5 0B        		.byte	0xb
+ 2987 12d6 5350 315F 		.string	"SP1_MAG_START"
+ 2987      4D41 475F 
+ 2987      5354 4152 
+ 2987      5400 
+ 2988               	
+ 2989 12e4 0B        		.byte	0xb
+ 2990 12e5 54        		.byte	0x54
+68K GAS  C:\Users\37877\AppData\Local\Temp\ccQjgaaa.s 			page 62
+
+
+ 2991 12e6 0000 0C71 		.4byte	0xc71
+ 2992 12ea 02        		.byte	0x2
+ 2993 12eb 23        		.byte	0x23
+ 2994 12ec 48        		.byte	0x48
+ 2995 12ed 0B        		.byte	0xb
+ 2996 12ee 5350 315F 		.string	"SP1_MAG_STOP"
+ 2996      4D41 475F 
+ 2996      5354 4F50 
+ 2996      00
+ 2997               	
+ 2998 12fb 0B        		.byte	0xb
+ 2999 12fc 55        		.byte	0x55
+ 3000 12fd 0000 0C71 		.4byte	0xc71
+ 3001 1301 02        		.byte	0x2
+ 3002 1302 23        		.byte	0x23
+ 3003 1303 49        		.byte	0x49
+ 3004 1304 0B        		.byte	0xb
+ 3005 1305 5350 315F 		.string	"SP1_MAG_WRITE"
+ 3005      4D41 475F 
+ 3005      5752 4954 
+ 3005      4500 
+ 3006               	
+ 3007 1313 0B        		.byte	0xb
+ 3008 1314 56        		.byte	0x56
+ 3009 1315 0000 0C71 		.4byte	0xc71
+ 3010 1319 02        		.byte	0x2
+ 3011 131a 23        		.byte	0x23
+ 3012 131b 4A        		.byte	0x4a
+ 3013 131c 0B        		.byte	0xb
+ 3014 131d 5350 315F 		.string	"SP1_MAG_RD_INIT"
+ 3014      4D41 475F 
+ 3014      5244 5F49 
+ 3014      4E49 5400 
+ 3015               	
+ 3016 132d 0B        		.byte	0xb
+ 3017 132e 57        		.byte	0x57
+ 3018 132f 0000 0C71 		.4byte	0xc71
+ 3019 1333 02        		.byte	0x2
+ 3020 1334 23        		.byte	0x23
+ 3021 1335 4B        		.byte	0x4b
+ 3022 1336 0B        		.byte	0xb
+ 3023 1337 5350 325F 		.string	"SP2_MAG_START"
+ 3023      4D41 475F 
+ 3023      5354 4152 
+ 3023      5400 
+ 3024               	
+ 3025 1345 0B        		.byte	0xb
+ 3026 1346 58        		.byte	0x58
+ 3027 1347 0000 0C71 		.4byte	0xc71
+ 3028 134b 02        		.byte	0x2
+ 3029 134c 23        		.byte	0x23
+ 3030 134d 4C        		.byte	0x4c
+ 3031 134e 0B        		.byte	0xb
+ 3032 134f 5350 325F 		.string	"SP2_MAG_STOP"
+ 3032      4D41 475F 
+ 3032      5354 4F50 
+ 3032      00
+68K GAS  C:\Users\37877\AppData\Local\Temp\ccQjgaaa.s 			page 63
+
+
+ 3033               	
+ 3034 135c 0B        		.byte	0xb
+ 3035 135d 59        		.byte	0x59
+ 3036 135e 0000 0C71 		.4byte	0xc71
+ 3037 1362 02        		.byte	0x2
+ 3038 1363 23        		.byte	0x23
+ 3039 1364 4D        		.byte	0x4d
+ 3040 1365 0B        		.byte	0xb
+ 3041 1366 5350 325F 		.string	"SP2_MAG_WRITE"
+ 3041      4D41 475F 
+ 3041      5752 4954 
+ 3041      4500 
+ 3042               	
+ 3043 1374 0B        		.byte	0xb
+ 3044 1375 5A        		.byte	0x5a
+ 3045 1376 0000 0C71 		.4byte	0xc71
+ 3046 137a 02        		.byte	0x2
+ 3047 137b 23        		.byte	0x23
+ 3048 137c 4E        		.byte	0x4e
+ 3049 137d 0B        		.byte	0xb
+ 3050 137e 5350 325F 		.string	"SP2_MAG_RD_INIT"
+ 3050      4D41 475F 
+ 3050      5244 5F49 
+ 3050      4E49 5400 
+ 3051               	
+ 3052 138e 0B        		.byte	0xb
+ 3053 138f 5B        		.byte	0x5b
+ 3054 1390 0000 0C71 		.4byte	0xc71
+ 3055 1394 02        		.byte	0x2
+ 3056 1395 23        		.byte	0x23
+ 3057 1396 4F        		.byte	0x4f
+ 3058 1397 0B        		.byte	0xb
+ 3059 1398 5350 335F 		.string	"SP3_MAG_START"
+ 3059      4D41 475F 
+ 3059      5354 4152 
+ 3059      5400 
+ 3060               	
+ 3061 13a6 0B        		.byte	0xb
+ 3062 13a7 5C        		.byte	0x5c
+ 3063 13a8 0000 0C71 		.4byte	0xc71
+ 3064 13ac 02        		.byte	0x2
+ 3065 13ad 23        		.byte	0x23
+ 3066 13ae 50        		.byte	0x50
+ 3067 13af 0B        		.byte	0xb
+ 3068 13b0 5350 335F 		.string	"SP3_MAG_STOP"
+ 3068      4D41 475F 
+ 3068      5354 4F50 
+ 3068      00
+ 3069               	
+ 3070 13bd 0B        		.byte	0xb
+ 3071 13be 5D        		.byte	0x5d
+ 3072 13bf 0000 0C71 		.4byte	0xc71
+ 3073 13c3 02        		.byte	0x2
+ 3074 13c4 23        		.byte	0x23
+ 3075 13c5 51        		.byte	0x51
+ 3076 13c6 0B        		.byte	0xb
+ 3077 13c7 5350 335F 		.string	"SP3_MAG_WRITE"
+68K GAS  C:\Users\37877\AppData\Local\Temp\ccQjgaaa.s 			page 64
+
+
+ 3077      4D41 475F 
+ 3077      5752 4954 
+ 3077      4500 
+ 3078               	
+ 3079 13d5 0B        		.byte	0xb
+ 3080 13d6 5E        		.byte	0x5e
+ 3081 13d7 0000 0C71 		.4byte	0xc71
+ 3082 13db 02        		.byte	0x2
+ 3083 13dc 23        		.byte	0x23
+ 3084 13dd 52        		.byte	0x52
+ 3085 13de 0B        		.byte	0xb
+ 3086 13df 5350 335F 		.string	"SP3_MAG_RD_INIT"
+ 3086      4D41 475F 
+ 3086      5244 5F49 
+ 3086      4E49 5400 
+ 3087               	
+ 3088 13ef 0B        		.byte	0xb
+ 3089 13f0 5F        		.byte	0x5f
+ 3090 13f1 0000 0C71 		.4byte	0xc71
+ 3091 13f5 02        		.byte	0x2
+ 3092 13f6 23        		.byte	0x23
+ 3093 13f7 53        		.byte	0x53
+ 3094 13f8 0B        		.byte	0xb
+ 3095 13f9 4244 345F 		.string	"BD4_MAG_START"
+ 3095      4D41 475F 
+ 3095      5354 4152 
+ 3095      5400 
+ 3096               	
+ 3097 1407 0B        		.byte	0xb
+ 3098 1408 60        		.byte	0x60
+ 3099 1409 0000 0C71 		.4byte	0xc71
+ 3100 140d 02        		.byte	0x2
+ 3101 140e 23        		.byte	0x23
+ 3102 140f 54        		.byte	0x54
+ 3103 1410 0B        		.byte	0xb
+ 3104 1411 4244 345F 		.string	"BD4_MAG_STOP"
+ 3104      4D41 475F 
+ 3104      5354 4F50 
+ 3104      00
+ 3105               	
+ 3106 141e 0B        		.byte	0xb
+ 3107 141f 61        		.byte	0x61
+ 3108 1420 0000 0C71 		.4byte	0xc71
+ 3109 1424 02        		.byte	0x2
+ 3110 1425 23        		.byte	0x23
+ 3111 1426 55        		.byte	0x55
+ 3112 1427 0B        		.byte	0xb
+ 3113 1428 4244 345F 		.string	"BD4_MAG_WRITE"
+ 3113      4D41 475F 
+ 3113      5752 4954 
+ 3113      4500 
+ 3114               	
+ 3115 1436 0B        		.byte	0xb
+ 3116 1437 62        		.byte	0x62
+ 3117 1438 0000 0C71 		.4byte	0xc71
+ 3118 143c 02        		.byte	0x2
+ 3119 143d 23        		.byte	0x23
+68K GAS  C:\Users\37877\AppData\Local\Temp\ccQjgaaa.s 			page 65
+
+
+ 3120 143e 56        		.byte	0x56
+ 3121 143f 0B        		.byte	0xb
+ 3122 1440 4244 345F 		.string	"BD4_MAG_RD_INIT"
+ 3122      4D41 475F 
+ 3122      5244 5F49 
+ 3122      4E49 5400 
+ 3123               	
+ 3124 1450 0B        		.byte	0xb
+ 3125 1451 63        		.byte	0x63
+ 3126 1452 0000 0C71 		.4byte	0xc71
+ 3127 1456 02        		.byte	0x2
+ 3128 1457 23        		.byte	0x23
+ 3129 1458 57        		.byte	0x57
+ 3130 1459 0B        		.byte	0xb
+ 3131 145a 5449 4D45 		.string	"TIMER2_CTL"
+ 3131      5232 5F43 
+ 3131      544C 00
+ 3132               	
+ 3133 1465 0B        		.byte	0xb
+ 3134 1466 64        		.byte	0x64
+ 3135 1467 0000 0C71 		.4byte	0xc71
+ 3136 146b 02        		.byte	0x2
+ 3137 146c 23        		.byte	0x23
+ 3138 146d 58        		.byte	0x58
+ 3139 146e 0B        		.byte	0xb
+ 3140 146f 5449 4D45 		.string	"TIMER2_DAT0"
+ 3140      5232 5F44 
+ 3140      4154 3000 
+ 3141               	
+ 3142 147b 0B        		.byte	0xb
+ 3143 147c 65        		.byte	0x65
+ 3144 147d 0000 0C71 		.4byte	0xc71
+ 3145 1481 02        		.byte	0x2
+ 3146 1482 23        		.byte	0x23
+ 3147 1483 59        		.byte	0x59
+ 3148 1484 0B        		.byte	0xb
+ 3149 1485 5449 4D45 		.string	"TIMER2_DAT1"
+ 3149      5232 5F44 
+ 3149      4154 3100 
+ 3150               	
+ 3151 1491 0B        		.byte	0xb
+ 3152 1492 66        		.byte	0x66
+ 3153 1493 0000 0C71 		.4byte	0xc71
+ 3154 1497 02        		.byte	0x2
+ 3155 1498 23        		.byte	0x23
+ 3156 1499 5A        		.byte	0x5a
+ 3157 149a 0B        		.byte	0xb
+ 3158 149b 5449 4D45 		.string	"TIMER2_DAT2"
+ 3158      5232 5F44 
+ 3158      4154 3200 
+ 3159               	
+ 3160 14a7 0B        		.byte	0xb
+ 3161 14a8 67        		.byte	0x67
+ 3162 14a9 0000 0C71 		.4byte	0xc71
+ 3163 14ad 02        		.byte	0x2
+ 3164 14ae 23        		.byte	0x23
+ 3165 14af 5B        		.byte	0x5b
+68K GAS  C:\Users\37877\AppData\Local\Temp\ccQjgaaa.s 			page 66
+
+
+ 3166 14b0 0B        		.byte	0xb
+ 3167 14b1 5449 4D45 		.string	"TIMER2_DAT3"
+ 3167      5232 5F44 
+ 3167      4154 3300 
+ 3168               	
+ 3169 14bd 0B        		.byte	0xb
+ 3170 14be 68        		.byte	0x68
+ 3171 14bf 0000 0C71 		.4byte	0xc71
+ 3172 14c3 02        		.byte	0x2
+ 3173 14c4 23        		.byte	0x23
+ 3174 14c5 5C        		.byte	0x5c
+ 3175 14c6 00        		.byte	0x0
+ 3176 14c7 06        		.byte	0x6
+ 3177 14c8 4344 485F 		.string	"CDH_IO_t"
+ 3177      494F 5F74 
+ 3177      00
+ 3178               	
+ 3179 14d1 0B        		.byte	0xb
+ 3180 14d2 69        		.byte	0x69
+ 3181 14d3 0000 14D7 		.4byte	0x14d7
+ 3182 14d7 18        		.byte	0x18
+ 3183 14d8 0000 0CC0 		.4byte	0xcc0
+ 3184 14dc 17        		.byte	0x17
+ 3185 14dd 0000 1569 		.4byte	0x1569
+ 3186 14e1 10        		.byte	0x10
+ 3187 14e2 0C        		.byte	0xc
+ 3188 14e3 35        		.byte	0x35
+ 3189 14e4 0B        		.byte	0xb
+ 3190 14e5 6F70 5F63 		.string	"op_counter"
+ 3190      6F75 6E74 
+ 3190      6572 00
+ 3191               	
+ 3192 14f0 0C        		.byte	0xc
+ 3193 14f1 2F        		.byte	0x2f
+ 3194 14f2 0000 0C7E 		.4byte	0xc7e
+ 3195 14f6 02        		.byte	0x2
+ 3196 14f7 23        		.byte	0x23
+ 3197 14f8 00        		.byte	0x0
+ 3198 14f9 0B        		.byte	0xb
+ 3199 14fa 6D73 7034 		.string	"msp430_temp"
+ 3199      3330 5F74 
+ 3199      656D 7000 
+ 3200               	
+ 3201 1506 0C        		.byte	0xc
+ 3202 1507 30        		.byte	0x30
+ 3203 1508 0000 0C9A 		.4byte	0xc9a
+ 3204 150c 02        		.byte	0x2
+ 3205 150d 23        		.byte	0x23
+ 3206 150e 02        		.byte	0x2
+ 3207 150f 0B        		.byte	0xb
+ 3208 1510 7469 6D65 		.string	"time_count"
+ 3208      5F63 6F75 
+ 3208      6E74 00
+ 3209               	
+ 3210 151b 0C        		.byte	0xc
+ 3211 151c 31        		.byte	0x31
+ 3212 151d 0000 1569 		.4byte	0x1569
+68K GAS  C:\Users\37877\AppData\Local\Temp\ccQjgaaa.s 			page 67
+
+
+ 3213 1521 02        		.byte	0x2
+ 3214 1522 23        		.byte	0x23
+ 3215 1523 04        		.byte	0x4
+ 3216 1524 0B        		.byte	0xb
+ 3217 1525 7273 7369 		.string	"rssi"
+ 3217      00
+ 3218               	
+ 3219 152a 0C        		.byte	0xc
+ 3220 152b 32        		.byte	0x32
+ 3221 152c 0000 0C71 		.4byte	0xc71
+ 3222 1530 02        		.byte	0x2
+ 3223 1531 23        		.byte	0x23
+ 3224 1532 07        		.byte	0x7
+ 3225 1533 0B        		.byte	0xb
+ 3226 1534 6279 7465 		.string	"bytes_received"
+ 3226      735F 7265 
+ 3226      6365 6976 
+ 3226      6564 00
+ 3227               	
+ 3228 1543 0C        		.byte	0xc
+ 3229 1544 33        		.byte	0x33
+ 3230 1545 0000 0C8C 		.4byte	0xc8c
+ 3231 1549 02        		.byte	0x2
+ 3232 154a 23        		.byte	0x23
+ 3233 154b 08        		.byte	0x8
+ 3234 154c 0B        		.byte	0xb
+ 3235 154d 6279 7465 		.string	"bytes_transmitted"
+ 3235      735F 7472 
+ 3235      616E 736D 
+ 3235      6974 7465 
+ 3235      6400 
+ 3236               	
+ 3237 155f 0C        		.byte	0xc
+ 3238 1560 34        		.byte	0x34
+ 3239 1561 0000 0C8C 		.4byte	0xc8c
+ 3240 1565 02        		.byte	0x2
+ 3241 1566 23        		.byte	0x23
+ 3242 1567 0C        		.byte	0xc
+ 3243 1568 00        		.byte	0x0
+ 3244 1569 0D        		.byte	0xd
+ 3245 156a 0000 1575 		.4byte	0x1575
+ 3246 156e 0000 0C71 		.4byte	0xc71
+ 3247 1572 0E        		.byte	0xe
+ 3248 1573 02        		.byte	0x2
+ 3249 1574 00        		.byte	0x0
+ 3250 1575 06        		.byte	0x6
+ 3251 1576 5445 4C45 		.string	"TELEMETRY_STRUCTURE_t"
+ 3251      4D45 5452 
+ 3251      595F 5354 
+ 3251      5255 4354 
+ 3251      5552 455F 
+ 3252               	
+ 3253 158c 0C        		.byte	0xc
+ 3254 158d 35        		.byte	0x35
+ 3255 158e 0000 14DC 		.4byte	0x14dc
+ 3256 1592 17        		.byte	0x17
+ 3257 1593 0000 160E 		.4byte	0x160e
+68K GAS  C:\Users\37877\AppData\Local\Temp\ccQjgaaa.s 			page 68
+
+
+ 3258 1597 07        		.byte	0x7
+ 3259 1598 0C        		.byte	0xc
+ 3260 1599 3D        		.byte	0x3d
+ 3261 159a 0B        		.byte	0xb
+ 3262 159b 6672 6F6E 		.string	"front_end_level"
+ 3262      745F 656E 
+ 3262      645F 6C65 
+ 3262      7665 6C00 
+ 3263               	
+ 3264 15ab 0C        		.byte	0xc
+ 3265 15ac 39        		.byte	0x39
+ 3266 15ad 0000 0C71 		.4byte	0xc71
+ 3267 15b1 02        		.byte	0x2
+ 3268 15b2 23        		.byte	0x23
+ 3269 15b3 00        		.byte	0x0
+ 3270 15b4 0B        		.byte	0xb
+ 3271 15b5 7478 5F70 		.string	"tx_power_amp_level"
+ 3271      6F77 6572 
+ 3271      5F61 6D70 
+ 3271      5F6C 6576 
+ 3271      656C 00
+ 3272               	
+ 3273 15c8 0C        		.byte	0xc
+ 3274 15c9 3A        		.byte	0x3a
+ 3275 15ca 0000 0C71 		.4byte	0xc71
+ 3276 15ce 02        		.byte	0x2
+ 3277 15cf 23        		.byte	0x23
+ 3278 15d0 01        		.byte	0x1
+ 3279 15d1 0B        		.byte	0xb
+ 3280 15d2 7478 5F66 		.string	"tx_frequency_offset"
+ 3280      7265 7175 
+ 3280      656E 6379 
+ 3280      5F6F 6666 
+ 3280      7365 7400 
+ 3281               	
+ 3282 15e6 0C        		.byte	0xc
+ 3283 15e7 3B        		.byte	0x3b
+ 3284 15e8 0000 0C71 		.4byte	0xc71
+ 3285 15ec 02        		.byte	0x2
+ 3286 15ed 23        		.byte	0x23
+ 3287 15ee 02        		.byte	0x2
+ 3288 15ef 0B        		.byte	0xb
+ 3289 15f0 7278 5F66 		.string	"rx_frequency_offset"
+ 3289      7265 7175 
+ 3289      656E 6379 
+ 3289      5F6F 6666 
+ 3289      7365 7400 
+ 3290               	
+ 3291 1604 0C        		.byte	0xc
+ 3292 1605 3C        		.byte	0x3c
+ 3293 1606 0000 0C8C 		.4byte	0xc8c
+ 3294 160a 02        		.byte	0x2
+ 3295 160b 23        		.byte	0x23
+ 3296 160c 04        		.byte	0x4
+ 3297 160d 00        		.byte	0x0
+ 3298 160e 06        		.byte	0x6
+ 3299 160f 5241 4449 		.string	"RADIO_RF_CONFIGURATION_t"
+68K GAS  C:\Users\37877\AppData\Local\Temp\ccQjgaaa.s 			page 69
+
+
+ 3299      4F5F 5246 
+ 3299      5F43 4F4E 
+ 3299      4649 4755 
+ 3299      5241 5449 
+ 3300               	
+ 3301 1628 0C        		.byte	0xc
+ 3302 1629 3D        		.byte	0x3d
+ 3303 162a 0000 1592 		.4byte	0x1592
+ 3304 162e 17        		.byte	0x17
+ 3305 162f 0000 1651 		.4byte	0x1651
+ 3306 1633 01        		.byte	0x1
+ 3307 1634 0C        		.byte	0xc
+ 3308 1635 42        		.byte	0x42
+ 3309 1636 0B        		.byte	0xb
+ 3310 1637 6265 6163 		.string	"beacon_interval"
+ 3310      6F6E 5F69 
+ 3310      6E74 6572 
+ 3310      7661 6C00 
+ 3311               	
+ 3312 1647 0C        		.byte	0xc
+ 3313 1648 41        		.byte	0x41
+ 3314 1649 0000 0C71 		.4byte	0xc71
+ 3315 164d 02        		.byte	0x2
+ 3316 164e 23        		.byte	0x23
+ 3317 164f 00        		.byte	0x0
+ 3318 1650 00        		.byte	0x0
+ 3319 1651 06        		.byte	0x6
+ 3320 1652 5241 4449 		.string	"RADIO_BEACON_CONFIGURATION_t"
+ 3320      4F5F 4245 
+ 3320      4143 4F4E 
+ 3320      5F43 4F4E 
+ 3320      4649 4755 
+ 3321               	
+ 3322 166f 0C        		.byte	0xc
+ 3323 1670 42        		.byte	0x42
+ 3324 1671 0000 162E 		.4byte	0x162e
+ 3325 1675 17        		.byte	0x17
+ 3326 1676 0000 17C0 		.4byte	0x17c0
+ 3327 167a 22        		.byte	0x22
+ 3328 167b 0C        		.byte	0xc
+ 3329 167c 54        		.byte	0x54
+ 3330 167d 0B        		.byte	0xb
+ 3331 167e 696E 7465 		.string	"interface_baud_rate"
+ 3331      7266 6163 
+ 3331      655F 6261 
+ 3331      7564 5F72 
+ 3331      6174 6500 
+ 3332               	
+ 3333 1692 0C        		.byte	0xc
+ 3334 1693 46        		.byte	0x46
+ 3335 1694 0000 0C71 		.4byte	0xc71
+ 3336 1698 02        		.byte	0x2
+ 3337 1699 23        		.byte	0x23
+ 3338 169a 00        		.byte	0x0
+ 3339 169b 0B        		.byte	0xb
+ 3340 169c 7478 5F70 		.string	"tx_power_amp_level"
+ 3340      6F77 6572 
+68K GAS  C:\Users\37877\AppData\Local\Temp\ccQjgaaa.s 			page 70
+
+
+ 3340      5F61 6D70 
+ 3340      5F6C 6576 
+ 3340      656C 00
+ 3341               	
+ 3342 16af 0C        		.byte	0xc
+ 3343 16b0 47        		.byte	0x47
+ 3344 16b1 0000 0C71 		.4byte	0xc71
+ 3345 16b5 02        		.byte	0x2
+ 3346 16b6 23        		.byte	0x23
+ 3347 16b7 01        		.byte	0x1
+ 3348 16b8 0B        		.byte	0xb
+ 3349 16b9 7278 5F72 		.string	"rx_rf_baud_rate"
+ 3349      665F 6261 
+ 3349      7564 5F72 
+ 3349      6174 6500 
+ 3350               	
+ 3351 16c9 0C        		.byte	0xc
+ 3352 16ca 48        		.byte	0x48
+ 3353 16cb 0000 0C71 		.4byte	0xc71
+ 3354 16cf 02        		.byte	0x2
+ 3355 16d0 23        		.byte	0x23
+ 3356 16d1 02        		.byte	0x2
+ 3357 16d2 0B        		.byte	0xb
+ 3358 16d3 7478 5F72 		.string	"tx_rf_baud_rate"
+ 3358      665F 6261 
+ 3358      7564 5F72 
+ 3358      6174 6500 
+ 3359               	
+ 3360 16e3 0C        		.byte	0xc
+ 3361 16e4 49        		.byte	0x49
+ 3362 16e5 0000 0C71 		.4byte	0xc71
+ 3363 16e9 02        		.byte	0x2
+ 3364 16ea 23        		.byte	0x23
+ 3365 16eb 03        		.byte	0x3
+ 3366 16ec 0B        		.byte	0xb
+ 3367 16ed 7278 5F6D 		.string	"rx_modulation"
+ 3367      6F64 756C 
+ 3367      6174 696F 
+ 3367      6E00 
+ 3368               	
+ 3369 16fb 0C        		.byte	0xc
+ 3370 16fc 4A        		.byte	0x4a
+ 3371 16fd 0000 0C71 		.4byte	0xc71
+ 3372 1701 02        		.byte	0x2
+ 3373 1702 23        		.byte	0x23
+ 3374 1703 04        		.byte	0x4
+ 3375 1704 0B        		.byte	0xb
+ 3376 1705 7478 5F6D 		.string	"tx_modulation"
+ 3376      6F64 756C 
+ 3376      6174 696F 
+ 3376      6E00 
+ 3377               	
+ 3378 1713 0C        		.byte	0xc
+ 3379 1714 4B        		.byte	0x4b
+ 3380 1715 0000 0C71 		.4byte	0xc71
+ 3381 1719 02        		.byte	0x2
+ 3382 171a 23        		.byte	0x23
+68K GAS  C:\Users\37877\AppData\Local\Temp\ccQjgaaa.s 			page 71
+
+
+ 3383 171b 05        		.byte	0x5
+ 3384 171c 0B        		.byte	0xb
+ 3385 171d 7278 5F66 		.string	"rx_freq"
+ 3385      7265 7100 
+ 3386               	
+ 3387 1725 0C        		.byte	0xc
+ 3388 1726 4C        		.byte	0x4c
+ 3389 1727 0000 0C8C 		.4byte	0xc8c
+ 3390 172b 02        		.byte	0x2
+ 3391 172c 23        		.byte	0x23
+ 3392 172d 06        		.byte	0x6
+ 3393 172e 0B        		.byte	0xb
+ 3394 172f 7478 5F66 		.string	"tx_freq"
+ 3394      7265 7100 
+ 3395               	
+ 3396 1737 0C        		.byte	0xc
+ 3397 1738 4D        		.byte	0x4d
+ 3398 1739 0000 0C8C 		.4byte	0xc8c
+ 3399 173d 02        		.byte	0x2
+ 3400 173e 23        		.byte	0x23
+ 3401 173f 0A        		.byte	0xa
+ 3402 1740 0B        		.byte	0xb
+ 3403 1741 6465 7374 		.string	"dest"
+ 3403      00
+ 3404               	
+ 3405 1746 0C        		.byte	0xc
+ 3406 1747 4E        		.byte	0x4e
+ 3407 1748 0000 17C0 		.4byte	0x17c0
+ 3408 174c 02        		.byte	0x2
+ 3409 174d 23        		.byte	0x23
+ 3410 174e 0E        		.byte	0xe
+ 3411 174f 0B        		.byte	0xb
+ 3412 1750 7372 6300 		.string	"src"
+ 3413               	
+ 3414 1754 0C        		.byte	0xc
+ 3415 1755 4F        		.byte	0x4f
+ 3416 1756 0000 17C0 		.4byte	0x17c0
+ 3417 175a 02        		.byte	0x2
+ 3418 175b 23        		.byte	0x23
+ 3419 175c 14        		.byte	0x14
+ 3420 175d 0B        		.byte	0xb
+ 3421 175e 7478 5F70 		.string	"tx_preamble"
+ 3421      7265 616D 
+ 3421      626C 6500 
+ 3422               	
+ 3423 176a 0C        		.byte	0xc
+ 3424 176b 50        		.byte	0x50
+ 3425 176c 0000 0C7E 		.4byte	0xc7e
+ 3426 1770 02        		.byte	0x2
+ 3427 1771 23        		.byte	0x23
+ 3428 1772 1A        		.byte	0x1a
+ 3429 1773 0B        		.byte	0xb
+ 3430 1774 7478 5F70 		.string	"tx_postamble"
+ 3430      6F73 7461 
+ 3430      6D62 6C65 
+ 3430      00
+ 3431               	
+68K GAS  C:\Users\37877\AppData\Local\Temp\ccQjgaaa.s 			page 72
+
+
+ 3432 1781 0C        		.byte	0xc
+ 3433 1782 51        		.byte	0x51
+ 3434 1783 0000 0C7E 		.4byte	0xc7e
+ 3435 1787 02        		.byte	0x2
+ 3436 1788 23        		.byte	0x23
+ 3437 1789 1C        		.byte	0x1c
+ 3438 178a 0B        		.byte	0xb
+ 3439 178b 6675 6E63 		.string	"function_config"
+ 3439      7469 6F6E 
+ 3439      5F63 6F6E 
+ 3439      6669 6700 
+ 3440               	
+ 3441 179b 0C        		.byte	0xc
+ 3442 179c 52        		.byte	0x52
+ 3443 179d 0000 0C7E 		.4byte	0xc7e
+ 3444 17a1 02        		.byte	0x2
+ 3445 17a2 23        		.byte	0x23
+ 3446 17a3 1E        		.byte	0x1e
+ 3447 17a4 0B        		.byte	0xb
+ 3448 17a5 6675 6E63 		.string	"function_config2"
+ 3448      7469 6F6E 
+ 3448      5F63 6F6E 
+ 3448      6669 6732 
+ 3448      00
+ 3449               	
+ 3450 17b6 0C        		.byte	0xc
+ 3451 17b7 53        		.byte	0x53
+ 3452 17b8 0000 0C7E 		.4byte	0xc7e
+ 3453 17bc 02        		.byte	0x2
+ 3454 17bd 23        		.byte	0x23
+ 3455 17be 20        		.byte	0x20
+ 3456 17bf 00        		.byte	0x0
+ 3457 17c0 0D        		.byte	0xd
+ 3458 17c1 0000 17CC 		.4byte	0x17cc
+ 3459 17c5 0000 0282 		.4byte	0x282
+ 3460 17c9 0E        		.byte	0xe
+ 3461 17ca 05        		.byte	0x5
+ 3462 17cb 00        		.byte	0x0
+ 3463 17cc 06        		.byte	0x6
+ 3464 17cd 5241 4449 		.string	"RADIO_CONFIGURATION_t"
+ 3464      4F5F 434F 
+ 3464      4E46 4947 
+ 3464      5552 4154 
+ 3464      494F 4E5F 
+ 3465               	
+ 3466 17e3 0C        		.byte	0xc
+ 3467 17e4 54        		.byte	0x54
+ 3468 17e5 0000 1675 		.4byte	0x1675
+ 3469 17e9 17        		.byte	0x17
+ 3470 17ea 0000 191D 		.4byte	0x191d
+ 3471 17ee 16        		.byte	0x16
+ 3472 17ef 0C        		.byte	0xc
+ 3473 17f0 63        		.byte	0x63
+ 3474 17f1 0B        		.byte	0xb
+ 3475 17f2 7750 6163 		.string	"wPacketsReceived"
+ 3475      6B65 7473 
+ 3475      5265 6365 
+68K GAS  C:\Users\37877\AppData\Local\Temp\ccQjgaaa.s 			page 73
+
+
+ 3475      6976 6564 
+ 3475      00
+ 3476               	
+ 3477 1803 0C        		.byte	0xc
+ 3478 1804 58        		.byte	0x58
+ 3479 1805 0000 0C7E 		.4byte	0xc7e
+ 3480 1809 02        		.byte	0x2
+ 3481 180a 23        		.byte	0x23
+ 3482 180b 00        		.byte	0x0
+ 3483 180c 0B        		.byte	0xb
+ 3484 180d 7752 6164 		.string	"wRadioPktsReceived"
+ 3484      696F 506B 
+ 3484      7473 5265 
+ 3484      6365 6976 
+ 3484      6564 00
+ 3485               	
+ 3486 1820 0C        		.byte	0xc
+ 3487 1821 59        		.byte	0x59
+ 3488 1822 0000 0C7E 		.4byte	0xc7e
+ 3489 1826 02        		.byte	0x2
+ 3490 1827 23        		.byte	0x23
+ 3491 1828 02        		.byte	0x2
+ 3492 1829 0B        		.byte	0xb
+ 3493 182a 7752 6164 		.string	"wRadioPktsTransmitted"
+ 3493      696F 506B 
+ 3493      7473 5472 
+ 3493      616E 736D 
+ 3493      6974 7465 
+ 3494               	
+ 3495 1840 0C        		.byte	0xc
+ 3496 1841 5A        		.byte	0x5a
+ 3497 1842 0000 0C7E 		.4byte	0xc7e
+ 3498 1846 02        		.byte	0x2
+ 3499 1847 23        		.byte	0x23
+ 3500 1848 04        		.byte	0x4
+ 3501 1849 0B        		.byte	0xb
+ 3502 184a 7746 5357 		.string	"wFSWLoadPktsReceived"
+ 3502      4C6F 6164 
+ 3502      506B 7473 
+ 3502      5265 6365 
+ 3502      6976 6564 
+ 3503               	
+ 3504 185f 0C        		.byte	0xc
+ 3505 1860 5B        		.byte	0x5b
+ 3506 1861 0000 0C7E 		.4byte	0xc7e
+ 3507 1865 02        		.byte	0x2
+ 3508 1866 23        		.byte	0x23
+ 3509 1867 06        		.byte	0x6
+ 3510 1868 0B        		.byte	0xb
+ 3511 1869 7741 636B 		.string	"wAcksReceived"
+ 3511      7352 6563 
+ 3511      6569 7665 
+ 3511      6400 
+ 3512               	
+ 3513 1877 0C        		.byte	0xc
+ 3514 1878 5C        		.byte	0x5c
+ 3515 1879 0000 0C7E 		.4byte	0xc7e
+68K GAS  C:\Users\37877\AppData\Local\Temp\ccQjgaaa.s 			page 74
+
+
+ 3516 187d 02        		.byte	0x2
+ 3517 187e 23        		.byte	0x23
+ 3518 187f 08        		.byte	0x8
+ 3519 1880 0B        		.byte	0xb
+ 3520 1881 774E 6163 		.string	"wNacksReceived"
+ 3520      6B73 5265 
+ 3520      6365 6976 
+ 3520      6564 00
+ 3521               	
+ 3522 1890 0C        		.byte	0xc
+ 3523 1891 5D        		.byte	0x5d
+ 3524 1892 0000 0C7E 		.4byte	0xc7e
+ 3525 1896 02        		.byte	0x2
+ 3526 1897 23        		.byte	0x23
+ 3527 1898 0A        		.byte	0xa
+ 3528 1899 0B        		.byte	0xb
+ 3529 189a 7748 6561 		.string	"wHeaderCSErrors"
+ 3529      6465 7243 
+ 3529      5345 7272 
+ 3529      6F72 7300 
+ 3530               	
+ 3531 18aa 0C        		.byte	0xc
+ 3532 18ab 5E        		.byte	0x5e
+ 3533 18ac 0000 0C7E 		.4byte	0xc7e
+ 3534 18b0 02        		.byte	0x2
+ 3535 18b1 23        		.byte	0x23
+ 3536 18b2 0C        		.byte	0xc
+ 3537 18b3 0B        		.byte	0xb
+ 3538 18b4 7750 6163 		.string	"wPacketCSErrors"
+ 3538      6B65 7443 
+ 3538      5345 7272 
+ 3538      6F72 7300 
+ 3539               	
+ 3540 18c4 0C        		.byte	0xc
+ 3541 18c5 5F        		.byte	0x5f
+ 3542 18c6 0000 0C7E 		.4byte	0xc7e
+ 3543 18ca 02        		.byte	0x2
+ 3544 18cb 23        		.byte	0x23
+ 3545 18cc 0E        		.byte	0xe
+ 3546 18cd 0B        		.byte	0xb
+ 3547 18ce 7750 6163 		.string	"wPacketTypeErrors"
+ 3547      6B65 7454 
+ 3547      7970 6545 
+ 3547      7272 6F72 
+ 3547      7300 
+ 3548               	
+ 3549 18e0 0C        		.byte	0xc
+ 3550 18e1 60        		.byte	0x60
+ 3551 18e2 0000 0C7E 		.4byte	0xc7e
+ 3552 18e6 02        		.byte	0x2
+ 3553 18e7 23        		.byte	0x23
+ 3554 18e8 10        		.byte	0x10
+ 3555 18e9 0B        		.byte	0xb
+ 3556 18ea 7750 6179 		.string	"wPayloadSizeErrors"
+ 3556      6C6F 6164 
+ 3556      5369 7A65 
+ 3556      4572 726F 
+68K GAS  C:\Users\37877\AppData\Local\Temp\ccQjgaaa.s 			page 75
+
+
+ 3556      7273 00
+ 3557               	
+ 3558 18fd 0C        		.byte	0xc
+ 3559 18fe 61        		.byte	0x61
+ 3560 18ff 0000 0C7E 		.4byte	0xc7e
+ 3561 1903 02        		.byte	0x2
+ 3562 1904 23        		.byte	0x23
+ 3563 1905 12        		.byte	0x12
+ 3564 1906 0B        		.byte	0xb
+ 3565 1907 7753 796E 		.string	"wSyncErrors"
+ 3565      6345 7272 
+ 3565      6F72 7300 
+ 3566               	
+ 3567 1913 0C        		.byte	0xc
+ 3568 1914 62        		.byte	0x62
+ 3569 1915 0000 0C7E 		.4byte	0xc7e
+ 3570 1919 02        		.byte	0x2
+ 3571 191a 23        		.byte	0x23
+ 3572 191b 14        		.byte	0x14
+ 3573 191c 00        		.byte	0x0
+ 3574 191d 06        		.byte	0x6
+ 3575 191e 436F 6D6D 		.string	"CommStats_t"
+ 3575      5374 6174 
+ 3575      735F 7400 
+ 3576               	
+ 3577 192a 0C        		.byte	0xc
+ 3578 192b 63        		.byte	0x63
+ 3579 192c 0000 17E9 		.4byte	0x17e9
+ 3580 1930 19        		.byte	0x19
+ 3581 1931 0000 1B90 		.4byte	0x1b90
+ 3582 1935 01F4      		.2byte	0x1f4
+ 3583 1937 0D        		.byte	0xd
+ 3584 1938 25        		.byte	0x25
+ 3585 1939 0B        		.byte	0xb
+ 3586 193a 7379 6E63 		.string	"sync"
+ 3586      00
+ 3587               	
+ 3588 193f 0D        		.byte	0xd
+ 3589 1940 0B        		.byte	0xb
+ 3590 1941 0000 0C8C 		.4byte	0xc8c
+ 3591 1945 02        		.byte	0x2
+ 3592 1946 23        		.byte	0x23
+ 3593 1947 00        		.byte	0x0
+ 3594 1948 0B        		.byte	0xb
+ 3595 1949 6D69 7373 		.string	"mission_phase"
+ 3595      696F 6E5F 
+ 3595      7068 6173 
+ 3595      6500 
+ 3596               	
+ 3597 1957 0D        		.byte	0xd
+ 3598 1958 0C        		.byte	0xc
+ 3599 1959 0000 0C8C 		.4byte	0xc8c
+ 3600 195d 02        		.byte	0x2
+ 3601 195e 23        		.byte	0x23
+ 3602 195f 04        		.byte	0x4
+ 3603 1960 0B        		.byte	0xb
+ 3604 1961 7469 6D65 		.string	"time_code"
+68K GAS  C:\Users\37877\AppData\Local\Temp\ccQjgaaa.s 			page 76
+
+
+ 3604      5F63 6F64 
+ 3604      6500 
+ 3605               	
+ 3606 196b 0D        		.byte	0xd
+ 3607 196c 0D        		.byte	0xd
+ 3608 196d 0000 0C8C 		.4byte	0xc8c
+ 3609 1971 02        		.byte	0x2
+ 3610 1972 23        		.byte	0x23
+ 3611 1973 08        		.byte	0x8
+ 3612 1974 0B        		.byte	0xb
+ 3613 1975 6C61 7374 		.string	"last_boot"
+ 3613      5F62 6F6F 
+ 3613      7400 
+ 3614               	
+ 3615 197f 0D        		.byte	0xd
+ 3616 1980 0E        		.byte	0xe
+ 3617 1981 0000 0C8C 		.4byte	0xc8c
+ 3618 1985 02        		.byte	0x2
+ 3619 1986 23        		.byte	0x23
+ 3620 1987 0C        		.byte	0xc
+ 3621 1988 0B        		.byte	0xb
+ 3622 1989 626F 6F74 		.string	"bootloader_ver"
+ 3622      6C6F 6164 
+ 3622      6572 5F76 
+ 3622      6572 00
+ 3623               	
+ 3624 1998 0D        		.byte	0xd
+ 3625 1999 0F        		.byte	0xf
+ 3626 199a 0000 0C8C 		.4byte	0xc8c
+ 3627 199e 02        		.byte	0x2
+ 3628 199f 23        		.byte	0x23
+ 3629 19a0 10        		.byte	0x10
+ 3630 19a1 0B        		.byte	0xb
+ 3631 19a2 6673 775F 		.string	"fsw_ver"
+ 3631      7665 7200 
+ 3632               	
+ 3633 19aa 0D        		.byte	0xd
+ 3634 19ab 10        		.byte	0x10
+ 3635 19ac 0000 0C8C 		.4byte	0xc8c
+ 3636 19b0 02        		.byte	0x2
+ 3637 19b1 23        		.byte	0x23
+ 3638 19b2 14        		.byte	0x14
+ 3639 19b3 0B        		.byte	0xb
+ 3640 19b4 6673 775F 		.string	"fsw_active_partition"
+ 3640      6163 7469 
+ 3640      7665 5F70 
+ 3640      6172 7469 
+ 3640      7469 6F6E 
+ 3641               	
+ 3642 19c9 0D        		.byte	0xd
+ 3643 19ca 11        		.byte	0x11
+ 3644 19cb 0000 0C8C 		.4byte	0xc8c
+ 3645 19cf 02        		.byte	0x2
+ 3646 19d0 23        		.byte	0x23
+ 3647 19d1 18        		.byte	0x18
+ 3648 19d2 0B        		.byte	0xb
+ 3649 19d3 626F 6F74 		.string	"boot_count"
+68K GAS  C:\Users\37877\AppData\Local\Temp\ccQjgaaa.s 			page 77
+
+
+ 3649      5F63 6F75 
+ 3649      6E74 00
+ 3650               	
+ 3651 19de 0D        		.byte	0xd
+ 3652 19df 12        		.byte	0x12
+ 3653 19e0 0000 0C8C 		.4byte	0xc8c
+ 3654 19e4 02        		.byte	0x2
+ 3655 19e5 23        		.byte	0x23
+ 3656 19e6 1C        		.byte	0x1c
+ 3657 19e7 0B        		.byte	0xb
+ 3658 19e8 636F 6D6D 		.string	"comm_count"
+ 3658      5F63 6F75 
+ 3658      6E74 00
+ 3659               	
+ 3660 19f3 0D        		.byte	0xd
+ 3661 19f4 13        		.byte	0x13
+ 3662 19f5 0000 0C8C 		.4byte	0xc8c
+ 3663 19f9 02        		.byte	0x2
+ 3664 19fa 23        		.byte	0x23
+ 3665 19fb 20        		.byte	0x20
+ 3666 19fc 0B        		.byte	0xb
+ 3667 19fd 6465 706C 		.string	"deploy_count"
+ 3667      6F79 5F63 
+ 3667      6F75 6E74 
+ 3667      00
+ 3668               	
+ 3669 1a0a 0D        		.byte	0xd
+ 3670 1a0b 14        		.byte	0x14
+ 3671 1a0c 0000 0C8C 		.4byte	0xc8c
+ 3672 1a10 02        		.byte	0x2
+ 3673 1a11 23        		.byte	0x23
+ 3674 1a12 24        		.byte	0x24
+ 3675 1a13 0B        		.byte	0xb
+ 3676 1a14 6669 705F 		.string	"fip_active_script"
+ 3676      6163 7469 
+ 3676      7665 5F73 
+ 3676      6372 6970 
+ 3676      7400 
+ 3677               	
+ 3678 1a26 0D        		.byte	0xd
+ 3679 1a27 15        		.byte	0x15
+ 3680 1a28 0000 0C8C 		.4byte	0xc8c
+ 3681 1a2c 02        		.byte	0x2
+ 3682 1a2d 23        		.byte	0x23
+ 3683 1a2e 28        		.byte	0x28
+ 3684 1a2f 0B        		.byte	0xb
+ 3685 1a30 6669 705F 		.string	"fip_script_count"
+ 3685      7363 7269 
+ 3685      7074 5F63 
+ 3685      6F75 6E74 
+ 3685      00
+ 3686               	
+ 3687 1a41 0D        		.byte	0xd
+ 3688 1a42 16        		.byte	0x16
+ 3689 1a43 0000 0C8C 		.4byte	0xc8c
+ 3690 1a47 02        		.byte	0x2
+ 3691 1a48 23        		.byte	0x23
+68K GAS  C:\Users\37877\AppData\Local\Temp\ccQjgaaa.s 			page 78
+
+
+ 3692 1a49 2C        		.byte	0x2c
+ 3693 1a4a 0B        		.byte	0xb
+ 3694 1a4b 7261 6469 		.string	"radio_tx_enable"
+ 3694      6F5F 7478 
+ 3694      5F65 6E61 
+ 3694      626C 6500 
+ 3695               	
+ 3696 1a5b 0D        		.byte	0xd
+ 3697 1a5c 17        		.byte	0x17
+ 3698 1a5d 0000 0C8C 		.4byte	0xc8c
+ 3699 1a61 02        		.byte	0x2
+ 3700 1a62 23        		.byte	0x23
+ 3701 1a63 30        		.byte	0x30
+ 3702 1a64 0B        		.byte	0xb
+ 3703 1a65 696E 6974 		.string	"initial_wait"
+ 3703      6961 6C5F 
+ 3703      7761 6974 
+ 3703      00
+ 3704               	
+ 3705 1a72 0D        		.byte	0xd
+ 3706 1a73 18        		.byte	0x18
+ 3707 1a74 0000 0C8C 		.4byte	0xc8c
+ 3708 1a78 02        		.byte	0x2
+ 3709 1a79 23        		.byte	0x23
+ 3710 1a7a 34        		.byte	0x34
+ 3711 1a7b 0B        		.byte	0xb
+ 3712 1a7c 656E 6162 		.string	"enable_deploy"
+ 3712      6C65 5F64 
+ 3712      6570 6C6F 
+ 3712      7900 
+ 3713               	
+ 3714 1a8a 0D        		.byte	0xd
+ 3715 1a8b 19        		.byte	0x19
+ 3716 1a8c 0000 0C8C 		.4byte	0xc8c
+ 3717 1a90 02        		.byte	0x2
+ 3718 1a91 23        		.byte	0x23
+ 3719 1a92 38        		.byte	0x38
+ 3720 1a93 0B        		.byte	0xb
+ 3721 1a94 6669 705F 		.string	"fip_script_proc_enable"
+ 3721      7363 7269 
+ 3721      7074 5F70 
+ 3721      726F 635F 
+ 3721      656E 6162 
+ 3722               	
+ 3723 1aab 0D        		.byte	0xd
+ 3724 1aac 1A        		.byte	0x1a
+ 3725 1aad 0000 0C8C 		.4byte	0xc8c
+ 3726 1ab1 02        		.byte	0x2
+ 3727 1ab2 23        		.byte	0x23
+ 3728 1ab3 3C        		.byte	0x3c
+ 3729 1ab4 0B        		.byte	0xb
+ 3730 1ab5 4649 505F 		.string	"FIP_M1WPtr"
+ 3730      4D31 5750 
+ 3730      7472 00
+ 3731               	
+ 3732 1ac0 0D        		.byte	0xd
+ 3733 1ac1 1B        		.byte	0x1b
+68K GAS  C:\Users\37877\AppData\Local\Temp\ccQjgaaa.s 			page 79
+
+
+ 3734 1ac2 0000 0C8C 		.4byte	0xc8c
+ 3735 1ac6 02        		.byte	0x2
+ 3736 1ac7 23        		.byte	0x23
+ 3737 1ac8 40        		.byte	0x40
+ 3738 1ac9 0B        		.byte	0xb
+ 3739 1aca 4649 505F 		.string	"FIP_M1RPtr"
+ 3739      4D31 5250 
+ 3739      7472 00
+ 3740               	
+ 3741 1ad5 0D        		.byte	0xd
+ 3742 1ad6 1C        		.byte	0x1c
+ 3743 1ad7 0000 0C8C 		.4byte	0xc8c
+ 3744 1adb 02        		.byte	0x2
+ 3745 1adc 23        		.byte	0x23
+ 3746 1add 44        		.byte	0x44
+ 3747 1ade 0B        		.byte	0xb
+ 3748 1adf 4649 505F 		.string	"FIP_M2WPtr"
+ 3748      4D32 5750 
+ 3748      7472 00
+ 3749               	
+ 3750 1aea 0D        		.byte	0xd
+ 3751 1aeb 1D        		.byte	0x1d
+ 3752 1aec 0000 0C8C 		.4byte	0xc8c
+ 3753 1af0 02        		.byte	0x2
+ 3754 1af1 23        		.byte	0x23
+ 3755 1af2 48        		.byte	0x48
+ 3756 1af3 0B        		.byte	0xb
+ 3757 1af4 4649 505F 		.string	"FIP_M2RPtr"
+ 3757      4D32 5250 
+ 3757      7472 00
+ 3758               	
+ 3759 1aff 0D        		.byte	0xd
+ 3760 1b00 1E        		.byte	0x1e
+ 3761 1b01 0000 0C8C 		.4byte	0xc8c
+ 3762 1b05 02        		.byte	0x2
+ 3763 1b06 23        		.byte	0x23
+ 3764 1b07 4C        		.byte	0x4c
+ 3765 1b08 0B        		.byte	0xb
+ 3766 1b09 4649 505F 		.string	"FIP_M1SDPCount"
+ 3766      4D31 5344 
+ 3766      5043 6F75 
+ 3766      6E74 00
+ 3767               	
+ 3768 1b18 0D        		.byte	0xd
+ 3769 1b19 1F        		.byte	0x1f
+ 3770 1b1a 0000 0C8C 		.4byte	0xc8c
+ 3771 1b1e 02        		.byte	0x2
+ 3772 1b1f 23        		.byte	0x23
+ 3773 1b20 50        		.byte	0x50
+ 3774 1b21 0B        		.byte	0xb
+ 3775 1b22 4649 505F 		.string	"FIP_M1HKCount"
+ 3775      4D31 484B 
+ 3775      436F 756E 
+ 3775      7400 
+ 3776               	
+ 3777 1b30 0D        		.byte	0xd
+ 3778 1b31 20        		.byte	0x20
+68K GAS  C:\Users\37877\AppData\Local\Temp\ccQjgaaa.s 			page 80
+
+
+ 3779 1b32 0000 0C8C 		.4byte	0xc8c
+ 3780 1b36 02        		.byte	0x2
+ 3781 1b37 23        		.byte	0x23
+ 3782 1b38 54        		.byte	0x54
+ 3783 1b39 0B        		.byte	0xb
+ 3784 1b3a 4649 505F 		.string	"FIP_M2SDPCount"
+ 3784      4D32 5344 
+ 3784      5043 6F75 
+ 3784      6E74 00
+ 3785               	
+ 3786 1b49 0D        		.byte	0xd
+ 3787 1b4a 21        		.byte	0x21
+ 3788 1b4b 0000 0C8C 		.4byte	0xc8c
+ 3789 1b4f 02        		.byte	0x2
+ 3790 1b50 23        		.byte	0x23
+ 3791 1b51 58        		.byte	0x58
+ 3792 1b52 0B        		.byte	0xb
+ 3793 1b53 4649 505F 		.string	"FIP_M2HKCount"
+ 3793      4D32 484B 
+ 3793      436F 756E 
+ 3793      7400 
+ 3794               	
+ 3795 1b61 0D        		.byte	0xd
+ 3796 1b62 22        		.byte	0x22
+ 3797 1b63 0000 0C8C 		.4byte	0xc8c
+ 3798 1b67 02        		.byte	0x2
+ 3799 1b68 23        		.byte	0x23
+ 3800 1b69 5C        		.byte	0x5c
+ 3801 1b6a 0B        		.byte	0xb
+ 3802 1b6b 7370 6172 		.string	"spare_array"
+ 3802      655F 6172 
+ 3802      7261 7900 
+ 3803               	
+ 3804 1b77 0D        		.byte	0xd
+ 3805 1b78 23        		.byte	0x23
+ 3806 1b79 0000 1B90 		.4byte	0x1b90
+ 3807 1b7d 02        		.byte	0x2
+ 3808 1b7e 23        		.byte	0x23
+ 3809 1b7f 60        		.byte	0x60
+ 3810 1b80 0B        		.byte	0xb
+ 3811 1b81 6372 6300 		.string	"crc"
+ 3812               	
+ 3813 1b85 0D        		.byte	0xd
+ 3814 1b86 24        		.byte	0x24
+ 3815 1b87 0000 0C8C 		.4byte	0xc8c
+ 3816 1b8b 03        		.byte	0x3
+ 3817 1b8c 23        		.byte	0x23
+ 3818 1b8d F003      		.byte	0xf0,0x3
+ 3819 1b8f 00        		.byte	0x0
+ 3820 1b90 0D        		.byte	0xd
+ 3821 1b91 0000 1B9C 		.4byte	0x1b9c
+ 3822 1b95 0000 0C8C 		.4byte	0xc8c
+ 3823 1b99 0E        		.byte	0xe
+ 3824 1b9a 63        		.byte	0x63
+ 3825 1b9b 00        		.byte	0x0
+ 3826 1b9c 06        		.byte	0x6
+ 3827 1b9d 6E76 5F73 		.string	"nv_status_struct_t"
+68K GAS  C:\Users\37877\AppData\Local\Temp\ccQjgaaa.s 			page 81
+
+
+ 3827      7461 7475 
+ 3827      735F 7374 
+ 3827      7275 6374 
+ 3827      5F74 00
+ 3828               	
+ 3829 1bb0 0D        		.byte	0xd
+ 3830 1bb1 25        		.byte	0x25
+ 3831 1bb2 0000 1BB6 		.4byte	0x1bb6
+ 3832 1bb6 18        		.byte	0x18
+ 3833 1bb7 0000 1930 		.4byte	0x1930
+ 3834 1bbb 17        		.byte	0x17
+ 3835 1bbc 0000 1CBB 		.4byte	0x1cbb
+ 3836 1bc0 38        		.byte	0x38
+ 3837 1bc1 0E        		.byte	0xe
+ 3838 1bc2 18        		.byte	0x18
+ 3839 1bc3 0B        		.byte	0xb
+ 3840 1bc4 6E41 6464 		.string	"nAddr"
+ 3840      7200 
+ 3841               	
+ 3842 1bca 0E        		.byte	0xe
+ 3843 1bcb 0A        		.byte	0xa
+ 3844 1bcc 0000 0CA7 		.4byte	0xca7
+ 3845 1bd0 02        		.byte	0x2
+ 3846 1bd1 23        		.byte	0x23
+ 3847 1bd2 00        		.byte	0x0
+ 3848 1bd3 0B        		.byte	0xb
+ 3849 1bd4 6E4E 4400 		.string	"nND"
+ 3850               	
+ 3851 1bd8 0E        		.byte	0xe
+ 3852 1bd9 0B        		.byte	0xb
+ 3853 1bda 0000 0CA7 		.4byte	0xca7
+ 3854 1bde 02        		.byte	0x2
+ 3855 1bdf 23        		.byte	0x23
+ 3856 1be0 04        		.byte	0x4
+ 3857 1be1 0B        		.byte	0xb
+ 3858 1be2 6E45 4100 		.string	"nEA"
+ 3859               	
+ 3860 1be6 0E        		.byte	0xe
+ 3861 1be7 0C        		.byte	0xc
+ 3862 1be8 0000 0CA7 		.4byte	0xca7
+ 3863 1bec 02        		.byte	0x2
+ 3864 1bed 23        		.byte	0x23
+ 3865 1bee 08        		.byte	0x8
+ 3866 1bef 0B        		.byte	0xb
+ 3867 1bf0 6E54 656D 		.string	"nTempOut"
+ 3867      704F 7574 
+ 3867      00
+ 3868               	
+ 3869 1bf9 0E        		.byte	0xe
+ 3870 1bfa 0D        		.byte	0xd
+ 3871 1bfb 0000 0CA7 		.4byte	0xca7
+ 3872 1bff 02        		.byte	0x2
+ 3873 1c00 23        		.byte	0x23
+ 3874 1c01 0C        		.byte	0xc
+ 3875 1c02 0B        		.byte	0xb
+ 3876 1c03 6E58 4779 		.string	"nXGyroOut"
+ 3876      726F 4F75 
+68K GAS  C:\Users\37877\AppData\Local\Temp\ccQjgaaa.s 			page 82
+
+
+ 3876      7400 
+ 3877               	
+ 3878 1c0d 0E        		.byte	0xe
+ 3879 1c0e 0E        		.byte	0xe
+ 3880 1c0f 0000 0CA7 		.4byte	0xca7
+ 3881 1c13 02        		.byte	0x2
+ 3882 1c14 23        		.byte	0x23
+ 3883 1c15 10        		.byte	0x10
+ 3884 1c16 0B        		.byte	0xb
+ 3885 1c17 6E59 4779 		.string	"nYGyroOut"
+ 3885      726F 4F75 
+ 3885      7400 
+ 3886               	
+ 3887 1c21 0E        		.byte	0xe
+ 3888 1c22 0F        		.byte	0xf
+ 3889 1c23 0000 0CA7 		.4byte	0xca7
+ 3890 1c27 02        		.byte	0x2
+ 3891 1c28 23        		.byte	0x23
+ 3892 1c29 14        		.byte	0x14
+ 3893 1c2a 0B        		.byte	0xb
+ 3894 1c2b 6E5A 4779 		.string	"nZGyroOut"
+ 3894      726F 4F75 
+ 3894      7400 
+ 3895               	
+ 3896 1c35 0E        		.byte	0xe
+ 3897 1c36 10        		.byte	0x10
+ 3898 1c37 0000 0CA7 		.4byte	0xca7
+ 3899 1c3b 02        		.byte	0x2
+ 3900 1c3c 23        		.byte	0x23
+ 3901 1c3d 18        		.byte	0x18
+ 3902 1c3e 0B        		.byte	0xb
+ 3903 1c3f 6E58 4163 		.string	"nXAcclOut"
+ 3903      636C 4F75 
+ 3903      7400 
+ 3904               	
+ 3905 1c49 0E        		.byte	0xe
+ 3906 1c4a 11        		.byte	0x11
+ 3907 1c4b 0000 0CA7 		.4byte	0xca7
+ 3908 1c4f 02        		.byte	0x2
+ 3909 1c50 23        		.byte	0x23
+ 3910 1c51 1C        		.byte	0x1c
+ 3911 1c52 0B        		.byte	0xb
+ 3912 1c53 6E59 4163 		.string	"nYAcclOut"
+ 3912      636C 4F75 
+ 3912      7400 
+ 3913               	
+ 3914 1c5d 0E        		.byte	0xe
+ 3915 1c5e 12        		.byte	0x12
+ 3916 1c5f 0000 0CA7 		.4byte	0xca7
+ 3917 1c63 02        		.byte	0x2
+ 3918 1c64 23        		.byte	0x23
+ 3919 1c65 20        		.byte	0x20
+ 3920 1c66 0B        		.byte	0xb
+ 3921 1c67 6E5A 4163 		.string	"nZAcclOut"
+ 3921      636C 4F75 
+ 3921      7400 
+ 3922               	
+68K GAS  C:\Users\37877\AppData\Local\Temp\ccQjgaaa.s 			page 83
+
+
+ 3923 1c71 0E        		.byte	0xe
+ 3924 1c72 13        		.byte	0x13
+ 3925 1c73 0000 0CA7 		.4byte	0xca7
+ 3926 1c77 02        		.byte	0x2
+ 3927 1c78 23        		.byte	0x23
+ 3928 1c79 24        		.byte	0x24
+ 3929 1c7a 0B        		.byte	0xb
+ 3930 1c7b 6E47 5049 		.string	"nGPIO"
+ 3930      4F00 
+ 3931               	
+ 3932 1c81 0E        		.byte	0xe
+ 3933 1c82 14        		.byte	0x14
+ 3934 1c83 0000 0CA7 		.4byte	0xca7
+ 3935 1c87 02        		.byte	0x2
+ 3936 1c88 23        		.byte	0x23
+ 3937 1c89 28        		.byte	0x28
+ 3938 1c8a 0B        		.byte	0xb
+ 3939 1c8b 6E43 6F75 		.string	"nCount"
+ 3939      6E74 00
+ 3940               	
+ 3941 1c92 0E        		.byte	0xe
+ 3942 1c93 15        		.byte	0x15
+ 3943 1c94 0000 0CA7 		.4byte	0xca7
+ 3944 1c98 02        		.byte	0x2
+ 3945 1c99 23        		.byte	0x23
+ 3946 1c9a 2C        		.byte	0x2c
+ 3947 1c9b 0B        		.byte	0xb
+ 3948 1c9c 6E43 5200 		.string	"nCR"
+ 3949               	
+ 3950 1ca0 0E        		.byte	0xe
+ 3951 1ca1 16        		.byte	0x16
+ 3952 1ca2 0000 0CA7 		.4byte	0xca7
+ 3953 1ca6 02        		.byte	0x2
+ 3954 1ca7 23        		.byte	0x23
+ 3955 1ca8 30        		.byte	0x30
+ 3956 1ca9 0B        		.byte	0xb
+ 3957 1caa 756E 5469 		.string	"unTime"
+ 3957      6D65 00
+ 3958               	
+ 3959 1cb1 0E        		.byte	0xe
+ 3960 1cb2 17        		.byte	0x17
+ 3961 1cb3 0000 0C8C 		.4byte	0xc8c
+ 3962 1cb7 02        		.byte	0x2
+ 3963 1cb8 23        		.byte	0x23
+ 3964 1cb9 34        		.byte	0x34
+ 3965 1cba 00        		.byte	0x0
+ 3966 1cbb 06        		.byte	0x6
+ 3967 1cbc 4550 534F 		.string	"EPSON_IMU2_DATA_t"
+ 3967      4E5F 494D 
+ 3967      5532 5F44 
+ 3967      4154 415F 
+ 3967      7400 
+ 3968               	
+ 3969 1cce 0E        		.byte	0xe
+ 3970 1ccf 18        		.byte	0x18
+ 3971 1cd0 0000 1BBB 		.4byte	0x1bbb
+ 3972 1cd4 17        		.byte	0x17
+68K GAS  C:\Users\37877\AppData\Local\Temp\ccQjgaaa.s 			page 84
+
+
+ 3973 1cd5 0000 1D4C 		.4byte	0x1d4c
+ 3974 1cd9 18        		.byte	0x18
+ 3975 1cda 0F        		.byte	0xf
+ 3976 1cdb 10        		.byte	0x10
+ 3977 1cdc 0B        		.byte	0xb
+ 3978 1cdd 6E54 656D 		.string	"nTemp"
+ 3978      7000 
+ 3979               	
+ 3980 1ce3 0F        		.byte	0xf
+ 3981 1ce4 0A        		.byte	0xa
+ 3982 1ce5 0000 0CA7 		.4byte	0xca7
+ 3983 1ce9 02        		.byte	0x2
+ 3984 1cea 23        		.byte	0x23
+ 3985 1ceb 00        		.byte	0x0
+ 3986 1cec 0B        		.byte	0xb
+ 3987 1ced 6E53 7461 		.string	"nStatus"
+ 3987      7475 7300 
+ 3988               	
+ 3989 1cf5 0F        		.byte	0xf
+ 3990 1cf6 0B        		.byte	0xb
+ 3991 1cf7 0000 0CA7 		.4byte	0xca7
+ 3992 1cfb 02        		.byte	0x2
+ 3993 1cfc 23        		.byte	0x23
+ 3994 1cfd 04        		.byte	0x4
+ 3995 1cfe 0B        		.byte	0xb
+ 3996 1cff 6E58 4779 		.string	"nXGyroOut"
+ 3996      726F 4F75 
+ 3996      7400 
+ 3997               	
+ 3998 1d09 0F        		.byte	0xf
+ 3999 1d0a 0C        		.byte	0xc
+ 4000 1d0b 0000 0CA7 		.4byte	0xca7
+ 4001 1d0f 02        		.byte	0x2
+ 4002 1d10 23        		.byte	0x23
+ 4003 1d11 08        		.byte	0x8
+ 4004 1d12 0B        		.byte	0xb
+ 4005 1d13 6E59 4779 		.string	"nYGyroOut"
+ 4005      726F 4F75 
+ 4005      7400 
+ 4006               	
+ 4007 1d1d 0F        		.byte	0xf
+ 4008 1d1e 0D        		.byte	0xd
+ 4009 1d1f 0000 0CA7 		.4byte	0xca7
+ 4010 1d23 02        		.byte	0x2
+ 4011 1d24 23        		.byte	0x23
+ 4012 1d25 0C        		.byte	0xc
+ 4013 1d26 0B        		.byte	0xb
+ 4014 1d27 6E5A 4779 		.string	"nZGyroOut"
+ 4014      726F 4F75 
+ 4014      7400 
+ 4015               	
+ 4016 1d31 0F        		.byte	0xf
+ 4017 1d32 0E        		.byte	0xe
+ 4018 1d33 0000 0CA7 		.4byte	0xca7
+ 4019 1d37 02        		.byte	0x2
+ 4020 1d38 23        		.byte	0x23
+ 4021 1d39 10        		.byte	0x10
+68K GAS  C:\Users\37877\AppData\Local\Temp\ccQjgaaa.s 			page 85
+
+
+ 4022 1d3a 0B        		.byte	0xb
+ 4023 1d3b 756E 5469 		.string	"unTime"
+ 4023      6D65 00
+ 4024               	
+ 4025 1d42 0F        		.byte	0xf
+ 4026 1d43 0F        		.byte	0xf
+ 4027 1d44 0000 0C8C 		.4byte	0xc8c
+ 4028 1d48 02        		.byte	0x2
+ 4029 1d49 23        		.byte	0x23
+ 4030 1d4a 14        		.byte	0x14
+ 4031 1d4b 00        		.byte	0x0
+ 4032 1d4c 06        		.byte	0x6
+ 4033 1d4d 5354 5F49 		.string	"ST_IMU1_DATA_t"
+ 4033      4D55 315F 
+ 4033      4441 5441 
+ 4033      5F74 00
+ 4034               	
+ 4035 1d5c 0F        		.byte	0xf
+ 4036 1d5d 10        		.byte	0x10
+ 4037 1d5e 0000 1CD4 		.4byte	0x1cd4
+ 4038 1d62 19        		.byte	0x19
+ 4039 1d63 0000 1DCF 		.4byte	0x1dcf
+ 4040 1d67 0108      		.2byte	0x108
+ 4041 1d69 10        		.byte	0x10
+ 4042 1d6a 0F        		.byte	0xf
+ 4043 1d6b 0B        		.byte	0xb
+ 4044 1d6c 794C 656E 		.string	"yLen"
+ 4044      00
+ 4045               	
+ 4046 1d71 10        		.byte	0x10
+ 4047 1d72 0A        		.byte	0xa
+ 4048 1d73 0000 0C71 		.4byte	0xc71
+ 4049 1d77 02        		.byte	0x2
+ 4050 1d78 23        		.byte	0x23
+ 4051 1d79 00        		.byte	0x0
+ 4052 1d7a 0B        		.byte	0xb
+ 4053 1d7b 756E 5374 		.string	"unStartTime"
+ 4053      6172 7454 
+ 4053      696D 6500 
+ 4054               	
+ 4055 1d87 10        		.byte	0x10
+ 4056 1d88 0B        		.byte	0xb
+ 4057 1d89 0000 0C8C 		.4byte	0xc8c
+ 4058 1d8d 02        		.byte	0x2
+ 4059 1d8e 23        		.byte	0x23
+ 4060 1d8f 02        		.byte	0x2
+ 4061 1d90 0B        		.byte	0xb
+ 4062 1d91 7577 5265 		.string	"uwRepeatTime"
+ 4062      7065 6174 
+ 4062      5469 6D65 
+ 4062      00
+ 4063               	
+ 4064 1d9e 10        		.byte	0x10
+ 4065 1d9f 0C        		.byte	0xc
+ 4066 1da0 0000 0C7E 		.4byte	0xc7e
+ 4067 1da4 02        		.byte	0x2
+ 4068 1da5 23        		.byte	0x23
+68K GAS  C:\Users\37877\AppData\Local\Temp\ccQjgaaa.s 			page 86
+
+
+ 4069 1da6 06        		.byte	0x6
+ 4070 1da7 0B        		.byte	0xb
+ 4071 1da8 7943 6D64 		.string	"yCmdCnt"
+ 4071      436E 7400 
+ 4072               	
+ 4073 1db0 10        		.byte	0x10
+ 4074 1db1 0D        		.byte	0xd
+ 4075 1db2 0000 0C71 		.4byte	0xc71
+ 4076 1db6 02        		.byte	0x2
+ 4077 1db7 23        		.byte	0x23
+ 4078 1db8 07        		.byte	0x7
+ 4079 1db9 0B        		.byte	0xb
+ 4080 1dba 6179 436D 		.string	"ayCmdBytes"
+ 4080      6442 7974 
+ 4080      6573 00
+ 4081               	
+ 4082 1dc5 10        		.byte	0x10
+ 4083 1dc6 0E        		.byte	0xe
+ 4084 1dc7 0000 1DCF 		.4byte	0x1dcf
+ 4085 1dcb 02        		.byte	0x2
+ 4086 1dcc 23        		.byte	0x23
+ 4087 1dcd 08        		.byte	0x8
+ 4088 1dce 00        		.byte	0x0
+ 4089 1dcf 0D        		.byte	0xd
+ 4090 1dd0 0000 1DDB 		.4byte	0x1ddb
+ 4091 1dd4 0000 0C71 		.4byte	0xc71
+ 4092 1dd8 0E        		.byte	0xe
+ 4093 1dd9 FF        		.byte	0xff
+ 4094 1dda 00        		.byte	0x0
+ 4095 1ddb 06        		.byte	0x6
+ 4096 1ddc 5355 5343 		.string	"SUSCRIPT_STRUCT_t"
+ 4096      5249 5054 
+ 4096      5F53 5452 
+ 4096      5543 545F 
+ 4096      7400 
+ 4097               	
+ 4098 1dee 10        		.byte	0x10
+ 4099 1def 0F        		.byte	0xf
+ 4100 1df0 0000 1D62 		.4byte	0x1d62
+ 4101 1df4 19        		.byte	0x19
+ 4102 1df5 0000 1E43 		.4byte	0x1e43
+ 4103 1df9 0110      		.2byte	0x110
+ 4104 1dfb 10        		.byte	0x10
+ 4105 1dfc 17        		.byte	0x17
+ 4106 1dfd 0B        		.byte	0xb
+ 4107 1dfe 756E 5379 		.string	"unSync"
+ 4107      6E63 00
+ 4108               	
+ 4109 1e05 10        		.byte	0x10
+ 4110 1e06 13        		.byte	0x13
+ 4111 1e07 0000 0C8C 		.4byte	0xc8c
+ 4112 1e0b 02        		.byte	0x2
+ 4113 1e0c 23        		.byte	0x23
+ 4114 1e0d 00        		.byte	0x0
+ 4115 1e0e 0B        		.byte	0xb
+ 4116 1e0f 7577 4C65 		.string	"uwLen"
+ 4116      6E00 
+68K GAS  C:\Users\37877\AppData\Local\Temp\ccQjgaaa.s 			page 87
+
+
+ 4117               	
+ 4118 1e15 10        		.byte	0x10
+ 4119 1e16 14        		.byte	0x14
+ 4120 1e17 0000 0C7E 		.4byte	0xc7e
+ 4121 1e1b 02        		.byte	0x2
+ 4122 1e1c 23        		.byte	0x23
+ 4123 1e1d 04        		.byte	0x4
+ 4124 1e1e 0B        		.byte	0xb
+ 4125 1e1f 7375 5363 		.string	"suScript"
+ 4125      7269 7074 
+ 4125      00
+ 4126               	
+ 4127 1e28 10        		.byte	0x10
+ 4128 1e29 15        		.byte	0x15
+ 4129 1e2a 0000 1DDB 		.4byte	0x1ddb
+ 4130 1e2e 02        		.byte	0x2
+ 4131 1e2f 23        		.byte	0x23
+ 4132 1e30 06        		.byte	0x6
+ 4133 1e31 0B        		.byte	0xb
+ 4134 1e32 7577 4352 		.string	"uwCRC"
+ 4134      4300 
+ 4135               	
+ 4136 1e38 10        		.byte	0x10
+ 4137 1e39 16        		.byte	0x16
+ 4138 1e3a 0000 0C7E 		.4byte	0xc7e
+ 4139 1e3e 03        		.byte	0x3
+ 4140 1e3f 23        		.byte	0x23
+ 4141 1e40 8E02      		.byte	0x8e,0x2
+ 4142 1e42 00        		.byte	0x0
+ 4143 1e43 06        		.byte	0x6
+ 4144 1e44 5343 5249 		.string	"SCRIPT_STRUCTURE_t"
+ 4144      5054 5F53 
+ 4144      5452 5543 
+ 4144      5455 5245 
+ 4144      5F74 00
+ 4145               	
+ 4146 1e57 10        		.byte	0x10
+ 4147 1e58 17        		.byte	0x17
+ 4148 1e59 0000 1DF4 		.4byte	0x1df4
+ 4149 1e5d 17        		.byte	0x17
+ 4150 1e5e 0000 1F15 		.4byte	0x1f15
+ 4151 1e62 18        		.byte	0x18
+ 4152 1e63 11        		.byte	0x11
+ 4153 1e64 15        		.byte	0x15
+ 4154 1e65 0B        		.byte	0xb
+ 4155 1e66 756E 5469 		.string	"unTime"
+ 4155      6D65 00
+ 4156               	
+ 4157 1e6d 11        		.byte	0x11
+ 4158 1e6e 0A        		.byte	0xa
+ 4159 1e6f 0000 0C8C 		.4byte	0xc8c
+ 4160 1e73 02        		.byte	0x2
+ 4161 1e74 23        		.byte	0x23
+ 4162 1e75 00        		.byte	0x0
+ 4163 1e76 0B        		.byte	0xb
+ 4164 1e77 7751 3100 		.string	"wQ1"
+ 4165               	
+68K GAS  C:\Users\37877\AppData\Local\Temp\ccQjgaaa.s 			page 88
+
+
+ 4166 1e7b 11        		.byte	0x11
+ 4167 1e7c 0B        		.byte	0xb
+ 4168 1e7d 0000 0C9A 		.4byte	0xc9a
+ 4169 1e81 02        		.byte	0x2
+ 4170 1e82 23        		.byte	0x23
+ 4171 1e83 04        		.byte	0x4
+ 4172 1e84 0B        		.byte	0xb
+ 4173 1e85 7751 3200 		.string	"wQ2"
+ 4174               	
+ 4175 1e89 11        		.byte	0x11
+ 4176 1e8a 0C        		.byte	0xc
+ 4177 1e8b 0000 0C9A 		.4byte	0xc9a
+ 4178 1e8f 02        		.byte	0x2
+ 4179 1e90 23        		.byte	0x23
+ 4180 1e91 06        		.byte	0x6
+ 4181 1e92 0B        		.byte	0xb
+ 4182 1e93 7751 3300 		.string	"wQ3"
+ 4183               	
+ 4184 1e97 11        		.byte	0x11
+ 4185 1e98 0D        		.byte	0xd
+ 4186 1e99 0000 0C9A 		.4byte	0xc9a
+ 4187 1e9d 02        		.byte	0x2
+ 4188 1e9e 23        		.byte	0x23
+ 4189 1e9f 08        		.byte	0x8
+ 4190 1ea0 0B        		.byte	0xb
+ 4191 1ea1 7751 3400 		.string	"wQ4"
+ 4192               	
+ 4193 1ea5 11        		.byte	0x11
+ 4194 1ea6 0E        		.byte	0xe
+ 4195 1ea7 0000 0C9A 		.4byte	0xc9a
+ 4196 1eab 02        		.byte	0x2
+ 4197 1eac 23        		.byte	0x23
+ 4198 1ead 0A        		.byte	0xa
+ 4199 1eae 0B        		.byte	0xb
+ 4200 1eaf 7758 446F 		.string	"wXDot"
+ 4200      7400 
+ 4201               	
+ 4202 1eb5 11        		.byte	0x11
+ 4203 1eb6 0F        		.byte	0xf
+ 4204 1eb7 0000 0C9A 		.4byte	0xc9a
+ 4205 1ebb 02        		.byte	0x2
+ 4206 1ebc 23        		.byte	0x23
+ 4207 1ebd 0C        		.byte	0xc
+ 4208 1ebe 0B        		.byte	0xb
+ 4209 1ebf 7759 446F 		.string	"wYDot"
+ 4209      7400 
+ 4210               	
+ 4211 1ec5 11        		.byte	0x11
+ 4212 1ec6 10        		.byte	0x10
+ 4213 1ec7 0000 0C9A 		.4byte	0xc9a
+ 4214 1ecb 02        		.byte	0x2
+ 4215 1ecc 23        		.byte	0x23
+ 4216 1ecd 0E        		.byte	0xe
+ 4217 1ece 0B        		.byte	0xb
+ 4218 1ecf 775A 446F 		.string	"wZDot"
+ 4218      7400 
+ 4219               	
+68K GAS  C:\Users\37877\AppData\Local\Temp\ccQjgaaa.s 			page 89
+
+
+ 4220 1ed5 11        		.byte	0x11
+ 4221 1ed6 11        		.byte	0x11
+ 4222 1ed7 0000 0C9A 		.4byte	0xc9a
+ 4223 1edb 02        		.byte	0x2
+ 4224 1edc 23        		.byte	0x23
+ 4225 1edd 10        		.byte	0x10
+ 4226 1ede 0B        		.byte	0xb
+ 4227 1edf 7758 5F45 		.string	"wX_ECEF"
+ 4227      4345 4600 
+ 4228               	
+ 4229 1ee7 11        		.byte	0x11
+ 4230 1ee8 12        		.byte	0x12
+ 4231 1ee9 0000 0C9A 		.4byte	0xc9a
+ 4232 1eed 02        		.byte	0x2
+ 4233 1eee 23        		.byte	0x23
+ 4234 1eef 12        		.byte	0x12
+ 4235 1ef0 0B        		.byte	0xb
+ 4236 1ef1 7759 5F45 		.string	"wY_ECEF"
+ 4236      4345 4600 
+ 4237               	
+ 4238 1ef9 11        		.byte	0x11
+ 4239 1efa 13        		.byte	0x13
+ 4240 1efb 0000 0C9A 		.4byte	0xc9a
+ 4241 1eff 02        		.byte	0x2
+ 4242 1f00 23        		.byte	0x23
+ 4243 1f01 14        		.byte	0x14
+ 4244 1f02 0B        		.byte	0xb
+ 4245 1f03 775A 5F45 		.string	"wZ_ECEF"
+ 4245      4345 4600 
+ 4246               	
+ 4247 1f0b 11        		.byte	0x11
+ 4248 1f0c 14        		.byte	0x14
+ 4249 1f0d 0000 0C9A 		.4byte	0xc9a
+ 4250 1f11 02        		.byte	0x2
+ 4251 1f12 23        		.byte	0x23
+ 4252 1f13 16        		.byte	0x16
+ 4253 1f14 00        		.byte	0x0
+ 4254 1f15 06        		.byte	0x6
+ 4255 1f16 4154 5449 		.string	"ATTITUDE_STRUCT_t"
+ 4255      5455 4445 
+ 4255      5F53 5452 
+ 4255      5543 545F 
+ 4255      7400 
+ 4256               	
+ 4257 1f28 11        		.byte	0x11
+ 4258 1f29 15        		.byte	0x15
+ 4259 1f2a 0000 1E5D 		.4byte	0x1e5d
+ 4260 1f2e 17        		.byte	0x17
+ 4261 1f2f 0000 20E1 		.4byte	0x20e1
+ 4262 1f33 B1        		.byte	0xb1
+ 4263 1f34 12        		.byte	0x12
+ 4264 1f35 21        		.byte	0x21
+ 4265 1f36 0B        		.byte	0xb
+ 4266 1f37 7577 5068 		.string	"uwPhase"
+ 4266      6173 6500 
+ 4267               	
+ 4268 1f3f 12        		.byte	0x12
+68K GAS  C:\Users\37877\AppData\Local\Temp\ccQjgaaa.s 			page 90
+
+
+ 4269 1f40 0A        		.byte	0xa
+ 4270 1f41 0000 0C7E 		.4byte	0xc7e
+ 4271 1f45 02        		.byte	0x2
+ 4272 1f46 23        		.byte	0x23
+ 4273 1f47 00        		.byte	0x0
+ 4274 1f48 0B        		.byte	0xb
+ 4275 1f49 756E 5469 		.string	"unTime"
+ 4275      6D65 00
+ 4276               	
+ 4277 1f50 12        		.byte	0x12
+ 4278 1f51 0B        		.byte	0xb
+ 4279 1f52 0000 0C8C 		.4byte	0xc8c
+ 4280 1f56 02        		.byte	0x2
+ 4281 1f57 23        		.byte	0x23
+ 4282 1f58 02        		.byte	0x2
+ 4283 1f59 0B        		.byte	0xb
+ 4284 1f5a 7577 4265 		.string	"uwBeaconCount"
+ 4284      6163 6F6E 
+ 4284      436F 756E 
+ 4284      7400 
+ 4285               	
+ 4286 1f68 12        		.byte	0x12
+ 4287 1f69 0C        		.byte	0xc
+ 4288 1f6a 0000 0C7E 		.4byte	0xc7e
+ 4289 1f6e 02        		.byte	0x2
+ 4290 1f6f 23        		.byte	0x23
+ 4291 1f70 06        		.byte	0x6
+ 4292 1f71 0B        		.byte	0xb
+ 4293 1f72 7577 5458 		.string	"uwTXCount"
+ 4293      436F 756E 
+ 4293      7400 
+ 4294               	
+ 4295 1f7c 12        		.byte	0x12
+ 4296 1f7d 0D        		.byte	0xd
+ 4297 1f7e 0000 0C7E 		.4byte	0xc7e
+ 4298 1f82 02        		.byte	0x2
+ 4299 1f83 23        		.byte	0x23
+ 4300 1f84 08        		.byte	0x8
+ 4301 1f85 0B        		.byte	0xb
+ 4302 1f86 7577 5258 		.string	"uwRXCount"
+ 4302      436F 756E 
+ 4302      7400 
+ 4303               	
+ 4304 1f90 12        		.byte	0x12
+ 4305 1f91 0E        		.byte	0xe
+ 4306 1f92 0000 0C7E 		.4byte	0xc7e
+ 4307 1f96 02        		.byte	0x2
+ 4308 1f97 23        		.byte	0x23
+ 4309 1f98 0A        		.byte	0xa
+ 4310 1f99 0B        		.byte	0xb
+ 4311 1f9a 6177 4344 		.string	"awCDHADCData"
+ 4311      4841 4443 
+ 4311      4461 7461 
+ 4311      00
+ 4312               	
+ 4313 1fa7 12        		.byte	0x12
+ 4314 1fa8 0F        		.byte	0xf
+68K GAS  C:\Users\37877\AppData\Local\Temp\ccQjgaaa.s 			page 91
+
+
+ 4315 1fa9 0000 20E1 		.4byte	0x20e1
+ 4316 1fad 02        		.byte	0x2
+ 4317 1fae 23        		.byte	0x23
+ 4318 1faf 0C        		.byte	0xc
+ 4319 1fb0 0B        		.byte	0xb
+ 4320 1fb1 6177 4550 		.string	"awEPS1ADCData"
+ 4320      5331 4144 
+ 4320      4344 6174 
+ 4320      6100 
+ 4321               	
+ 4322 1fbf 12        		.byte	0x12
+ 4323 1fc0 10        		.byte	0x10
+ 4324 1fc1 0000 20E1 		.4byte	0x20e1
+ 4325 1fc5 02        		.byte	0x2
+ 4326 1fc6 23        		.byte	0x23
+ 4327 1fc7 1E        		.byte	0x1e
+ 4328 1fc8 0B        		.byte	0xb
+ 4329 1fc9 6177 4550 		.string	"awEPS2ADCData"
+ 4329      5332 4144 
+ 4329      4344 6174 
+ 4329      6100 
+ 4330               	
+ 4331 1fd7 12        		.byte	0x12
+ 4332 1fd8 11        		.byte	0x11
+ 4333 1fd9 0000 20E1 		.4byte	0x20e1
+ 4334 1fdd 02        		.byte	0x2
+ 4335 1fde 23        		.byte	0x23
+ 4336 1fdf 30        		.byte	0x30
+ 4337 1fe0 0B        		.byte	0xb
+ 4338 1fe1 6177 5350 		.string	"awSP1ADCData"
+ 4338      3141 4443 
+ 4338      4461 7461 
+ 4338      00
+ 4339               	
+ 4340 1fee 12        		.byte	0x12
+ 4341 1fef 12        		.byte	0x12
+ 4342 1ff0 0000 20E1 		.4byte	0x20e1
+ 4343 1ff4 02        		.byte	0x2
+ 4344 1ff5 23        		.byte	0x23
+ 4345 1ff6 42        		.byte	0x42
+ 4346 1ff7 0B        		.byte	0xb
+ 4347 1ff8 6177 5350 		.string	"awSP2ADCData"
+ 4347      3241 4443 
+ 4347      4461 7461 
+ 4347      00
+ 4348               	
+ 4349 2005 12        		.byte	0x12
+ 4350 2006 13        		.byte	0x13
+ 4351 2007 0000 20E1 		.4byte	0x20e1
+ 4352 200b 02        		.byte	0x2
+ 4353 200c 23        		.byte	0x23
+ 4354 200d 54        		.byte	0x54
+ 4355 200e 0B        		.byte	0xb
+ 4356 200f 6177 5350 		.string	"awSP3ADCData"
+ 4356      3341 4443 
+ 4356      4461 7461 
+ 4356      00
+68K GAS  C:\Users\37877\AppData\Local\Temp\ccQjgaaa.s 			page 92
+
+
+ 4357               	
+ 4358 201c 12        		.byte	0x12
+ 4359 201d 14        		.byte	0x14
+ 4360 201e 0000 20E1 		.4byte	0x20e1
+ 4361 2022 02        		.byte	0x2
+ 4362 2023 23        		.byte	0x23
+ 4363 2024 66        		.byte	0x66
+ 4364 2025 0B        		.byte	0xb
+ 4365 2026 6177 5350 		.string	"awSP1MagData"
+ 4365      314D 6167 
+ 4365      4461 7461 
+ 4365      00
+ 4366               	
+ 4367 2033 12        		.byte	0x12
+ 4368 2034 16        		.byte	0x16
+ 4369 2035 0000 20ED 		.4byte	0x20ed
+ 4370 2039 02        		.byte	0x2
+ 4371 203a 23        		.byte	0x23
+ 4372 203b 78        		.byte	0x78
+ 4373 203c 0B        		.byte	0xb
+ 4374 203d 6177 5350 		.string	"awSP2MagData"
+ 4374      324D 6167 
+ 4374      4461 7461 
+ 4374      00
+ 4375               	
+ 4376 204a 12        		.byte	0x12
+ 4377 204b 17        		.byte	0x17
+ 4378 204c 0000 20ED 		.4byte	0x20ed
+ 4379 2050 03        		.byte	0x3
+ 4380 2051 23        		.byte	0x23
+ 4381 2052 8001      		.byte	0x80,0x1
+ 4382 2054 0B        		.byte	0xb
+ 4383 2055 6177 5350 		.string	"awSP3MagData"
+ 4383      334D 6167 
+ 4383      4461 7461 
+ 4383      00
+ 4384               	
+ 4385 2062 12        		.byte	0x12
+ 4386 2063 18        		.byte	0x18
+ 4387 2064 0000 20ED 		.4byte	0x20ed
+ 4388 2068 03        		.byte	0x3
+ 4389 2069 23        		.byte	0x23
+ 4390 206a 8801      		.byte	0x88,0x1
+ 4391 206c 0B        		.byte	0xb
+ 4392 206d 6177 4244 		.string	"awBD4MagData"
+ 4392      344D 6167 
+ 4392      4461 7461 
+ 4392      00
+ 4393               	
+ 4394 207a 12        		.byte	0x12
+ 4395 207b 19        		.byte	0x19
+ 4396 207c 0000 20ED 		.4byte	0x20ed
+ 4397 2080 03        		.byte	0x3
+ 4398 2081 23        		.byte	0x23
+ 4399 2082 9001      		.byte	0x90,0x1
+ 4400 2084 0B        		.byte	0xb
+ 4401 2085 7577 494D 		.string	"uwIMU1Temp"
+68K GAS  C:\Users\37877\AppData\Local\Temp\ccQjgaaa.s 			page 93
+
+
+ 4401      5531 5465 
+ 4401      6D70 00
+ 4402               	
+ 4403 2090 12        		.byte	0x12
+ 4404 2091 1D        		.byte	0x1d
+ 4405 2092 0000 0C71 		.4byte	0xc71
+ 4406 2096 03        		.byte	0x3
+ 4407 2097 23        		.byte	0x23
+ 4408 2098 9801      		.byte	0x98,0x1
+ 4409 209a 0B        		.byte	0xb
+ 4410 209b 7577 494D 		.string	"uwIMU1Gyro"
+ 4410      5531 4779 
+ 4410      726F 00
+ 4411               	
+ 4412 20a6 12        		.byte	0x12
+ 4413 20a7 1E        		.byte	0x1e
+ 4414 20a8 0000 20F9 		.4byte	0x20f9
+ 4415 20ac 03        		.byte	0x3
+ 4416 20ad 23        		.byte	0x23
+ 4417 20ae 9A01      		.byte	0x9a,0x1
+ 4418 20b0 0B        		.byte	0xb
+ 4419 20b1 7577 4653 		.string	"uwFSWLoadPkts"
+ 4419      574C 6F61 
+ 4419      6450 6B74 
+ 4419      7300 
+ 4420               	
+ 4421 20bf 12        		.byte	0x12
+ 4422 20c0 1F        		.byte	0x1f
+ 4423 20c1 0000 0C7E 		.4byte	0xc7e
+ 4424 20c5 03        		.byte	0x3
+ 4425 20c6 23        		.byte	0x23
+ 4426 20c7 A001      		.byte	0xa0,0x1
+ 4427 20c9 0B        		.byte	0xb
+ 4428 20ca 4C49 5F54 		.string	"LI_TLM_Data"
+ 4428      4C4D 5F44 
+ 4428      6174 6100 
+ 4429               	
+ 4430 20d6 12        		.byte	0x12
+ 4431 20d7 20        		.byte	0x20
+ 4432 20d8 0000 1575 		.4byte	0x1575
+ 4433 20dc 03        		.byte	0x3
+ 4434 20dd 23        		.byte	0x23
+ 4435 20de A101      		.byte	0xa1,0x1
+ 4436 20e0 00        		.byte	0x0
+ 4437 20e1 0D        		.byte	0xd
+ 4438 20e2 0000 20ED 		.4byte	0x20ed
+ 4439 20e6 0000 0C7E 		.4byte	0xc7e
+ 4440 20ea 0E        		.byte	0xe
+ 4441 20eb 08        		.byte	0x8
+ 4442 20ec 00        		.byte	0x0
+ 4443 20ed 0D        		.byte	0xd
+ 4444 20ee 0000 20F9 		.4byte	0x20f9
+ 4445 20f2 0000 0C7E 		.4byte	0xc7e
+ 4446 20f6 0E        		.byte	0xe
+ 4447 20f7 03        		.byte	0x3
+ 4448 20f8 00        		.byte	0x0
+ 4449 20f9 0D        		.byte	0xd
+68K GAS  C:\Users\37877\AppData\Local\Temp\ccQjgaaa.s 			page 94
+
+
+ 4450 20fa 0000 2105 		.4byte	0x2105
+ 4451 20fe 0000 0C7E 		.4byte	0xc7e
+ 4452 2102 0E        		.byte	0xe
+ 4453 2103 02        		.byte	0x2
+ 4454 2104 00        		.byte	0x0
+ 4455 2105 06        		.byte	0x6
+ 4456 2106 4245 4143 		.string	"BEACON_t"
+ 4456      4F4E 5F74 
+ 4456      00
+ 4457               	
+ 4458 210f 12        		.byte	0x12
+ 4459 2110 21        		.byte	0x21
+ 4460 2111 0000 1F2E 		.4byte	0x1f2e
+ 4461 2115 17        		.byte	0x17
+ 4462 2116 0000 2340 		.4byte	0x2340
+ 4463 211a D6        		.byte	0xd6
+ 4464 211b 12        		.byte	0x12
+ 4465 211c 3D        		.byte	0x3d
+ 4466 211d 0B        		.byte	0xb
+ 4467 211e 756E 5469 		.string	"unTime"
+ 4467      6D65 00
+ 4468               	
+ 4469 2125 12        		.byte	0x12
+ 4470 2126 25        		.byte	0x25
+ 4471 2127 0000 0C8C 		.4byte	0xc8c
+ 4472 212b 02        		.byte	0x2
+ 4473 212c 23        		.byte	0x23
+ 4474 212d 00        		.byte	0x0
+ 4475 212e 0B        		.byte	0xb
+ 4476 212f 7577 484B 		.string	"uwHKCount"
+ 4476      436F 756E 
+ 4476      7400 
+ 4477               	
+ 4478 2139 12        		.byte	0x12
+ 4479 213a 26        		.byte	0x26
+ 4480 213b 0000 0C7E 		.4byte	0xc7e
+ 4481 213f 02        		.byte	0x2
+ 4482 2140 23        		.byte	0x23
+ 4483 2141 04        		.byte	0x4
+ 4484 2142 0B        		.byte	0xb
+ 4485 2143 636F 6D6D 		.string	"commStats"
+ 4485      5374 6174 
+ 4485      7300 
+ 4486               	
+ 4487 214d 12        		.byte	0x12
+ 4488 214e 27        		.byte	0x27
+ 4489 214f 0000 191D 		.4byte	0x191d
+ 4490 2153 02        		.byte	0x2
+ 4491 2154 23        		.byte	0x23
+ 4492 2155 06        		.byte	0x6
+ 4493 2156 0B        		.byte	0xb
+ 4494 2157 6175 6E53 		.string	"aunScripts"
+ 4494      6372 6970 
+ 4494      7473 00
+ 4495               	
+ 4496 2162 12        		.byte	0x12
+ 4497 2163 28        		.byte	0x28
+68K GAS  C:\Users\37877\AppData\Local\Temp\ccQjgaaa.s 			page 95
+
+
+ 4498 2164 0000 2340 		.4byte	0x2340
+ 4499 2168 02        		.byte	0x2
+ 4500 2169 23        		.byte	0x23
+ 4501 216a 1C        		.byte	0x1c
+ 4502 216b 0B        		.byte	0xb
+ 4503 216c 6175 6E4F 		.string	"aunOpStatus"
+ 4503      7053 7461 
+ 4503      7475 7300 
+ 4504               	
+ 4505 2178 12        		.byte	0x12
+ 4506 2179 29        		.byte	0x29
+ 4507 217a 0000 234C 		.4byte	0x234c
+ 4508 217e 02        		.byte	0x2
+ 4509 217f 23        		.byte	0x23
+ 4510 2180 38        		.byte	0x38
+ 4511 2181 0B        		.byte	0xb
+ 4512 2182 7950 6F77 		.string	"yPowerControl1"
+ 4512      6572 436F 
+ 4512      6E74 726F 
+ 4512      6C31 00
+ 4513               	
+ 4514 2191 12        		.byte	0x12
+ 4515 2192 2A        		.byte	0x2a
+ 4516 2193 0000 0C71 		.4byte	0xc71
+ 4517 2197 03        		.byte	0x3
+ 4518 2198 23        		.byte	0x23
+ 4519 2199 9C01      		.byte	0x9c,0x1
+ 4520 219b 0B        		.byte	0xb
+ 4521 219c 7950 6F77 		.string	"yPowerControl2"
+ 4521      6572 436F 
+ 4521      6E74 726F 
+ 4521      6C32 00
+ 4522               	
+ 4523 21ab 12        		.byte	0x12
+ 4524 21ac 2B        		.byte	0x2b
+ 4525 21ad 0000 0C71 		.4byte	0xc71
+ 4526 21b1 03        		.byte	0x3
+ 4527 21b2 23        		.byte	0x23
+ 4528 21b3 9D01      		.byte	0x9d,0x1
+ 4529 21b5 0B        		.byte	0xb
+ 4530 21b6 7953 7461 		.string	"yStatusReg1"
+ 4530      7475 7352 
+ 4530      6567 3100 
+ 4531               	
+ 4532 21c2 12        		.byte	0x12
+ 4533 21c3 2C        		.byte	0x2c
+ 4534 21c4 0000 0C71 		.4byte	0xc71
+ 4535 21c8 03        		.byte	0x3
+ 4536 21c9 23        		.byte	0x23
+ 4537 21ca 9E01      		.byte	0x9e,0x1
+ 4538 21cc 0B        		.byte	0xb
+ 4539 21cd 7953 7461 		.string	"yStatusReg2"
+ 4539      7475 7352 
+ 4539      6567 3200 
+ 4540               	
+ 4541 21d9 12        		.byte	0x12
+ 4542 21da 2D        		.byte	0x2d
+68K GAS  C:\Users\37877\AppData\Local\Temp\ccQjgaaa.s 			page 96
+
+
+ 4543 21db 0000 0C71 		.4byte	0xc71
+ 4544 21df 03        		.byte	0x3
+ 4545 21e0 23        		.byte	0x23
+ 4546 21e1 9F01      		.byte	0x9f,0x1
+ 4547 21e3 0B        		.byte	0xb
+ 4548 21e4 7953 7461 		.string	"yStatusReg3"
+ 4548      7475 7352 
+ 4548      6567 3300 
+ 4549               	
+ 4550 21f0 12        		.byte	0x12
+ 4551 21f1 2E        		.byte	0x2e
+ 4552 21f2 0000 0C71 		.4byte	0xc71
+ 4553 21f6 03        		.byte	0x3
+ 4554 21f7 23        		.byte	0x23
+ 4555 21f8 A001      		.byte	0xa0,0x1
+ 4556 21fa 0B        		.byte	0xb
+ 4557 21fb 7953 7461 		.string	"yStatusReg4"
+ 4557      7475 7352 
+ 4557      6567 3400 
+ 4558               	
+ 4559 2207 12        		.byte	0x12
+ 4560 2208 2F        		.byte	0x2f
+ 4561 2209 0000 0C71 		.4byte	0xc71
+ 4562 220d 03        		.byte	0x3
+ 4563 220e 23        		.byte	0x23
+ 4564 220f A101      		.byte	0xa1,0x1
+ 4565 2211 0B        		.byte	0xb
+ 4566 2212 7943 6F6E 		.string	"yControlReg1"
+ 4566      7472 6F6C 
+ 4566      5265 6731 
+ 4566      00
+ 4567               	
+ 4568 221f 12        		.byte	0x12
+ 4569 2220 30        		.byte	0x30
+ 4570 2221 0000 0C71 		.4byte	0xc71
+ 4571 2225 03        		.byte	0x3
+ 4572 2226 23        		.byte	0x23
+ 4573 2227 A201      		.byte	0xa2,0x1
+ 4574 2229 0B        		.byte	0xb
+ 4575 222a 7943 6F6E 		.string	"yControlReg2"
+ 4575      7472 6F6C 
+ 4575      5265 6732 
+ 4575      00
+ 4576               	
+ 4577 2237 12        		.byte	0x12
+ 4578 2238 31        		.byte	0x31
+ 4579 2239 0000 0C71 		.4byte	0xc71
+ 4580 223d 03        		.byte	0x3
+ 4581 223e 23        		.byte	0x23
+ 4582 223f A301      		.byte	0xa3,0x1
+ 4583 2241 0B        		.byte	0xb
+ 4584 2242 7946 5047 		.string	"yFPGA_Ver"
+ 4584      415F 5665 
+ 4584      7200 
+ 4585               	
+ 4586 224c 12        		.byte	0x12
+ 4587 224d 32        		.byte	0x32
+68K GAS  C:\Users\37877\AppData\Local\Temp\ccQjgaaa.s 			page 97
+
+
+ 4588 224e 0000 0C71 		.4byte	0xc71
+ 4589 2252 03        		.byte	0x3
+ 4590 2253 23        		.byte	0x23
+ 4591 2254 A401      		.byte	0xa4,0x1
+ 4592 2256 0B        		.byte	0xb
+ 4593 2257 7944 4143 		.string	"yDAC_H"
+ 4593      5F48 00
+ 4594               	
+ 4595 225e 12        		.byte	0x12
+ 4596 225f 33        		.byte	0x33
+ 4597 2260 0000 0C71 		.4byte	0xc71
+ 4598 2264 03        		.byte	0x3
+ 4599 2265 23        		.byte	0x23
+ 4600 2266 A501      		.byte	0xa5,0x1
+ 4601 2268 0B        		.byte	0xb
+ 4602 2269 7944 4143 		.string	"yDAC_L"
+ 4602      5F4C 00
+ 4603               	
+ 4604 2270 12        		.byte	0x12
+ 4605 2271 34        		.byte	0x34
+ 4606 2272 0000 0C71 		.4byte	0xc71
+ 4607 2276 03        		.byte	0x3
+ 4608 2277 23        		.byte	0x23
+ 4609 2278 A601      		.byte	0xa6,0x1
+ 4610 227a 0B        		.byte	0xb
+ 4611 227b 7942 7572 		.string	"yBurnPwrStatus"
+ 4611      6E50 7772 
+ 4611      5374 6174 
+ 4611      7573 00
+ 4612               	
+ 4613 228a 12        		.byte	0x12
+ 4614 228b 35        		.byte	0x35
+ 4615 228c 0000 0C71 		.4byte	0xc71
+ 4616 2290 03        		.byte	0x3
+ 4617 2291 23        		.byte	0x23
+ 4618 2292 A701      		.byte	0xa7,0x1
+ 4619 2294 0B        		.byte	0xb
+ 4620 2295 7263 5261 		.string	"rcRadioConfig"
+ 4620      6469 6F43 
+ 4620      6F6E 6669 
+ 4620      6700 
+ 4621               	
+ 4622 22a3 12        		.byte	0x12
+ 4623 22a4 36        		.byte	0x36
+ 4624 22a5 0000 17CC 		.4byte	0x17cc
+ 4625 22a9 03        		.byte	0x3
+ 4626 22aa 23        		.byte	0x23
+ 4627 22ab A801      		.byte	0xa8,0x1
+ 4628 22ad 0B        		.byte	0xb
+ 4629 22ae 7577 4649 		.string	"uwFIPScriptState"
+ 4629      5053 6372 
+ 4629      6970 7453 
+ 4629      7461 7465 
+ 4629      00
+ 4630               	
+ 4631 22bf 12        		.byte	0x12
+ 4632 22c0 37        		.byte	0x37
+68K GAS  C:\Users\37877\AppData\Local\Temp\ccQjgaaa.s 			page 98
+
+
+ 4633 22c1 0000 0C7E 		.4byte	0xc7e
+ 4634 22c5 03        		.byte	0x3
+ 4635 22c6 23        		.byte	0x23
+ 4636 22c7 CA01      		.byte	0xca,0x1
+ 4637 22c9 0B        		.byte	0xb
+ 4638 22ca 7577 4649 		.string	"uwFIPScriptStep"
+ 4638      5053 6372 
+ 4638      6970 7453 
+ 4638      7465 7000 
+ 4639               	
+ 4640 22da 12        		.byte	0x12
+ 4641 22db 38        		.byte	0x38
+ 4642 22dc 0000 0C7E 		.4byte	0xc7e
+ 4643 22e0 03        		.byte	0x3
+ 4644 22e1 23        		.byte	0x23
+ 4645 22e2 CC01      		.byte	0xcc,0x1
+ 4646 22e4 0B        		.byte	0xb
+ 4647 22e5 7577 4649 		.string	"uwFIPACKCnt"
+ 4647      5041 434B 
+ 4647      436E 7400 
+ 4648               	
+ 4649 22f1 12        		.byte	0x12
+ 4650 22f2 39        		.byte	0x39
+ 4651 22f3 0000 0C7E 		.4byte	0xc7e
+ 4652 22f7 03        		.byte	0x3
+ 4653 22f8 23        		.byte	0x23
+ 4654 22f9 CE01      		.byte	0xce,0x1
+ 4655 22fb 0B        		.byte	0xb
+ 4656 22fc 7577 4649 		.string	"uwFIPNAKCnt"
+ 4656      504E 414B 
+ 4656      436E 7400 
+ 4657               	
+ 4658 2308 12        		.byte	0x12
+ 4659 2309 3A        		.byte	0x3a
+ 4660 230a 0000 0C7E 		.4byte	0xc7e
+ 4661 230e 03        		.byte	0x3
+ 4662 230f 23        		.byte	0x23
+ 4663 2310 D001      		.byte	0xd0,0x1
+ 4664 2312 0B        		.byte	0xb
+ 4665 2313 7577 4649 		.string	"uwFIPSDPCnt"
+ 4665      5053 4450 
+ 4665      436E 7400 
+ 4666               	
+ 4667 231f 12        		.byte	0x12
+ 4668 2320 3B        		.byte	0x3b
+ 4669 2321 0000 0C7E 		.4byte	0xc7e
+ 4670 2325 03        		.byte	0x3
+ 4671 2326 23        		.byte	0x23
+ 4672 2327 D201      		.byte	0xd2,0x1
+ 4673 2329 0B        		.byte	0xb
+ 4674 232a 7577 4649 		.string	"uwFIPHKCnt"
+ 4674      5048 4B43 
+ 4674      6E74 00
+ 4675               	
+ 4676 2335 12        		.byte	0x12
+ 4677 2336 3C        		.byte	0x3c
+ 4678 2337 0000 0C7E 		.4byte	0xc7e
+68K GAS  C:\Users\37877\AppData\Local\Temp\ccQjgaaa.s 			page 99
+
+
+ 4679 233b 03        		.byte	0x3
+ 4680 233c 23        		.byte	0x23
+ 4681 233d D401      		.byte	0xd4,0x1
+ 4682 233f 00        		.byte	0x0
+ 4683 2340 0D        		.byte	0xd
+ 4684 2341 0000 234C 		.4byte	0x234c
+ 4685 2345 0000 0C8C 		.4byte	0xc8c
+ 4686 2349 0E        		.byte	0xe
+ 4687 234a 06        		.byte	0x6
+ 4688 234b 00        		.byte	0x0
+ 4689 234c 0D        		.byte	0xd
+ 4690 234d 0000 2358 		.4byte	0x2358
+ 4691 2351 0000 0C8C 		.4byte	0xc8c
+ 4692 2355 0E        		.byte	0xe
+ 4693 2356 18        		.byte	0x18
+ 4694 2357 00        		.byte	0x0
+ 4695 2358 06        		.byte	0x6
+ 4696 2359 5142 3530 		.string	"QB50HK_t"
+ 4696      484B 5F74 
+ 4696      00
+ 4697               	
+ 4698 2362 12        		.byte	0x12
+ 4699 2363 3D        		.byte	0x3d
+ 4700 2364 0000 2115 		.4byte	0x2115
+ 4701 2368 1A        		.byte	0x1a
+ 4702 2369 6364 6869 		.string	"cdhio"
+ 4702      6F00 
+ 4703               	
+ 4704 236f 01        		.byte	0x1
+ 4705 2370 03        		.byte	0x3
+ 4706 2371 0000 2377 		.4byte	0x2377
+ 4707 2375 01        		.byte	0x1
+ 4708 2376 01        		.byte	0x1
+ 4709 2377 0C        		.byte	0xc
+ 4710 2378 04        		.byte	0x4
+ 4711 2379 0000 14D7 		.4byte	0x14d7
+ 4712 237d 1B        		.byte	0x1b
+ 4713 237e 6E57 445F 		.string	"nWD_CommandTimeout"
+ 4713      436F 6D6D 
+ 4713      616E 6454 
+ 4713      696D 656F 
+ 4713      7574 00
+ 4714               	
+ 4715 2391 01        		.byte	0x1
+ 4716 2392 07        		.byte	0x7
+ 4717 2393 0000 01D5 		.4byte	0x1d5
+ 4718 2397 01        		.byte	0x1
+ 4719 2398 05        		.byte	0x5
+ 4720 2399 03        		.byte	0x3
+ 4721 239a 0000 0000 		.4byte	nWD_CommandTimeout
+ 4722 239e 00        		.byte	0x0
+ 4723               	
+ 4724               		.section	.debug_pubnames
+ 4725 0000 0000 00BB 		.4byte	0xbb
+ 4726 0004 0002      		.2byte	0x2
+ 4727 0006 0000 0000 		.4byte	.Ldebug_info0
+ 4728 000a 0000 239F 		.4byte	0x239f
+68K GAS  C:\Users\37877\AppData\Local\Temp\ccQjgaaa.s 			page 100
+
+
+ 4729 000e 0000 0158 		.4byte	0x158
+ 4730 0012 5744 5F44 		.string	"WD_DisableOBAutoKick"
+ 4730      6973 6162 
+ 4730      6C65 4F42 
+ 4730      4175 746F 
+ 4730      4B69 636B 
+ 4731               	
+ 4732 0027 0000 0167 		.4byte	0x167
+ 4733 002b 5744 5F44 		.string	"WD_DisableEPSAutoKick"
+ 4733      6973 6162 
+ 4733      6C65 4550 
+ 4733      5341 7574 
+ 4733      6F4B 6963 
+ 4734               	
+ 4735 0041 0000 0176 		.4byte	0x176
+ 4736 0045 5744 5F4B 		.string	"WD_KickEPSWatchdog"
+ 4736      6963 6B45 
+ 4736      5053 5761 
+ 4736      7463 6864 
+ 4736      6F67 00
+ 4737               	
+ 4738 0058 0000 0185 		.4byte	0x185
+ 4739 005c 5744 5F4B 		.string	"WD_KickOBWatchdog"
+ 4739      6963 6B4F 
+ 4739      4257 6174 
+ 4739      6368 646F 
+ 4739      6700 
+ 4740               	
+ 4741 006e 0000 0194 		.4byte	0x194
+ 4742 0072 5744 5F43 		.string	"WD_CheckCommandTimeout"
+ 4742      6865 636B 
+ 4742      436F 6D6D 
+ 4742      616E 6454 
+ 4742      696D 656F 
+ 4743               	
+ 4744 0089 0000 01B5 		.4byte	0x1b5
+ 4745 008d 5744 5F52 		.string	"WD_ResetCommandTimeout"
+ 4745      6573 6574 
+ 4745      436F 6D6D 
+ 4745      616E 6454 
+ 4745      696D 656F 
+ 4746               	
+ 4747 00a4 0000 237D 		.4byte	0x237d
+ 4748 00a8 6E57 445F 		.string	"nWD_CommandTimeout"
+ 4748      436F 6D6D 
+ 4748      616E 6454 
+ 4748      696D 656F 
+ 4748      7574 00
+ 4749               	
+ 4750 00bb 0000 0000 		.4byte	0x0
+ 4751               	
+ 4752               		.section	.debug_aranges
+ 4753 0000 0000 001C 		.4byte	0x1c
+ 4754 0004 0002      		.2byte	0x2
+ 4755 0006 0000 0000 		.4byte	.Ldebug_info0
+ 4756 000a 04        		.byte	0x4
+ 4757 000b 00        		.byte	0x0
+68K GAS  C:\Users\37877\AppData\Local\Temp\ccQjgaaa.s 			page 101
+
+
+ 4758 000c 0000 0004 		.4byte	0x4
+ 4759 0010 0000 0000 		.4byte	.Ltext0
+ 4760 0014 0000 00D6 		.4byte	.Letext0-.Ltext0
+ 4761 0018 0000 0000 		.4byte	0x0
+ 4762 001c 0000 0000 		.4byte	0x0
+ 4763               		.ident	"GCC: (GNU) 2.95.3 20010315 (release)(ColdFire patches - 20010318 from http://fiddes.net/co
+68K GAS  C:\Users\37877\AppData\Local\Temp\ccQjgaaa.s 			page 102
+
+
+DEFINED SYMBOLS
+                            *ABS*:00000000 watchdog.c
+C:\Users\37877\AppData\Local\Temp\ccQjgaaa.s:2      .text:00000000 gcc2_compiled.
+C:\Users\37877\AppData\Local\Temp\ccQjgaaa.s:16     .data:00000000 nWD_CommandTimeout
+C:\Users\37877\AppData\Local\Temp\ccQjgaaa.s:24     .text:00000000 WD_DisableOBAutoKick
+C:\Users\37877\AppData\Local\Temp\ccQjgaaa.s:46     .text:00000016 WD_DisableEPSAutoKick
+C:\Users\37877\AppData\Local\Temp\ccQjgaaa.s:67     .text:0000002e WD_KickEPSWatchdog
+C:\Users\37877\AppData\Local\Temp\ccQjgaaa.s:89     .text:00000044 WD_KickOBWatchdog
+C:\Users\37877\AppData\Local\Temp\ccQjgaaa.s:111    .text:0000005a WD_CheckCommandTimeout
+C:\Users\37877\AppData\Local\Temp\ccQjgaaa.s:180    .text:000000c2 WD_ResetCommandTimeout
+C:\Users\37877\AppData\Local\Temp\ccQjgaaa.s:201    .data:00000004 _GLOBAL_.F.nWD_CommandTimeout
+C:\Users\37877\AppData\Local\Temp\ccQjgaaa.s:202    .data:00000004 __FRAME_BEGIN__
+
+UNDEFINED SYMBOLS
+cdhio
+get_time
+print_uart_msg
+OP_SetMissionPhase
+OP_SetInitialWait
+OP_SetEnableDeploy
+disable_ints
