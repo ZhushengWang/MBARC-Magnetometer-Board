@@ -18,8 +18,6 @@ typedef volatile struct
   uint32 boot_count;
   uint32 comm_count;
   uint32 deploy_count;
-  uint32 fip_active_script;
-  uint32 fip_script_count;
   uint32 radio_tx_enable;
   uint32 initial_wait;
   uint32 enable_deploy;

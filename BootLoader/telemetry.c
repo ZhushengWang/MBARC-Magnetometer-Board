@@ -93,7 +93,8 @@ void TLM_CollectBeaconData(void)
   ADC_ReadAllADCs();
   Mag_ReadAllMags();
   IMU1_ReadData(NULL);
-  //IMU2 data is collected periodically in main loop
+  // Mbarc Mag is collected periodically in main loop
+  // IMU2 data is collected periodically in main loop
   LI1_QueryTLM();
 }
 
@@ -102,6 +103,7 @@ void TLM_UpdateBeaconData(uint8 yMissionPhase)
 CommStats_t LI1_CommStats;
 uint16 *pwADCData=NULL;
 uint16 *pwMagData=NULL;
+MBARC_MAG_DATA_t MbarcMagData;
 //EPSON_IMU2_DATA_t IMU2Data;
 ST_IMU1_DATA_t IMU1Data;
 TELEMETRY_STRUCTURE_t LI1_TLM;
@@ -141,6 +143,11 @@ int nTotalSize;
   memcpy(TLM_BeaconData.awSP3MagData,&pwMagData[1],(NUM_MAG_SAMPLES-1)*2);
   Mag_GetLastData(&pwMagData,SELECT_BD4_MAG);
   memcpy(TLM_BeaconData.awBD4MagData,&pwMagData[1],(NUM_MAG_SAMPLES-1)*2);
+
+  Mbarc_Mag_GetLastData(&MbarcMagData);
+  TLM_BeaconData.unMbarcMagCycleCount[0] = MbarcMagData.xCycleCount;
+  TLM_BeaconData.unMbarcMagCycleCount[1] = MbarcMagData.yCycleCount;
+  TLM_BeaconData.unMbarcMagCycleCount[2] = MbarcMagData.zCycleCount;
 
   /*
   IMU2_GetLastData(&IMU2Data);

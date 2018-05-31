@@ -11,8 +11,8 @@ Visit us at http://www.pemicro.com
 
 #include "includes.h"
 
-#define FSW_VERSION 120
-#define FSW_DATE    "08-17-2017"
+#define FSW_VERSION 121
+#define FSW_DATE    "05-31-2018"
 
 
 CDH_IO_t *cdhio;

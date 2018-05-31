@@ -17,7 +17,7 @@
 #define BD4_ADC  12
 #define BD4_MAG  13
 #define EPS_ADC  14
-#define FIPEX    15
+#define MBARC_MAG  15
 
 #define PWR_ON   1
 #define PWR_OFF  0
@@ -26,7 +26,7 @@ void pwr_ctl(int nDevice, int nState);
 void PWR_AllDevicesOff(void);
 void PWR_AllADCsOn(void);
 void PWR_PrintStatus(void);
-void PWR_FIPEXOn(uint8 yOn);
+void PWR_MbarcMagOn(uint8 yOn);
 void PWR_RadioOn(uint8 yOn);
 void PWR_IMU2On(uint8 yOn);
 void PWR_IMU1On(uint8 yOn);

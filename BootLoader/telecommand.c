@@ -218,6 +218,16 @@ uint32 unInitialWait;
         print_uart_msg("Mag %d:: ID: %02X\n",pBuf[3],yMagID);
         break;
 
+      case MBARC_MAG_STOP:
+        Mbarc_Mag_Stop();
+        print_uart_msg("Stop Mbarc Mag Measurement\n");
+        break;
+
+      case MBARC_MAG_RESET:
+        Mbarc_Mag_Reset();
+        print_uart_msg("Reset Mbarc Mag Measurement\n");
+        break;
+
       case LI1_SEND_NOP:
         LI1_SendNOP();
         print_uart_msg("Sending NOP\n");
@@ -432,26 +442,6 @@ uint32 unInitialWait;
       case OP_SET_BOOT_PART:
         OP_SetActiveFSWPartition(pBuf[3]);
         TLM_SendACKPacket(yCmdID, ACK_ACK);
-        break;
-
-      case FIPEX_PING:
-        FIP_SendNoParmCmd(FIP_PING);
-        break;
-
-      case FIPEX_HK:
-        FIP_SendNoParmCmd(FIP_HK);
-        break;
-
-      case FIPEX_SC:
-        FIP_SendNoParmCmd(FIP_SC);
-        break;
-
-      case FIPEX_STDBY:
-        FIP_SendNoParmCmd(FIP_STDBY);
-        break;
-
-      case FIPEX_READ_BYTES:
-        FIP_ReadAllBytes();
         break;
 
       case LI1_TX_ENABLE:

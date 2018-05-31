@@ -31,7 +31,7 @@
 #include "mram.h"
 #include "fsw_ctl.h"
 #include "telemetry.h"
-#include "fipex.h"
+#include "mbarc_mag.h"
 
 //Global constants
 #define true  1

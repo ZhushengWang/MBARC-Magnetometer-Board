@@ -60,8 +60,8 @@ void pwr_ctl(int nDevice, int nState)
       set_reset_bit(&(cdhio->PWRCTL),PWR_RADIO,nState);
       break;
       
-    case FIPEX:
-      set_reset_bit(&(cdhio->PWRCTL),PWR_FIPEX,nState);
+    case MBARC_MAG:
+      set_reset_bit(&(cdhio->PWRCTL),PWR_MBARC_MAG,nState);
       break;
       
     case SP1_ADC:
@@ -121,7 +121,7 @@ void PWR_AllDevicesOff(void)
   pwr_ctl(BD4_ADC,PWR_OFF);
   pwr_ctl(BD4_MAG,PWR_OFF);
   pwr_ctl(EPS_ADC,PWR_OFF);
-  pwr_ctl(FIPEX,PWR_OFF);   
+  pwr_ctl(MBARC_MAG,PWR_OFF);   
 }
 
 void PWR_AllADCsOn(void)
@@ -157,9 +157,9 @@ void PWR_RadioOn(uint8 yOn)
   pwr_ctl(RADIO,yOn);
 }
 
-void PWR_FIPEXOn(uint8 yOn)
+void PWR_MbarcMagOn(uint8 yOn)
 {
-  pwr_ctl(FIPEX,yOn);
+  pwr_ctl(MBARC_MAG,yOn);
 }
 
 int PWR_GetStatus(uint8 yDev)
@@ -188,8 +188,8 @@ int nRC = -1;
       nRC = PWR_CheckBit(&(cdhio->PWRCTL),PWR_RADIO);
       break;
       
-    case FIPEX:
-      nRC = PWR_CheckBit(&(cdhio->PWRCTL),PWR_FIPEX);
+    case MBARC_MAG:
+      nRC = PWR_CheckBit(&(cdhio->PWRCTL),PWR_MBARC_MAG);
       break;
       
     case SP1_ADC:
@@ -240,7 +240,7 @@ void PWR_PrintStatus(void)
 {
   print_uart_msg("Power Status:\n");
   print_uart_msg("Radio:        %d\n",PWR_GetStatus(RADIO));
-  print_uart_msg("FIPEX:        %d\n",PWR_GetStatus(FIPEX));
+  print_uart_msg("MBARC_MAG:    %d\n",PWR_GetStatus(MBARC_MAG));
   print_uart_msg("IMU1 (ST):    %d\n",PWR_GetStatus(CDH_IMU1));
   print_uart_msg("IMU2 (Epson): %d\n",PWR_GetStatus(CDH_IMU2));
   print_uart_msg("CDH ADC:      %d\n",PWR_GetStatus(CDH_ADC));

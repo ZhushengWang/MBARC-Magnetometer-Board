@@ -11,7 +11,7 @@ Visit us at http://www.pemicro.com
 
 #include "includes.h"
 
-#define BOOTLOADER_VERSION 134
+#define BOOTLOADER_VERSION 135
 
 CDH_IO_t *cdhio;
 uint8 buf[1024];
@@ -47,7 +47,7 @@ int nAbortDeploy = 0;
   }
 
   print_uart_msg("\nQB50 Columbia/Atlantis BootLoader\n");
-  print_uart_msg("V%5.2f -- 08-17-2017, Ryan P. Miller\n",(float)BOOTLOADER_VERSION/100.0);
+  print_uart_msg("V%5.2f -- 05-31-2018, Ryan P. Miller\n",(float)BOOTLOADER_VERSION/100.0);
   print_uart_msg("University of Michigan\n");
   print_uart_msg("Space Physics Research Laboratory\n\n");
 
@@ -190,12 +190,14 @@ int nAbortDeploy = 0;
 
         case BL_NORMAL_BOOT1:
           PWR_RadioOn(PWR_ON);           //Turn on the radio
-          PWR_IMU2On(PWR_ON);            //Turn on IMU2 (Epson)
+          PWR_MbarcMagOn(PWR_ON);
+          // PWR_IMU2On(PWR_ON);            //Turn on IMU2 (Epson)
           PWR_IMU1On(PWR_ON);
           PWR_AllMagsOn();
           mission_phase = BL_NORMAL_BOOT2;
           LI1_AssertReset();
-          IMU2_AssertReset();
+          Mbarc_Mag_AssertReset();
+          // IMU2_AssertReset();
 
           DAC_SetDACVolts(1.316);
           break;
@@ -204,14 +206,16 @@ int nAbortDeploy = 0;
           mission_phase = BL_NORMAL_BOOT3;
 
           LI1_DeassertReset();
-          IMU2_DeassertReset();
+          Mbarc_Mag_DeassertReset();
+          // IMU2_DeassertReset();
           break;
 
         case BL_NORMAL_BOOT3:
           mission_phase = BL_NORMAL_BOOT4;
 
           LI1_RadioConfig();
-          IMU2_Init();
+          Mbarc_Mag_Init();
+          // IMU2_Init();
           IMU1_Init();
           Mag_InitMag(SELECT_SP1_MAG);
           Mag_InitMag(SELECT_SP2_MAG);
@@ -224,12 +228,14 @@ int nAbortDeploy = 0;
         case BL_NORMAL_BOOT4:
           mission_phase = BL_NORMAL_BOOT5;
 
-          //IMU2_DoTasks();
+          Mbarc_Mag_Dotasks();
+          // IMU2_DoTasks();
           TLM_CollectBeaconData();
           break;
 
         case BL_NORMAL_BOOT5:
-          //IMU2_DoTasks();
+          Mbarc_Mag_Dotasks();
+          // IMU2_DoTasks();
           TLM_UpdateBeaconData(mission_phase);
 
           //Check if skipping boot from initial wait phase
@@ -251,7 +257,8 @@ int nAbortDeploy = 0;
 
         case BL_NORMAL_BOOT6:
           nCount++;
-          //IMU2_DoTasks();
+          Mbarc_Mag_Dotasks();
+          // IMU2_DoTasks();
           time_code = get_time();
 
           if (nCount % 2)  //Odds
@@ -299,8 +306,8 @@ int nAbortDeploy = 0;
 
         case BL_COMMAND2:
           nCount++;
-
-        //  IMU2_DoTasks();
+          Mbarc_Mag_Dotasks();
+          // IMU2_DoTasks();
 
           if ((nCount % 4) == 0)
           {

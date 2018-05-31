@@ -24,7 +24,7 @@ int nPktFIFOReadPtr = 0;
 int nPktFIFOWritePtr= 0;
 int nPktFIFOPeekPtr = 0;
 
-void LI1_TX_Enable(uint yByte)
+void LI1_TX_Enable(uint8 yByte)
 {
 int nBeaconSave;
   yTXEnable = yByte;

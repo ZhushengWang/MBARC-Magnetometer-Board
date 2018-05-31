@@ -41,8 +41,6 @@ void OP_FormatStatus(int nStruct)
     op_status->boot_count = 0;
     op_status->comm_count = 0;
     op_status->deploy_count = 0;
-    op_status->fip_active_script = 0;
-    op_status->fip_script_count = 0;
     op_status->radio_tx_enable = 1;
     op_status->initial_wait = INITIAL_WAIT_SECS;
     op_status->enable_deploy = 1;
@@ -373,15 +371,11 @@ char sMsg[256];
     sprintf(sMsg,"  FSW Act. Part: %lu\n"
                  "  Boot Count:    %lu\n"
                  "  Comm Count:    %lu\n"
-                 "  Deploy Count:  %lu\n"
-                 "  FIP Script:    %lu\n"
-                 "  FIP Script Cnt:%lu\n",
+                 "  Deploy Count:  %lu\n",
                  op_status->fsw_active_partition,
                  op_status->boot_count,
                  op_status->comm_count,
-                 op_status->deploy_count,
-                 op_status->fip_active_script,
-                 op_status->fip_script_count);
+                 op_status->deploy_count);
                  
     send_uart_str(sMsg);
     

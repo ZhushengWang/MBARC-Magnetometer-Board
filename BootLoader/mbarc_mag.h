@@ -21,11 +21,16 @@ typedef struct
 
 #pragma pack()
 
-void Mbarc_Mag_SetCycleCount();
-void Mbarc_Mag_ReadCycleCount();
-void Mbarc_Mag_StartMeasurement();
-void Mbarc_Mag_RetrieveData();
-void Mbarc_Mag_Stop();
-void Mbarc_Mag_Reset();
+void Mbarc_Mag_Init(void);
+void Mbarc_Mag_Dotasks(void);
+void Mbarc_Mag_GetLastData(MBARC_MAG_DATA_t *mmData);
+void Mbarc_Mag_AssertReset(void);
+void Mbarc_Mag_DeassertReset(void);
+void Mbarc_Mag_SetCycleCount(void);
+void Mbarc_Mag_ReadCycleCount(void);
+void Mbarc_Mag_StartMeasurement(uint8 freqSet);
+void Mbarc_Mag_RetrieveData(uint8 retrieveMode);
+void Mbarc_Mag_Stop(void);
+void Mbarc_Mag_Reset(void);
 
 #endif

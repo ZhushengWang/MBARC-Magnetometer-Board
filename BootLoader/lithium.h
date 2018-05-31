@@ -123,7 +123,7 @@ void LI1_ReadFWRev(void);
 void LI1_Init(void);
 void LI1_GetCommStats(CommStats_t *pStats);
 void LI1_GetLastTLM(TELEMETRY_STRUCTURE_t *pTLM);
-void LI1_TX_Enable(uint yByte);
+void LI1_TX_Enable(uint8 yByte);
 void LI1_IncrementFSWLoadPkts(void);
 
 #endif

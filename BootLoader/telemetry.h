@@ -23,6 +23,7 @@ typedef struct
   uint16 awSP2MagData[NUM_MAG_SAMPLES-1];
   uint16 awSP3MagData[NUM_MAG_SAMPLES-1];
   uint16 awBD4MagData[NUM_MAG_SAMPLES-1];
+  uint32 unMbarcMagCycleCount[3];
   // uint32 unIMU2Temp;
   // uint32 unIMU2Gyro[3];
   // uint32 unIMU2Accl[3];
