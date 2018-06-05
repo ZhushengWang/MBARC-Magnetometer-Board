@@ -33,8 +33,8 @@ typedef volatile struct
   uint8 CDH_ADC_WRITE;       //0x14
   uint8 CDH_ADC_RD_INIT;     //0x15
   uint8 CONTROL2;            //0x16
-  uint8 MBARC_MAG_TX;        //0x17  **RPM Mod for MBARC
-  uint8 MBARC_MAG_RX;        //0x18  **RPM Mod for MBARC
+  // uint8 FIP_TX;           //0x17
+  // uint8 FIP_RX;           //0x18 
   uint8 IMU1_START;          //0x19 
   uint8 IMU1_STOP;           //0x1A   
   uint8 IMU1_WRITE;          //0x1B 
@@ -102,7 +102,9 @@ typedef volatile struct
   uint8 TIMER2_DAT0;         //0x59
   uint8 TIMER2_DAT1;         //0x5A
   uint8 TIMER2_DAT2;         //0x5B
-  uint8 TIMER2_DAT3;         //0X5C  
+  uint8 TIMER2_DAT3;         //0X5C 
+  uint8 MBARC_MAG_TX;        //0x5D  **RPM Mod for MBARC
+  uint8 MBARC_MAG_RX;        //0x5E  **RPM Mod for MBARC 
 } CDH_IO_t;
 
 #define CDH_IO_ADDR 0xFF8000
@@ -158,7 +160,7 @@ typedef volatile struct
 
 #define PWR_MBARC_MAG                     0x80   // **RPM Mod for MBARC
 #define PWR_EPS_ADC                       0x40
-#define PWR_UNUSED1                       0x20
+#define PWR_MBARC_MAG_FIFO                0x20
 #define PWR_RADIO                         0x10
 #define PWR_CDH_ADC                       0x08
 #define PWR_PPTDAC                        0x04
