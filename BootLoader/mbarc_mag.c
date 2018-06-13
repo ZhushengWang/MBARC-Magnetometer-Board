@@ -202,6 +202,7 @@ int Mbarc_Mag_ReadMeasurementData(void)
   uint8 Buf[MBARC_MAG_DATA_SIZE];
   uint8 mmByte;
   
+  // When data is available, read the data from FIFO and add it to the queue
   while (Mbarc_Mag_DataAvail())
   {
     if (Mbarc_Mag_WaitForData() == 0)
@@ -218,6 +219,7 @@ int Mbarc_Mag_ReadMeasurementData(void)
     }
   }
 
+  // When the queue is not empty, read the data from queue and every 28 bytes form a complete sequence
   while ( (Mbarc_Mag_BytesInQueue() > 0) && (nRC == 0) )
   {
     i = Mbarc_Mag_Peek() % MBARC_MAG_DATA_SIZE;
@@ -296,6 +298,23 @@ void Mbarc_Mag_Dotasks(void)
         print_uart_msg("MBARC MAG: Error Reading Measurement data\n");
       }
       break;
+
+    // For the new version, it should be something like the following
+    // case 3:
+    //   Mbarc_Mag_StartMeasurement(0x1E);
+    //   nMbarcMagStep = 4;
+    //   break;
+
+    // case 4:
+    //   Mbarc_Mag_RetrieveData(0x00);
+    //   nMbarcMagStep = 5;
+    //   break;
+
+    // case 5:
+    // if (Mbarc_Mag_ReadMeasurementData() >= 0)
+    // {
+    //   nMbarcMagStep = 3;
+    // }
     
     default:
       Mbarc_Mag_Init();
