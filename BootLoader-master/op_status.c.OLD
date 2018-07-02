@@ -1,0 +1,188 @@
+#include "includes.h"
+
+#define NVSTAT_ADDR1  0x00BFE000
+#define NVSTAT_ADDR2  0x00BFF000
+
+#define OPSTAT_SYNC 0x5AA51234
+
+nv_status_struct_t *op_status1;
+nv_status_struct_t *op_status2;
+
+void add_crc(nv_status_struct_t *op_status)
+{
+  op_status->crc = CRC16_CCITT((uint8 *)op_status, sizeof(nv_status_struct_t)-2);
+}
+
+void format_op_status(int nStruct)
+{
+  nv_status_struct_t *op_status = NULL;
+  
+  if (nStruct == 1)
+  {
+    op_status = op_status1;
+  }
+  else
+  {
+    if (nStruct == 2)
+    {
+      op_status = op_status2;
+    }
+  }
+  
+  if (op_status != NULL)
+  {
+    op_status->sync = OPSTAT_SYNC;
+    op_status->mission_phase = BL_FIRST_TURNON;
+    op_status->time_code = 0;
+    op_status->last_boot = 0;
+    op_status->bootloader_ver = 0;
+    op_status->fsw_ver = 0;
+    op_status->fsw_active_partition = 0;
+    op_status->boot_count = 0;
+    op_status->comm_count = 0;
+    op_status->deploy_count = 0;
+    
+    add_crc(op_status);
+  }
+}
+
+void init_op_status(void)
+{
+  int op1_good = 0;
+  int op2_good = 0;
+  
+  op_status1 = (nv_status_struct_t *)NVSTAT_ADDR1;
+  op_status2 = (nv_status_struct_t *)NVSTAT_ADDR2;
+  
+  //Check 1
+  if ((op_status1->sync == OPSTAT_SYNC) &&
+      (op_status1->crc == CRC16_CCITT((uint8 *)op_status1, sizeof(nv_status_struct_t)-2)))
+  {
+    op1_good = 1;
+    print_uart_msg("Good NV Status (1) found at %p\n",(void *)op_status1);
+  }
+  else
+  {
+    op1_good = 0;
+    print_uart_msg("Bad NV Status (1) found at %p\n",op_status1);
+  }
+  //Check 2
+  if ((op_status2->sync == OPSTAT_SYNC) &&
+      (op_status2->crc == CRC16_CCITT((uint8 *)op_status2, sizeof(nv_status_struct_t)-2)))
+  {
+    op2_good = 1;
+    print_uart_msg("Good NV Status (2) found at %p\n",(void *)op_status2);
+  }
+  else
+  {
+    op2_good = 0;
+    print_uart_msg("Bad NV Status (2) found at %p\n",op_status2);
+  }
+  
+  if ((op1_good == 1) && (op2_good == 0))
+  {
+    memcpy((void *)op_status2,(void *)op_status1,sizeof(nv_status_struct_t));
+    print_uart_msg("Copying NV Status (1) to NV Status (2)\n");
+  }
+  else
+  {
+    if ((op1_good == 0) && (op2_good == 1))
+    {
+      memcpy((void *)op_status1,(void *)op_status2,sizeof(nv_status_struct_t));
+      print_uart_msg("Copying NV Status (2) to NV Status (1)\n");
+    }
+    else
+    {
+      if ((op1_good == 0) && (op2_good == 0))
+      {
+        print_uart_msg("No good NV status found.  Formatting...\n");
+        format_op_status(1);
+        format_op_status(2);
+      }
+      else
+      {
+        //Both structures are good, but differ, pick latest
+        if ((op1_good == 1) && (op2_good == 1) && 
+            (op_status1->crc != op_status2->crc)  )
+        {
+          if (op_status1->time_code > op_status2->time_code)
+          {
+            memcpy((void *)op_status2,(void *)op_status1,sizeof(nv_status_struct_t));
+          }
+          else
+          {
+            if (op_status2->time_code > op_status1->time_code)
+            {
+              memcpy((void *)op_status1,(void *)op_status2,sizeof(nv_status_struct_t));
+            }
+          }
+        }
+      }
+    }
+  }      
+}
+
+
+uint32 get_opstatus_time_code(void)
+{
+  return(op_status1->time_code);
+}
+
+void set_opstatus_time_code_from_isr(uint32 time_code)
+{
+  op_status1->time_code = time_code;
+  add_crc(op_status1);
+  op_status2->time_code = time_code;
+  add_crc(op_status2);
+}
+
+void set_opstatus_boot_time(uint32 time_code)
+{
+  disable_ints();
+  op_status1->last_boot = time_code;
+  add_crc(op_status1);
+  op_status2->last_boot = time_code;
+  add_crc(op_status2);
+  enable_ints();
+}
+
+uint8 get_mission_phase(void)
+{
+  return(op_status1->mission_phase);
+}
+
+void set_mission_phase(uint8 phase)
+{
+  disable_ints();
+  op_status1->mission_phase = phase;
+  add_crc(op_status1);
+  op_status2->mission_phase = phase;
+  add_crc(op_status2);
+  enable_ints();
+}
+
+void get_nv_status(nv_status_struct_t *op_status)
+{
+  op_status = op_status1;
+}
+
+void set_nv_status(nv_status_struct_t *op_status)
+{
+  disable_ints();
+  op_status1 = op_status;
+  add_crc(op_status1);
+  op_status2 = op_status;
+  add_crc(op_status2);
+  enable_ints();
+}
+
+void print_op_status1_bytes(void)
+{
+  int i;
+  uint8 *pStatus = (uint8 *)op_status1;
+  
+  for (i=0;i<sizeof(nv_status_struct_t);i++)
+  {
+    print_uart_msg("OS: %02X\n",pStatus[i]);
+  }
+}

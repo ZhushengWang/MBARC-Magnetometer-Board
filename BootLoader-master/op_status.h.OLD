@@ -1,0 +1,45 @@
+#ifndef _OP_STATUS_H
+#define _OP_STATUS_H
+
+#include "includes.h"
+
+typedef volatile struct
+{
+  uint32 sync;
+  uint8  mission_phase;
+  uint32 time_code;
+  uint32 last_boot;
+  uint8  bootloader_ver;
+  uint8  fsw_ver;
+  uint8  fsw_active_partition;
+  uint32 boot_count;
+  uint32 comm_count;
+  uint8  deploy_count;
+  uint16 crc;
+} nv_status_struct_t;
+
+// Boot Loader Phases
+#define BL_FIRST_TURNON  1
+#define BL_INITIAL_WAIT  2
+#define BL_DEPLOY        3
+#define BL_NORMAL_BOOT1  4
+#define BL_NORMAL_BOOT2  5
+#define BL_NORMAL_BOOT3  6
+#define BL_NORMAL_BOOT4  7
+#define BL_COMMAND1      8
+#define BL_COMMAND2      9
+#define BL_NORMAL_TURNON 10
+#define BL_LOAD_FSW      11
+
+void init_op_status(void);
+void set_opstatus_time_code_from_isr(uint32 time_code);
+void set_opstatus_boot_time(uint32 time_code);
+uint32 get_opstatus_time_code(void);
+uint8 get_mission_phase(void);
+void set_mission_phase(uint8 phase);
+void get_nv_status(nv_status_struct_t *op_status);
+void set_nv_status(nv_status_struct_t *op_status);
+void print_op_status1_bytes(void);
+void format_op_status(int nStruct);
+
+#endif
